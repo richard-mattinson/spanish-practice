@@ -3,11 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+    <title>Spanish Practice!</title>
+    <!-- style sheet -->
+    <link rel="stylesheet" type="text/css" href="index_styles.css">
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <!-- script -->
+    <script src="index_script.js" defer></script>
 </head>
 <body>
-    <h1 id="title" class="red">ESPANOL!</h1>
+    <div id="title_bar">
+        <h1 id="title_text" class="red">¡Practica español!</h1>
+    </div>
+
+    <div id="verb_container_question">
+        <div>Verbo español:</div>
+        <div id="verb_text_question">---</div>
+    </div>
+
+    <div id="verb_container_answer">
+        <div>Verbo ingles:</div>
+        <input id="verb_text_answer"></input>
+        <button id="verb_button_answer">Enter</button>
+    </div>
 </body>
 </html>
