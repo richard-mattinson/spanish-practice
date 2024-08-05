@@ -1,17 +1,22 @@
 const clicker = document.querySelector("#click")
 const title = document.querySelector("#title_text")
+const correctCounter = document.querySelector("#correct_counter")
+
 const verbTextQuestion = document.querySelector("#verb_text_question");
 const verbTextAnswer = document.querySelector("#verb_text_answer");
 const verbButtonAnswer = document.querySelector("#verb_button_answer");
+const verbTitle = document.querySelectorAll(".verb_title")
 
 const state = {
-    color: "red"
+    color: "red",
+    correctCounter: 0,
+    verbIndex: ""
 }
 
 const verbs = [
-    ["Ver", "Look"],
-    ["Tener", "Have"],
-    ["Aprender", "Learn"]
+    ["Ver", "look"],
+    ["Tener", "have"],
+    ["Aprender", "learn"]
 ]
 
 title.addEventListener("click", () => {
@@ -25,18 +30,57 @@ title.addEventListener("click", () => {
 })
 
 function updateVerbText() {
-    let randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
+    let verbIndex = Math.floor(Math.random() * verbs.length)
+    let randomVerb = verbs[verbIndex];
+    state.verbIndex = verbIndex
     verbTextQuestion.textContent = randomVerb[0]
 }
 
-verbTextQuestion.addEventListener("click", () => {
-    updateVerbText()
-})
-
 verbButtonAnswer.addEventListener("click", () => {
     const answer = verbTextAnswer.value
-    console.log("answer", answer);
+    checkAnswer(answer)
 })
+
+verbTextAnswer.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+        const answer = verbTextAnswer.value;
+        checkAnswer(answer);
+    }
+})
+
+function checkAnswer(answer) {    
+    let answerToLowercase = answer.toLowerCase()
+    console.log("answer", answerToLowercase);
+    console.log("actual", verbs[state.verbIndex][1]);
+    console.log("verbs", verbs);
+    if (verbs[state.verbIndex][1] === answerToLowercase) {
+        verbTitle.forEach(element => {
+            element.classList.add("answer_green")
+        });
+        verbs.splice(state.verbIndex, 1);
+        state.correctCounter++
+        if (verbs.length > 0) {
+            updateVerbText();
+        } else {
+            state.correctCounter = "Well Done!";
+            verbTextQuestion.textContent = "";
+        }
+        correctCounter.textContent = state.correctCounter
+        verbTextAnswer.value = ""
+    } else {
+        verbTitle.forEach((element) => {
+            element.classList.add("answer_red");
+        });
+    }
+    setTimeout(() => {
+        verbTitle.forEach((element) => {
+            element.classList.remove("answer_green")
+            element.classList.remove("answer_red");
+        })
+    }, 1000);
+}
+
+updateVerbText()
 
 
 
