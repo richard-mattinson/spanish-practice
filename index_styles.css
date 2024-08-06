@@ -126,7 +126,13 @@ body {
     font-weight: bold;
     font-size: 20px;
     border: grey 2px solid;
-    border-radius: 5px 0px 0px 5px;
+    border-radius: 10px 0px 0px 10px;
+}
+
+#verb_text_answer:focus {
+    border: 1px black solid;
+    border-radius: 10px 0px 0px 10px;
+    outline: 2px solid rgb(0, 128, 255);
 }
 
 #verb_button_answer {

@@ -95,7 +95,7 @@ function checkAnswer(answer) {
 }
 
 verbTextQuestion.addEventListener("click", () => {
-    verbTextQuestion.textContent = verbs[state.verbIndex][1]
+    verbTextQuestion.textContent = verbs[state.verbIndex][1] + "..."
     setTimeout(() => {
         verbTextQuestion.textContent = verbs[state.verbIndex][0];
     }, 2000);
