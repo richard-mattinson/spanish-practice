@@ -1,5 +1,4 @@
-const clicker = document.querySelector("#click")
-const title = document.querySelector("#title_text")
+const titleText = document.querySelector("#title_text")
 const correctCounter = document.querySelector("#correct_counter")
 
 const verbTextQuestion = document.querySelector("#verb_text_question");
@@ -16,38 +15,40 @@ const state = {
 }
 
 const verbs = [
-    ["Alquilar", "rent"],
-    ["Aprender", "teach"],
-    ["Buscar", "look for"],
-    ["Caminar", "walk"],
-    ["Cambiar", "change"],
-    ["Creer", "believe"],
+    ["Alquilar", "Rent"],
+    ["Aprender", "Teach"],
+    ["Buscar", "Look for"],
+    ["Caminar", "Walk"],
+    ["Cambiar", "Change"],
+    ["Creer", "Believe"],
     ["Desayuna", "have breakfast"],
-    ["Escuchar", "listen"],
-    ["Leer", "read"],
-    ["Olvidar", "forget"],
-    ["Pagar", "pay"],
-    ["Preguntar", "ask"],
-    ["Prometer", "promise"],
-    ["Responder", "answer"],
-    ["Quedar", "meet"],
-    ["Significa", "mean"],
-    ["Tener", "have"],
-    ["Vender", "sell"],
-    ["Ver", "look"],
-    ["Viajar", "travel"],
-    ["Visitar", "visit"]
+    ["Escuchar", "Listen"],
+    ["Leer", "Read"],
+    ["Olvidar", "Forget"],
+    ["Pagar", "Pay"],
+    ["Preguntar", "Ask"],
+    ["Prometer", "Promise"],
+    ["Responder", "Answer"],
+    ["Quedar", "Meet"],
+    ["Significa", "Mean"],
+    ["Tener", "Have"],
+    ["Vender", "Sell"],
+    ["Ver", "Look"],
+    ["Viajar", "Travel"],
+    ["Visitar", "Visit"]
 ]
 
-title.addEventListener("click", () => {
-    if (state.color === "red") {
-        title.classList.replace("red", "yellow")
-        state.color = "yellow"
-    } else {
-        title.classList.replace("yellow", "red")
-        state.color = "red"
-    }
-})
+// title.addEventListener("click", () => {
+//     if (state.color === "red") {
+//         title.classList.replace("red", "yellow")
+//         state.color = "yellow"
+//     } else {
+//         title.classList.replace("yellow", "red")
+//         state.color = "red"
+//     }
+// })
+
+
 
 function updateVerbText() {
     let verbIndex = Math.floor(Math.random() * verbs.length)
@@ -69,15 +70,15 @@ verbTextAnswer.addEventListener("keydown", event => {
 })
 
 function checkAnswer(answer) {    
-    let answerFormatted = answer.toLowerCase().trim()
-    console.log("answer", answerFormatted);
-    console.log("actual", verbs[state.verbIndex][1]);
-    console.log("verbs", verbs);
-    if (verbs[state.verbIndex][1] === answerFormatted) {
+    let answerFormatted = verbs[state.verbIndex][1].toLowerCase()
+    let inputFormatted = answer.toLowerCase().trim()
+    if (answerFormatted === inputFormatted) {
         verbGreenCheck.style.color = "green";
+        verbGreenCheck.classList.add("green_check_animation")
         setTimeout(() => {
+            verbGreenCheck.classList.remove("green_check_animation");
             verbGreenCheck.style.color = "whitesmoke";
-        }, 1000);
+        }, 1500);
         verbs.splice(state.verbIndex, 1);
         state.correctCounter++
         if (state.correctCounter < 10) {
@@ -86,14 +87,22 @@ function checkAnswer(answer) {
             verbTextQuestion.textContent = "¡Bien hecho!";
             verbRedCross.style.visibility = "hidden";
             verbGreenCheck.style.visibility = "hidden"
+            titleText.textContent = "¡Richard habla español!";
+            titleText.classList.replace("grey", "winner_winner_animation")
+            setTimeout(() => {
+                titleText.classList.replace("winner_winner_animation", "grey");
+                titleText.textContent = "¿Richard habla español?";
+            }, 3000);
         }
         correctCounter.textContent = state.correctCounter
         verbTextAnswer.value = ""
     } else {
         verbRedCross.style.color = "red"
+        verbRedCross.classList.add("red_cross_animation");
         setTimeout(() => {
+            verbRedCross.classList.remove("red_cross_animation");
             verbRedCross.style.color = "whitesmoke";
-        }, 1000);
+        }, 1500);
     }
 }
 

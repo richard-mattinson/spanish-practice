@@ -24,6 +24,11 @@ body {
     width: 100%;
 }
 
+.grey {
+    background: rgb(120, 120, 120);
+    color: rgb(255, 255, 255);
+}
+
 .red {
     color: red;
     background: yellow;
@@ -32,6 +37,10 @@ body {
 .yellow {
     color: yellow;
     background: red;
+}
+
+.winner_winner {
+    animation: winner_winner_animation 5s;
 }
 
 #navbar {
@@ -49,16 +58,28 @@ body {
 }
 
 .button_active {
-    color: red;
+    /* color: red; */
     font-weight: bold;
 }
 
 .answer_green {
-    color: rgb(4, 172, 4);
+    /* color: rgb(4, 172, 4); */
 }
 
 .answer_red {
-    color: red;
+    /* color: red; */
+}
+
+.winner_winner_animation {
+    animation: winner-winner-strobe 500ms 6;
+}
+
+.green_check_animation {
+    animation: green-check-fade 2s;
+}
+
+.red_cross_animation {
+    animation: red-cross-fade 2s;
 }
 
 .verb_title {
@@ -73,8 +94,6 @@ body {
 }
 
 #verb_text_question {
-    /* display: flex;
-    justify-content: center; */
     padding: 0px 10px 0px 10px;
     font-weight: bold;
     font-size: 48px;
@@ -115,14 +134,14 @@ body {
     border-radius: 0px 5px 5px 0px;
     padding: 5px;
     font-family: "Poppins", sans-serif;
-    background: yellow;
-    color: red;
+    background: rgb(0, 128, 255);
+    color: white;
     font-weight: bold;
 }
 
 #verb_button_answer:hover {
-    background: red;
-    color: yellow;
+    background: rgb(0, 98, 196);;
+    /* color: yellow; */
 }
 
 #counter_container {
@@ -134,4 +153,36 @@ body {
 
 #correct_counter {
     margin: 0px 0px 0px 10px;
+}
+
+@keyframes green-check-fade {
+    0% {
+        color: green;
+    }
+
+    100% {
+        color: whitesmoke;
+    }
+}
+
+@keyframes red-cross-fade {
+    0% {
+        color: red;
+    }
+
+    100% {
+        color: whitesmoke;
+    }
+}
+
+@keyframes winner-winner-strobe {
+    0% {
+        background: red;
+        color: yellow;
+    }
+
+    100% {
+        background: yellow;
+        color: red;
+    }
 }
