@@ -16,9 +16,27 @@ const state = {
 }
 
 const verbs = [
-    ["Ver", "look"],
+    ["Alquilar", "rent"],
+    ["Aprender", "teach"],
+    ["Buscar", "look for"],
+    ["Caminar", "walk"],
+    ["Cambiar", "change"],
+    ["Creer", "believe"],
+    ["Desayuna", "have breakfast"],
+    ["Escuchar", "listen"],
+    ["Leer", "read"],
+    ["Olvidar", "forget"],
+    ["Pagar", "pay"],
+    ["Preguntar", "ask"],
+    ["Prometer", "promise"],
+    ["Responder", "answer"],
+    ["Quedar", "meet"],
+    ["Significa", "mean"],
     ["Tener", "have"],
-    ["Aprender", "learn"]
+    ["Vender", "sell"],
+    ["Ver", "look"],
+    ["Viajar", "travel"],
+    ["Visitar", "visit"]
 ]
 
 title.addEventListener("click", () => {
@@ -62,10 +80,9 @@ function checkAnswer(answer) {
         }, 1000);
         verbs.splice(state.verbIndex, 1);
         state.correctCounter++
-        if (verbs.length > 0) {
+        if (state.correctCounter < 10) {
             updateVerbText();
         } else {
-            state.correctCounter = "Well Done!";
             verbTextQuestion.textContent = "¡Bien hecho!";
             verbRedCross.style.visibility = "hidden";
             verbGreenCheck.style.visibility = "hidden"

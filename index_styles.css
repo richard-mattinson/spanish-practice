@@ -14,7 +14,7 @@ body {
     display: flex;
     justify-content: center;
     text-align: center;
-    font-size: 2vw;
+    font-size: 28px;
     /* padding: 10px 0px 10px 0px; */
 }
 
@@ -44,7 +44,7 @@ body {
 
 .navbar_buttons {
     margin: 0px 10px 0px 10px;
-    font-size: 1.8vw;
+    font-size: 24px;
     cursor: pointer;
 }
 
@@ -67,9 +67,9 @@ body {
 
 #question_container {
     display: flex;
-    font-size: 2vw;
     justify-content: center;
     align-items: center;
+    height: 60px;
 }
 
 #verb_text_question {
@@ -77,7 +77,7 @@ body {
     justify-content: center; */
     padding: 0px 10px 0px 10px;
     font-weight: bold;
-    font-size: 3vw;
+    font-size: 48px;
 }
 
 #icon_container {
@@ -86,7 +86,7 @@ body {
 }
 
 .verb_question_icon {
-    font-size: 3vw;
+    font-size: 48px;
     margin: 0px 5px 0px 5px;
     color: whitesmoke;
 }
@@ -99,10 +99,39 @@ body {
 #verb_container_answer {
     display: flex;
     justify-content: center;
+    margin: 10px 0px 10px 0px;
 }
 
 #verb_text_answer {
     padding: 0px 0px 0px 5px;
     font-weight: bold;
     font-size: 20px;
+    border: grey 2px solid;
+    border-radius: 5px 0px 0px 5px;
+}
+
+#verb_button_answer {
+    border: grey 2px solid;
+    border-radius: 0px 5px 5px 0px;
+    padding: 5px;
+    font-family: "Poppins", sans-serif;
+    background: yellow;
+    color: red;
+    font-weight: bold;
+}
+
+#verb_button_answer:hover {
+    background: red;
+    color: yellow;
+}
+
+#counter_container {
+    display: flex;
+    justify-content: center;
+    font-size: 28px;
+    font-family: "Poppins", sans-serif;
+}
+
+#correct_counter {
+    margin: 0px 0px 0px 10px;
 }
