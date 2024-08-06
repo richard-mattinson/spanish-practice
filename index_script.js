@@ -49,11 +49,11 @@ verbTextAnswer.addEventListener("keydown", event => {
 })
 
 function checkAnswer(answer) {    
-    let answerToLowercase = answer.toLowerCase()
-    console.log("answer", answerToLowercase);
+    let answerFormatted = answer.toLowerCase().trim()
+    console.log("answer", answerFormatted);
     console.log("actual", verbs[state.verbIndex][1]);
     console.log("verbs", verbs);
-    if (verbs[state.verbIndex][1] === answerToLowercase) {
+    if (verbs[state.verbIndex][1] === answerFormatted) {
         verbTitle.forEach(element => {
             element.classList.add("answer_green")
         });

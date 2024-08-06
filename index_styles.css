@@ -1,3 +1,8 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
 body {
     /* padding: 0% 20%; */
     font-family: "Poppins", sans-serif;
@@ -8,10 +13,31 @@ body {
 #title_bar {
     display: flex;
     justify-content: center;
+    text-align: center;
+}
+
+#navbar {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background: rgb(234, 233, 233);
+    margin: 0px 0px 10px 0px;
+}
+
+.navbar_buttons {
+    margin: 0px 10px 0px 10px;
+    font-size: 3vh;
+    cursor: pointer;
+}
+
+.button_active {
+    color: red;
+    font-weight: bold;
 }
 
 #title_text {
     padding: 5px 20px;
+    width: 100%;
 }
 
 .red {
@@ -36,9 +62,11 @@ body {
     padding: 0px 10px 0px 0px;
 }
 
-#verb_container_question {
+#verb_container {
     display: flex;
     justify-content: center;
+    font-size: 4vh;
+    align-content: center;
 }
 
 #verb_text_question {
@@ -54,4 +82,5 @@ body {
 #verb_text_answer {
     padding: 0px 0px 0px 5px;
     font-weight: bold;
+    font-size: 20px;
 }
