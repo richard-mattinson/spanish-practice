@@ -3,6 +3,8 @@ const title = document.querySelector("#title_text")
 const correctCounter = document.querySelector("#correct_counter")
 
 const verbTextQuestion = document.querySelector("#verb_text_question");
+const verbRedCross = document.querySelector("#red_cross")
+const verbGreenCheck = document.querySelector("#green_check")
 const verbTextAnswer = document.querySelector("#verb_text_answer");
 const verbButtonAnswer = document.querySelector("#verb_button_answer");
 const verbTitle = document.querySelectorAll(".verb_title")
@@ -54,30 +56,28 @@ function checkAnswer(answer) {
     console.log("actual", verbs[state.verbIndex][1]);
     console.log("verbs", verbs);
     if (verbs[state.verbIndex][1] === answerFormatted) {
-        verbTitle.forEach(element => {
-            element.classList.add("answer_green")
-        });
+        verbGreenCheck.style.color = "green";
+        setTimeout(() => {
+            verbGreenCheck.style.color = "whitesmoke";
+        }, 1000);
         verbs.splice(state.verbIndex, 1);
         state.correctCounter++
         if (verbs.length > 0) {
             updateVerbText();
         } else {
             state.correctCounter = "Well Done!";
-            verbTextQuestion.textContent = "";
+            verbTextQuestion.textContent = "¡Bien hecho!";
+            verbRedCross.style.visibility = "hidden";
+            verbGreenCheck.style.visibility = "hidden"
         }
         correctCounter.textContent = state.correctCounter
         verbTextAnswer.value = ""
     } else {
-        verbTitle.forEach((element) => {
-            element.classList.add("answer_red");
-        });
+        verbRedCross.style.color = "red"
+        setTimeout(() => {
+            verbRedCross.style.color = "whitesmoke";
+        }, 1000);
     }
-    setTimeout(() => {
-        verbTitle.forEach((element) => {
-            element.classList.remove("answer_green")
-            element.classList.remove("answer_red");
-        })
-    }, 1000);
 }
 
 updateVerbText()

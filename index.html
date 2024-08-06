@@ -10,6 +10,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <!-- bootstrap icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">   
+    <!-- bootstrap css and js -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" defer></script>
     <!-- script -->
     <script src="index_script.js" defer></script>
 </head>
@@ -22,24 +27,33 @@
         <div id="tbc_button" class="navbar_buttons">TBC</div>
     </nav>
 
-    <table id="verb_container">
-        <tr>
-            <td>Correct:</td>
-            <td id="correct_counter">0</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="verb_title">Verbo español:</td>
-            <td id="verb_text_question">---</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="verb_title">Verbo ingles:</td>
-            <td><input id="verb_text_answer"></input></td>
-            <td><button id="verb_button_answer">Entrar</button></td>
-        </tr>
-    </table>
+    <div id="question_container">
+        <div id="verb_text_question">---</div>
+    </div>
+    <div id="icon_container">
+        <i id="red_cross" class="bi bi-x-square-fill verb_question_icon"></i>
+        <i id="green_check" class="bi bi-check-square-fill verb_question_icon"></i>
+    </div>
 
+    <table id="table">
+    <tr>
+    </tr>
+    <tr>
+        <td>Correct:</td>
+        <td id="correct_counter">0</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="verb_title">Verbo español:</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="verb_title">Verbo ingles:</td>
+        <td><input id="verb_text_answer"></input></td>
+        <td><button id="verb_button_answer">Entrar</button></td>
+    </tr>
+    </table>
+    
     <!-- <div id="verb_container_question">
         <div>Verbo español:</div>
         <div id="verb_text_question">---</div>
