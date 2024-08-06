@@ -38,18 +38,6 @@ const verbs = [
     ["Visitar", "Visit"]
 ]
 
-// title.addEventListener("click", () => {
-//     if (state.color === "red") {
-//         title.classList.replace("red", "yellow")
-//         state.color = "yellow"
-//     } else {
-//         title.classList.replace("yellow", "red")
-//         state.color = "red"
-//     }
-// })
-
-
-
 function updateVerbText() {
     let verbIndex = Math.floor(Math.random() * verbs.length)
     let randomVerb = verbs[verbIndex];
@@ -105,6 +93,13 @@ function checkAnswer(answer) {
         }, 1500);
     }
 }
+
+verbTextQuestion.addEventListener("click", () => {
+    verbTextQuestion.textContent = verbs[state.verbIndex][1]
+    setTimeout(() => {
+        verbTextQuestion.textContent = verbs[state.verbIndex][0];
+    }, 2000);
+})
 
 updateVerbText()
 
