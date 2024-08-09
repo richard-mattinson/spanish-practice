@@ -14,7 +14,7 @@ body {
     display: flex;
     justify-content: center;
     text-align: center;
-    font-size: 28px;
+    font-size: 22px;
     /* padding: 10px 0px 10px 0px; */
 }
 
@@ -110,9 +110,10 @@ body {
     color: whitesmoke;
 }
 
-#table {
+#answer_summary_table {
     display: flex;
     justify-content: center;
+    margin: 0px 0px 10px 0px;
 }
 
 #verb_container_answer {

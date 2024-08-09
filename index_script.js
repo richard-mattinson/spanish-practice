@@ -133,6 +133,7 @@ function checkAnswer(answer) {
 verbTextQuestion.addEventListener("click", () => {
     verbTextQuestion.textContent = verbs[state.verbIndex][1][0] + "..."
     verbTextQuestion.style.color = "orange"
+    state.errorCounter++
     setTimeout(() => {
         verbTextQuestion.textContent = verbs[state.verbIndex][0];
         verbTextQuestion.style.color = "black";
