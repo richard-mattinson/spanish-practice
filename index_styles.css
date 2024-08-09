@@ -14,7 +14,7 @@ body {
     display: flex;
     justify-content: center;
     text-align: center;
-    font-size: 22px;
+    font-size: 12px;
     /* padding: 10px 0px 10px 0px; */
 }
 
@@ -53,7 +53,7 @@ body {
 
 .navbar_buttons {
     margin: 0px 10px 0px 10px;
-    font-size: 24px;
+    font-size: 20px;
     cursor: pointer;
 }
 
