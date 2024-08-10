@@ -29,12 +29,13 @@ const state = {
 
 const verbs = [
     ["Alquilar", ["Rent"]],
-    ["Aprender", ["Teach"]],
+    ["Aprender", ["Learn"]],
     ["Buscar", ["Look", "Look for"]],
     ["Caminar", ["Walk"]],
     ["Cambiar", ["Change"]],
     ["Creer", ["Believe", "Think"]],
     ["Desayuna", ["Eat Breakfast", "Have Breakfast"]],
+    ["Enseñar", ["Teach"]],
     ["Escuchar", ["Listen"]],
     ["Leer", ["Read"]],
     ["Olvidar", ["Forget"]],
@@ -60,15 +61,16 @@ const verbs = [
 titleText.addEventListener("click", () => {
     state.correctCounter = 0
     state.errorCounter = 0
+    titleText.textContent = "¿Richard habla español?";
     correctText.textContent = "Correcto";
     correctCounter.textContent = state.correctCounter
     correctText.style.color = "black";
     correctCounter.style.color = "black";
     correctTen.style.color = "black";
-    while (tableBody.hasChildNodes) {
-        tableBody.removeChild(tableBody.lastElementChild)
-    }
     updateVerbText()
+    while (tableBody.hasChildNodes()) {
+        tableBody.removeChild(tableBody.firstChild)
+    }
 })
 
 verbTextQuestion.addEventListener("click", () => {
@@ -93,11 +95,10 @@ verbTextAnswer.addEventListener("keydown", (event) => {
 function updateVerbText() {
     let verbIndex = Math.floor(Math.random() * verbs.length);
     let randomVerb = verbs[verbIndex];
+    console.log("random verb", randomVerb);
     state.verbIndex = verbIndex;
     verbTextQuestion.textContent = randomVerb[0];
     state.answerSummary = randomVerb;
-  // updateSummaryTable(randomVerb)
-  // console.log("answer summary", state.answerSummary);
 }
 
 function updateSummaryTable() {
@@ -105,6 +106,12 @@ function updateSummaryTable() {
   const newSpanishCell = document.createElement("td");
   const newEnglishCell = document.createElement("td");
   newSpanishCell.textContent = state.answerSummary[0];
+  newSpanishCell.setAttribute("class", "summary_spanish")
+  newSpanishCell.setAttribute("id", state.answerSummary[0]);
+  newSpanishCell.addEventListener("click", (event) => {
+    const word = event.target.id
+    playSpanish(word)
+  })
   newEnglishCell.textContent = state.answerSummary[1][0];
   newRow.appendChild(newSpanishCell);
   newRow.appendChild(newEnglishCell);
@@ -167,6 +174,23 @@ function checkAnswer(answer) {
       verbRedCross.style.color = "whitesmoke";
     }, 1500);
   }
+}
+
+function playSpanish(word) {
+    const message = new SpeechSynthesisUtterance();
+
+    // set the text to be spoken & options
+    message.text = word;
+    message.lang = "es-ES";
+    message.pitch = 0;
+    message.rate = 0.5;
+    message.volume = 2;
+
+    // create an instance of the speech synthesis object
+    const speechSynthesis = window.speechSynthesis;
+
+    // start speaking
+    speechSynthesis.speak(message);
 }
 
 updateVerbText();
