@@ -1,6 +1,8 @@
 /////////////////////////////// GLOBAL QUERY SELECTORS ///////////////////////////////
 
 const titleText = document.querySelector("#title_text");
+const hamburgerButton = document.querySelector("#hamburger_button");
+const hamburgerMenu = document.querySelector("#hamburger_menu");
 
 const navbarButtons = document.querySelectorAll(".navbar_buttons");
 const navbarVerb = document.querySelector("#verb_button");
@@ -28,6 +30,7 @@ const state = {
   currentTab: "verbs",
   errorCounter: 0,
   errorRegister: false,
+  hamburgerMenu: false,
   questionIndex: "",
 };
 
@@ -116,18 +119,30 @@ const relations = [
 
 /////////////////////////////// EVENT LISTENERS ///////////////////////////////
 
+hamburgerButton.addEventListener("click", () => {
+  if (state.hamburgerMenu) {
+    hamburgerMenu.style.display = "none"
+    state.hamburgerMenu = false
+  } else {
+    hamburgerMenu.style.display = "block"
+    state.hamburgerMenu = true
+  }
+})
+
 titleText.addEventListener("click", () => {
   resetTab();
 });
 
 navbarVerb.addEventListener("click", () => {
   state.currentTab = "verbs";
+  hideHamburgerMenu()
   setNavbarStyling();
   resetTab();
 });
 
 navbarEmotion.addEventListener("click", () => {
   state.currentTab = "emotions";
+  hideHamburgerMenu();
   setNavbarStyling();
   resetTab();
 });
@@ -135,6 +150,7 @@ navbarEmotion.addEventListener("click", () => {
 navbarRelation.addEventListener("click", () => {
   state.currentTab = "relations";
   setNavbarStyling();
+  hideHamburgerMenu();
   resetTab();
 });
 
@@ -174,6 +190,11 @@ answerText.addEventListener("keydown", (event) => {
 });
 
 /////////////////////////////// FUNCTIONS ///////////////////////////////
+
+function hideHamburgerMenu() {
+  hamburgerMenu.style.display = "none";
+  state.hamburgerMenu = false;
+}
 
 function resetTab() {
   state.correctCounter = 0;
@@ -223,10 +244,12 @@ function updateQuestionText() {
   }
   questionText.textContent = randomQuestion[0];
   state.answerSummary = randomQuestion;
-  if (randomQuestion[0].length  > 12) {
-    questionText.style.fontSize = "28px"
+  if (randomQuestion[0].length <= 12) {
+    questionText.style.fontSize = "48px";
+  } else if (randomQuestion[0].length > 12 && randomQuestion[0].length <= 17) {
+    questionText.style.fontSize = "28px";
   } else {
-    questionText.style.fontSize = "48px"
+    questionText.style.fontSize = "20px";
   }
 }
 
