@@ -3,11 +3,12 @@
 const titleText = document.querySelector("#title_text");
 const hamburgerButton = document.querySelector("#hamburger_button");
 const hamburgerMenu = document.querySelector("#hamburger_menu");
-
 const navbarButtons = document.querySelectorAll(".navbar_buttons");
 const navbarVerb = document.querySelector("#verb_button");
 const navbarEmotion = document.querySelector("#emotions_button");
 const navbarRelation = document.querySelector("#relations_button");
+
+const currentTab = document.querySelector("#current_tab")
 
 const questionText = document.querySelector("#verb_text_question");
 
@@ -133,6 +134,7 @@ titleText.addEventListener("click", () => {
 
 navbarVerb.addEventListener("click", () => {
   state.currentTab = "verbs";
+  currentTab.textContent = "Verbos";
   hideHamburgerMenu()
   setNavbarStyling();
   resetTab();
@@ -140,6 +142,7 @@ navbarVerb.addEventListener("click", () => {
 
 navbarEmotion.addEventListener("click", () => {
   state.currentTab = "emotions";
+  currentTab.textContent = "Emociones";
   hideHamburgerMenu();
   setNavbarStyling();
   resetTab();
@@ -147,6 +150,7 @@ navbarEmotion.addEventListener("click", () => {
 
 navbarRelation.addEventListener("click", () => {
   state.currentTab = "relations";
+  currentTab.textContent = "Relaciones";
   setNavbarStyling();
   hideHamburgerMenu();
   resetTab();
