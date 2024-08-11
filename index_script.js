@@ -120,7 +120,10 @@ questionText.addEventListener("click", () => {
       break;
   }
     questionText.style.color = "orange";
-    state.errorCounter++;
+    if (state.errorCounter === false) {
+      state.errorCounter++;
+    }
+    state.errorRegister = true;
     setTimeout(() => {
         questionText.textContent = currentQuestion;
         questionText.style.color = "black";
@@ -271,7 +274,9 @@ function checkAnswer(answer) {
   } else {
     redCross.style.color = "red";
     redCross.classList.add("red_cross_animation");
-    state.errorCounter++;
+    if (state.errorCounter === false) {
+      state.errorCounter++;
+    }
     state.errorRegister = true
     setTimeout(() => {
       redCross.classList.remove("red_cross_animation");
@@ -282,7 +287,7 @@ function checkAnswer(answer) {
 
 function playSpanish(word) {
     const message = new SpeechSynthesisUtterance();
-
+    
     // set the text to be spoken & options
     message.text = word;
     message.lang = "es-ES";
@@ -293,6 +298,8 @@ function playSpanish(word) {
     // create an instance of the speech synthesis object
     const speechSynthesis = window.speechSynthesis;
 
+    console.log(message);
+    
     // start speaking
     speechSynthesis.speak(message);
 }
