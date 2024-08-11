@@ -121,11 +121,9 @@ const relations = [
 
 hamburgerButton.addEventListener("click", () => {
   if (state.hamburgerMenu) {
-    hamburgerMenu.style.display = "none"
-    state.hamburgerMenu = false
+    hideHamburgerMenu()
   } else {
-    hamburgerMenu.style.display = "block"
-    state.hamburgerMenu = true
+    showHamburgerMenu()
   }
 })
 
@@ -191,8 +189,17 @@ answerText.addEventListener("keydown", (event) => {
 
 /////////////////////////////// FUNCTIONS ///////////////////////////////
 
+function showHamburgerMenu() {
+  hamburgerButton.style.opacity = "0.7"
+  hamburgerMenu.style.display = "block";
+  // hamburgerMenu.classList.add("isOpen")
+  state.hamburgerMenu = true;
+}
+
 function hideHamburgerMenu() {
+  hamburgerButton.style.opacity = "1";
   hamburgerMenu.style.display = "none";
+  // hamburgerMenu.classList.remove("isOpen");
   state.hamburgerMenu = false;
 }
 
