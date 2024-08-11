@@ -224,7 +224,7 @@ function updateQuestionText() {
   questionText.textContent = randomQuestion[0];
   state.answerSummary = randomQuestion;
   if (randomQuestion[0].length  > 12) {
-    questionText.style.fontSize = "36px"
+    questionText.style.fontSize = "28px"
   } else {
     questionText.style.fontSize = "48px"
   }
