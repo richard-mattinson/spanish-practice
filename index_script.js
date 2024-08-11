@@ -2,10 +2,10 @@
 
 const titleText = document.querySelector("#title_text");
 
-
-const navbarButtons = document.querySelectorAll(".navbar_buttons")
-const navbarVerb = document.querySelector("#verb_button")
-const navbarEmotion = document.querySelector("#emotions_button")
+const navbarButtons = document.querySelectorAll(".navbar_buttons");
+const navbarVerb = document.querySelector("#verb_button");
+const navbarEmotion = document.querySelector("#emotions_button");
+const navbarRelation = document.querySelector("#relations_button");
 
 const questionText = document.querySelector("#verb_text_question");
 
@@ -23,37 +23,39 @@ const tableBody = document.querySelector("#table_body");
 /////////////////////////////// VARIABLE STORAGE ///////////////////////////////
 
 const state = {
-    color: "red",
-    correctCounter: 0,
-    currentTab: "verbs",
-    errorCounter: 0,
-    errorRegister: false,
-    questionIndex: "",
+  color: "red",
+  correctCounter: 0,
+  currentTab: "verbs",
+  errorCounter: 0,
+  errorRegister: false,
+  questionIndex: "",
 };
 
 const verbs = [
-    ["Alquilar", ["Rent"]],
-    ["Aprender", ["Learn"]],
-    ["Buscar", ["Look", "Look for"]],
-    ["Caminar", ["Walk"]],
-    ["Cambiar", ["Change"]],
-    ["Creer", ["Believe", "Think"]],
-    ["Desayuna", ["Eat Breakfast", "Have Breakfast"]],
-    ["Enseñar", ["Teach"]],
-    ["Escuchar", ["Listen"]],
-    ["Leer", ["Read"]],
-    ["Olvidar", ["Forget"]],
-    ["Pagar", ["Pay"]],
-    ["Preguntar", ["Ask"]],
-    ["Prometer", ["Promise"]],
-    ["Responder", ["Answer"]],
-    ["Quedar", ["Meet"]],
-    ["Significa", ["Mean"]],
-    ["Tener", ["Have"]],
-    ["Vender", ["Sell"]],
-    ["Ver", ["Look", "View", "Watch"]],
-    ["Viajar", ["Travel"]],
-    ["Visitar", ["Visit"]],
+  ["Alquilar", ["Rent"]],
+  ["Aprender", ["Learn"]],
+  ["Buscar", ["Look", "Look for"]],
+  ["Caminar", ["Walk"]],
+  ["Cambiar", ["Change"]],
+  ["Cenar", ["Eat Dinner", "Have Dinner"]],
+  ["Creer", ["Believe", "Think"]],
+  ["Desayuna", ["Eat Breakfast", "Have Breakfast"]],
+  ["Enseñar", ["Teach"]],
+  ["Escuchar", ["Listen"]],
+  ["Leer", ["Read"]],
+  ["Mirar", ["Look"]],
+  ["Olvidar", ["Forget"]],
+  ["Pagar", ["Pay"]],
+  ["Preguntar", ["Ask"]],
+  ["Prometer", ["Promise"]],
+  ["Responder", ["Answer"]],
+  ["Quedar", ["Meet"]],
+  ["Significa", ["Mean"]],
+  ["Tener", ["Have"]],
+  ["Vender", ["Sell"]],
+  ["Ver", ["Look", "View", "Watch"]],
+  ["Viajar", ["Travel"]],
+  ["Visitar", ["Visit"]],
 ];
 
 const emotions = [
@@ -84,57 +86,91 @@ const emotions = [
   ["Triste", ["Sad"]],
 ];
 
+const relations = [
+  ["Abuela", ["Grandmother", "Grandma"]],
+  ["Abuelo", ["Grandfather", "Grandad"]],
+  ["Amigo/a", ["Friend"]],
+  ["Compañero de casa", ["Housemate"]],
+  ["Compañero de piso", ["Flatmate"]],
+  ["Compañero de trabajo", ["Workmate"]],
+  ["Hermano", ["Brother"]],
+  ["Hermana", ["Sister"]],
+  ["Hijo", ["Son"]],
+  ["Hija", ["Daughter"]],
+  ["Madre", ["Mother", "Mum"]],
+  ["Marido", ["Husband"]],
+  ["Marida", ["Wife"]],
+  ["Nieto", ["Grandson"]],
+  ["Nieta", ["Granddaughter"]],
+  ["Novio", ["Boyfriend"]],
+  ["Novia", ["Girlfriend"]],
+  ["Padre", ["Father", "Dad"]],
+  ["Padres", ["Parents"]],
+  ["Primo/a", ["Cousin"]],
+  ["Sobrino", ["Nephew"]],
+  ["Sobrina", ["Niece"]],
+  ["Suegros", ["Parents in Law"]],
+  ["Tia", ["Aunty"]],
+  ["Tio", ["Uncle"]],
+];
+
 /////////////////////////////// EVENT LISTENERS ///////////////////////////////
-// verbButtonAnswer.addEventListener("click", () => {
-//     const answer = verbTextAnswer.value
-//     checkAnswer(answer)
-// })
 
 titleText.addEventListener("click", () => {
-    resetTab()
-})
+  resetTab();
+});
 
 navbarVerb.addEventListener("click", () => {
-  state.currentTab = "verbs"
-  setNavbarStyling()
-  resetTab()
-})
+  state.currentTab = "verbs";
+  setNavbarStyling();
+  resetTab();
+});
 
 navbarEmotion.addEventListener("click", () => {
-  state.currentTab = "emotions"
-  setNavbarStyling()
-  resetTab()
-})
+  state.currentTab = "emotions";
+  setNavbarStyling();
+  resetTab();
+});
+
+navbarRelation.addEventListener("click", () => {
+  state.currentTab = "relations";
+  setNavbarStyling();
+  resetTab();
+});
 
 questionText.addEventListener("click", () => {
   // shows answer on click briefly (for idiots)
-  let currentQuestion
+  let currentQuestion;
   switch (state.currentTab) {
     case "verbs":
       questionText.textContent = verbs[state.questionIndex][1][0] + "...";
-      currentQuestion = verbs[state.questionIndex][0]
+      currentQuestion = verbs[state.questionIndex][0];
       break;
     case "emotions":
       questionText.textContent = emotions[state.questionIndex][1][0] + "...";
-      currentQuestion = emotions[state.questionIndex][0]
+      currentQuestion = emotions[state.questionIndex][0];
+      break;
+    case "relations":
+      questionText.textContent = relations[state.questionIndex][1][0] + "...";
+      currentQuestion = relations[state.questionIndex][0];
       break;
   }
-    questionText.style.color = "orange";
-    if (state.errorCounter === false) {
-      state.errorCounter++;
-    }
-    state.errorRegister = true;
-    setTimeout(() => {
-        questionText.textContent = currentQuestion;
-        questionText.style.color = "black";
-    }, 2000);
+  questionText.style.color = "orange";
+  if (state.errorCounter === false) {
+    state.errorCounter++;
+  }
+  state.errorRegister = true;
+  setTimeout(() => {
+    questionText.textContent = currentQuestion;
+    questionText.style.color = "black";
+  }, 2000);
 });
 
 answerText.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        const answer = answerText.value;
-        checkAnswer(answer);
-    }
+  if (event.key === "Enter") {
+    const answer = answerText.value;
+    checkAnswer(answer);
+  }
 });
 
 /////////////////////////////// FUNCTIONS ///////////////////////////////
@@ -155,7 +191,7 @@ function resetTab() {
 }
 
 function setNavbarStyling() {
-  navbarButtons.forEach((element) => element.classList.remove("button_active"))
+  navbarButtons.forEach((element) => element.classList.remove("button_active"));
   switch (state.currentTab) {
     case "verbs":
       navbarVerb.classList.add("button_active");
@@ -163,23 +199,30 @@ function setNavbarStyling() {
     case "emotions":
       navbarEmotion.classList.add("button_active");
       break;
+    case "relations":
+      navbarRelation.classList.add("button_active");
+      break;
   }
 }
 
 function updateQuestionText() {
-  let randomQuestion
-    switch (state.currentTab) {
-      case "verbs":
-        state.questionIndex = Math.floor(Math.random() * verbs.length);
-        randomQuestion = verbs[state.questionIndex];
-        break;
-      case "emotions": 
-        state.questionIndex = Math.floor(Math.random() * emotions.length);
-        randomQuestion = emotions[state.questionIndex];
-        break;
-    }
-    questionText.textContent = randomQuestion[0];
-    state.answerSummary = randomQuestion;
+  let randomQuestion;
+  switch (state.currentTab) {
+    case "verbs":
+      state.questionIndex = Math.floor(Math.random() * verbs.length);
+      randomQuestion = verbs[state.questionIndex];
+      break;
+    case "emotions":
+      state.questionIndex = Math.floor(Math.random() * emotions.length);
+      randomQuestion = emotions[state.questionIndex];
+      break;
+    case "relations":
+      state.questionIndex = Math.floor(Math.random() * relations.length);
+      randomQuestion = relations[state.questionIndex];
+      break;
+  }
+  questionText.textContent = randomQuestion[0];
+  state.answerSummary = randomQuestion;
 }
 
 function updateSummaryTable() {
@@ -188,12 +231,12 @@ function updateSummaryTable() {
   const newEnglishCell = document.createElement("td");
 
   newSpanishCell.textContent = state.answerSummary[0];
-  newSpanishCell.setAttribute("class", "summary_spanish")
+  newSpanishCell.setAttribute("class", "summary_spanish");
   newSpanishCell.setAttribute("id", state.answerSummary[0]);
   newSpanishCell.addEventListener("click", (event) => {
-    const word = event.target.id
-    playSpanish(word)
-  })
+    const word = event.target.id;
+    playSpanish(word);
+  });
   if (state.errorRegister) {
     newSpanishCell.style.background = "red";
     newSpanishCell.style.color = "white";
@@ -209,40 +252,45 @@ function updateSummaryTable() {
 }
 
 function chickenDinner() {
-    if (state.errorCounter === 0) {
-      questionText.textContent = "¡Bien hecho!";
-        correctText.textContent = "PERFECTO";
-        correctText.style.color = "green";
-        correctCounter.style.color = "green";
-        correctTen.style.color = "green";
-    } else {
-      questionText.textContent = "Esfuérzate más";
-        correctText.textContent = "Errores";
-        correctCounter.textContent = state.errorCounter;
-    }
-    titleText.textContent = "¡Richard habla español!";
-    titleText.classList.replace("grey", "winner_winner_animation");
-    setTimeout(() => {
-        titleText.classList.replace("winner_winner_animation", "grey");
-        titleText.textContent = "¿De nuevo?";
-    }, 3000);
+  if (state.errorCounter === 0) {
+    questionText.textContent = "¡Bien hecho!";
+    correctText.textContent = "PERFECTO";
+    correctText.style.color = "green";
+    correctCounter.style.color = "green";
+    correctTen.style.color = "green";
+  } else {
+    questionText.textContent = "Esfuérzate más";
+    correctText.textContent = "Errores";
+    correctCounter.textContent = state.errorCounter;
+  }
+  titleText.textContent = "¡Richard habla español!";
+  titleText.classList.replace("grey", "winner_winner_animation");
+  setTimeout(() => {
+    titleText.classList.replace("winner_winner_animation", "grey");
+    titleText.textContent = "¿De nuevo?";
+  }, 3000);
 }
 
 function checkAnswer(answer) {
   let inputFormatted = answer.toLowerCase().trim();
   // check input answer against all answers in array
-  let answerIndex
+  let answerIndex;
   switch (state.currentTab) {
     case "verbs":
-        answerIndex = verbs[state.questionIndex][1].findIndex((element) => {
-          return element.toLowerCase().trim() === inputFormatted;
-        });
-      break;
-    case "emotions": 
-        answerIndex = emotions[state.questionIndex][1].findIndex((element) => {
+      answerIndex = verbs[state.questionIndex][1].findIndex((element) => {
         return element.toLowerCase().trim() === inputFormatted;
       });
-    break;
+      break;
+    case "emotions":
+      answerIndex = emotions[state.questionIndex][1].findIndex((element) => {
+        return element.toLowerCase().trim() === inputFormatted;
+      });
+      break;
+    case "relations":
+      answerIndex = relations[state.questionIndex][1].findIndex((element) => {
+        return element.toLowerCase().trim() === inputFormatted;
+      });
+      break;
   }
 
   if (answerIndex !== -1) {
@@ -259,6 +307,9 @@ function checkAnswer(answer) {
         break;
       case "emotions":
         emotions.splice(state.questionIndex, 1);
+        break;
+      case "relations":
+        relations.splice(state.questionIndex, 1);
         break;
     }
     state.correctCounter++;
@@ -277,7 +328,7 @@ function checkAnswer(answer) {
     if (state.errorCounter === false) {
       state.errorCounter++;
     }
-    state.errorRegister = true
+    state.errorRegister = true;
     setTimeout(() => {
       redCross.classList.remove("red_cross_animation");
       redCross.style.color = "whitesmoke";
@@ -286,22 +337,22 @@ function checkAnswer(answer) {
 }
 
 function playSpanish(word) {
-    const message = new SpeechSynthesisUtterance();
-    
-    // set the text to be spoken & options
-    message.text = word;
-    message.lang = "es-ES";
-    message.pitch = 0;
-    message.rate = 0.5;
-    message.volume = 2;
+  const message = new SpeechSynthesisUtterance();
 
-    // create an instance of the speech synthesis object
-    const speechSynthesis = window.speechSynthesis;
+  // set the text to be spoken & options
+  message.text = word;
+  message.lang = "es-ES";
+  message.pitch = 0;
+  message.rate = 0.5;
+  message.volume = 2;
 
-    console.log(message);
-    
-    // start speaking
-    speechSynthesis.speak(message);
+  // create an instance of the speech synthesis object
+  const speechSynthesis = window.speechSynthesis;
+
+  console.log(message);
+
+  // start speaking
+  speechSynthesis.speak(message);
 }
 
 updateQuestionText();
