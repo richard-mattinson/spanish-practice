@@ -15,12 +15,12 @@ body {
     justify-content: center;
     text-align: center;
     font-size: 12px;
+    background: grey;
 }
 
 #title_text {
     padding: 10px 20px;
     margin: 0px;
-    width: 100%;
     cursor: pointer;
 }
 
@@ -31,6 +31,7 @@ body {
     padding: 10px 20px 20px 10px;
     font-size: 28px;
     color: white;
+    cursor: pointer;
 }
 
 #hamburger_menu {
@@ -52,6 +53,7 @@ body {
     padding: 10px 10px 20px 20px;
     font-size: 28px;
     color: white;
+    cursor: pointer;
 }
 
 #speaker_off {
@@ -59,7 +61,7 @@ body {
 }
 
 .grey {
-    background: rgb(120, 120, 120);
+    background: grey;
     color: rgb(255, 255, 255);
 }
 

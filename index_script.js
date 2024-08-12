@@ -1,5 +1,6 @@
 /////////////////////////////// GLOBAL QUERY SELECTORS ///////////////////////////////
 
+const titleBar = document.querySelector("#title_bar")
 const titleText = document.querySelector("#title_text");
 
 const hamburgerButton = document.querySelector("#hamburger_button");
@@ -8,6 +9,7 @@ const navbarButtons = document.querySelectorAll(".navbar_buttons");
 const navbarVerb = document.querySelector("#verb_button");
 const navbarEmotion = document.querySelector("#emotions_button");
 const navbarRelation = document.querySelector("#relations_button");
+const navbarTimeAndDate = document.querySelector("#time_and_date_button")
 
 const speakerOn = document.querySelector("#speaker_on")
 const speakerOff = document.querySelector("#speaker_off")
@@ -39,33 +41,6 @@ const state = {
   speakerOn: true,
   questionIndex: "",
 };
-
-const verbs = [
-  ["Alquilar", ["Rent"]],
-  ["Aprender", ["Learn"]],
-  ["Buscar", ["Look", "Look for"]],
-  ["Caminar", ["Walk"]],
-  ["Cambiar", ["Change"]],
-  ["Cenar", ["Eat Dinner", "Have Dinner"]],
-  ["Creer", ["Believe", "Think"]],
-  ["Desayuna", ["Eat Breakfast", "Have Breakfast"]],
-  ["Enseñar", ["Teach"]],
-  ["Escuchar", ["Listen"]],
-  ["Leer", ["Read"]],
-  ["Mirar", ["Look"]],
-  ["Olvidar", ["Forget"]],
-  ["Pagar", ["Pay"]],
-  ["Preguntar", ["Ask"]],
-  ["Prometer", ["Promise"]],
-  ["Responder", ["Answer"]],
-  ["Quedar", ["Meet"]],
-  ["Significa", ["Mean"]],
-  ["Tener", ["Have"]],
-  ["Vender", ["Sell"]],
-  ["Ver", ["Look", "View", "Watch"]],
-  ["Viajar", ["Travel"]],
-  ["Visitar", ["Visit"]],
-];
 
 const emotions = [
   ["Aburrido", ["Bored"]],
@@ -123,6 +98,60 @@ const relations = [
   ["Tio", ["Uncle"]],
 ];
 
+const timeAndDate = [
+  ["Antesi", ["Before"]],
+  ["Ayer", ["Yesterday"]],
+  ["Despues", ["After"]],
+  ["Domingo", ["Sunday"]],
+  ["Fin de semana", ["Weekend"]],
+  ["Hoy", ["Today"]],
+  ["Hora", ["Hour", "Time"]],
+  ["Minuto", ["Minute"]],
+  ["Invierno", ["Winter"]],
+  ["Lunes", ["Monday"]],
+  ["Jueves", ["Thursday"]],
+  ["Manana", ["Tomorrow", "Morning"]],
+  ["Martes", ["Tuesday"]],
+  ["Miercoles", ["Wednesday"]],
+  ["Noche", ["Evening", "Night"]],
+  ["Otoño", ["Autumn"]],
+  ["Primavera", ["Spring"]],
+  ["Sabado", ["Saturday"]],
+  ["Semana", ["Week"]],
+  ["Semana pasada", ["Last week"]],
+  ["Semana que viene", ["Next week"]],
+  ["Tarde", ["Afternoon"]],
+  ["Verrano", ["Summer"]],
+  ["Viernes", ["Friday"]],
+];
+
+const verbs = [
+  ["Alquilar", ["Rent"]],
+  ["Aprender", ["Learn"]],
+  ["Buscar", ["Look", "Look for"]],
+  ["Caminar", ["Walk"]],
+  ["Cambiar", ["Change"]],
+  ["Cenar", ["Eat Dinner", "Have Dinner"]],
+  ["Creer", ["Believe", "Think"]],
+  ["Desayuna", ["Eat Breakfast", "Have Breakfast"]],
+  ["Enseñar", ["Teach"]],
+  ["Escuchar", ["Listen"]],
+  ["Leer", ["Read"]],
+  ["Mirar", ["Look"]],
+  ["Olvidar", ["Forget"]],
+  ["Pagar", ["Pay"]],
+  ["Preguntar", ["Ask"]],
+  ["Prometer", ["Promise"]],
+  ["Responder", ["Answer"]],
+  ["Quedar", ["Meet"]],
+  ["Significa", ["Mean"]],
+  ["Tener", ["Have"]],
+  ["Vender", ["Sell"]],
+  ["Ver", ["Look", "View", "Watch"]],
+  ["Viajar", ["Travel"]],
+  ["Visitar", ["Visit"]],
+];
+
 /////////////////////////////// EVENT LISTENERS ///////////////////////////////
 
 hamburgerButton.addEventListener("click", () => {
@@ -169,6 +198,14 @@ navbarRelation.addEventListener("click", () => {
   resetTab();
 });
 
+navbarTimeAndDate.addEventListener("click", () => {
+  state.currentTab = "timeAndDate";
+  currentTab.textContent = "Hora y fecha";
+  setNavbarStyling();
+  hideHamburgerMenu();
+  resetTab();
+})
+
 questionText.addEventListener("click", () => {
   // shows answer on click briefly (for idiots)
   let currentQuestion;
@@ -184,6 +221,10 @@ questionText.addEventListener("click", () => {
     case "relations":
       questionText.textContent = relations[state.questionIndex][1][0] + "...";
       currentQuestion = relations[state.questionIndex][0];
+      break;
+    case "timeAndDate":
+      questionText.textContent = timeAndDate[state.questionIndex][1][0] + "...";
+      currentQuestion = timeAndDate[state.questionIndex][0];
       break;
   }
   questionText.style.color = "orange";
@@ -259,6 +300,9 @@ function setNavbarStyling() {
     case "relations":
       navbarRelation.classList.add("button_active");
       break;
+    case "timeAndDate":
+      navbarTimeAndDate.classList.add("button_active");
+      break;
   }
 }
 
@@ -276,6 +320,10 @@ function updateQuestionText() {
     case "relations":
       state.questionIndex = Math.floor(Math.random() * relations.length);
       randomQuestion = relations[state.questionIndex];
+      break;
+    case "timeAndDate":
+      state.questionIndex = Math.floor(Math.random() * timeAndDate.length);
+      randomQuestion = timeAndDate[state.questionIndex];
       break;
   }
   questionText.textContent = randomQuestion[0];
@@ -331,9 +379,9 @@ function chickenDinner() {
     correctCounter.textContent = state.errorCounter;
   }
   titleText.textContent = "¡Richard habla español!";
-  titleText.classList.replace("grey", "winner_winner_animation");
+  titleBar.classList.replace("grey", "winner_winner_animation");
   setTimeout(() => {
-    titleText.classList.replace("winner_winner_animation", "grey");
+    titleBar.classList.replace("winner_winner_animation", "grey");
     titleText.textContent = "¿De nuevo?";
   }, 3000);
 }
@@ -358,6 +406,11 @@ function checkAnswer(answer) {
         return element.toLowerCase().trim() === inputFormatted;
       });
       break;
+    case "timeAndDate":
+      answerIndex = timeAndDate[state.questionIndex][1].findIndex((element) => {
+        return element.toLowerCase().trim() === inputFormatted;
+      });
+      break;
   }
 
   if (answerIndex !== -1) {
@@ -377,6 +430,9 @@ function checkAnswer(answer) {
         break;
       case "relations":
         relations.splice(state.questionIndex, 1);
+        break;
+      case "timeAndDate":
+        timeAndDate.splice(state.questionIndex, 1);
         break;
     }
     state.correctCounter++;
