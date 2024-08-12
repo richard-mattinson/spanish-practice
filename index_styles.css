@@ -26,8 +26,9 @@ body {
 
 #hamburger_button {
     position: absolute;
-    left: 10px;
-    top: 10px;
+    left: 0px;
+    top: 0px;
+    padding: 10px 20px 20px 10px;
     font-size: 28px;
     color: white;
 }
@@ -39,7 +40,7 @@ body {
     left: 0px;
     background: whitesmoke;
     box-shadow: 3px 3px 3px rgb(179, 179, 179);
-    font-size: 28px;
+    font-size: 32px;
     z-index: 5;
     padding: 20px;
 }
@@ -80,7 +81,7 @@ body {
 
 .navbar_buttons {
     margin: 0px 10px 0px 10px;
-    font-size: 20px;
+    font-size: 28px;
     color: grey;
     cursor: pointer;
 }

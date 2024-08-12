@@ -254,6 +254,7 @@ function updateQuestionText() {
       break;
   }
   questionText.textContent = randomQuestion[0];
+  playSpanish(randomQuestion[0]) 
   state.answerSummary = randomQuestion;
   if (randomQuestion[0].length <= 12) {
     questionText.style.fontSize = "48px";
@@ -376,6 +377,8 @@ function checkAnswer(answer) {
 }
 
 function playSpanish(word) {
+  console.log("word", word);
+  
   const message = new SpeechSynthesisUtterance();
 
   // set the text to be spoken & options
