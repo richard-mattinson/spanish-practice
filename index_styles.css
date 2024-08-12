@@ -45,6 +45,19 @@ body {
     padding: 20px;
 }
 
+.speaker_button {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 10px 10px 20px 20px;
+    font-size: 28px;
+    color: white;
+}
+
+#speaker_off {
+    display: none;
+}
+
 .grey {
     background: rgb(120, 120, 120);
     color: rgb(255, 255, 255);

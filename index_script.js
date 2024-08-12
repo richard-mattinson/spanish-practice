@@ -1,12 +1,16 @@
 /////////////////////////////// GLOBAL QUERY SELECTORS ///////////////////////////////
 
 const titleText = document.querySelector("#title_text");
+
 const hamburgerButton = document.querySelector("#hamburger_button");
 const hamburgerMenu = document.querySelector("#hamburger_menu");
 const navbarButtons = document.querySelectorAll(".navbar_buttons");
 const navbarVerb = document.querySelector("#verb_button");
 const navbarEmotion = document.querySelector("#emotions_button");
 const navbarRelation = document.querySelector("#relations_button");
+
+const speakerOn = document.querySelector("#speaker_on")
+const speakerOff = document.querySelector("#speaker_off")
 
 const currentTab = document.querySelector("#current_tab")
 
@@ -32,6 +36,7 @@ const state = {
   errorCounter: 0,
   errorRegister: false,
   hamburgerMenu: false,
+  speakerOn: true,
   questionIndex: "",
 };
 
@@ -132,6 +137,14 @@ titleText.addEventListener("click", () => {
   resetTab();
 });
 
+speakerOn.addEventListener("click", () => {
+  turnSpeakerOnOff();
+})
+
+speakerOff.addEventListener("click", () => {
+  turnSpeakerOnOff()
+})
+
 navbarVerb.addEventListener("click", () => {
   state.currentTab = "verbs";
   currentTab.textContent = "Verbos";
@@ -174,7 +187,7 @@ questionText.addEventListener("click", () => {
       break;
   }
   questionText.style.color = "orange";
-  if (state.errorCounter === false) {
+  if (state.errorRegister === false) {
     state.errorCounter++;
   }
   state.errorRegister = true;
@@ -205,6 +218,18 @@ function hideHamburgerMenu() {
   hamburgerMenu.style.display = "none";
   // hamburgerMenu.classList.remove("isOpen");
   state.hamburgerMenu = false;
+}
+
+function turnSpeakerOnOff() {
+  if (state.speakerOn) {
+    state.speakerOn = false;
+    speakerOn.style.display = "none";
+    speakerOff.style.display = "block";
+  } else {
+    state.speakerOn = true;
+    speakerOn.style.display = "block";
+    speakerOff.style.display = "none";
+  }
 }
 
 function resetTab() {
@@ -254,7 +279,9 @@ function updateQuestionText() {
       break;
   }
   questionText.textContent = randomQuestion[0];
-  playSpanish(randomQuestion[0]) 
+  if (state.speakerOn) {
+    playSpanish(randomQuestion[0]) 
+  }
   state.answerSummary = randomQuestion;
   if (randomQuestion[0].length <= 12) {
     questionText.style.fontSize = "48px";
@@ -365,7 +392,7 @@ function checkAnswer(answer) {
   } else {
     redCross.style.color = "red";
     redCross.classList.add("red_cross_animation");
-    if (state.errorCounter === false) {
+    if (state.errorRegister === false) {
       state.errorCounter++;
     }
     state.errorRegister = true;
@@ -374,11 +401,11 @@ function checkAnswer(answer) {
       redCross.style.color = "whitesmoke";
     }, 1500);
   }
+  console.log("error register / counter", state.errorRegister, state.errorCounter);
+  
 }
 
 function playSpanish(word) {
-  console.log("word", word);
-  
   const message = new SpeechSynthesisUtterance();
 
   // set the text to be spoken & options
