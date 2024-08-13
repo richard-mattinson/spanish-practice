@@ -32,6 +32,7 @@ body {
     font-size: 28px;
     color: white;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #hamburger_menu {
@@ -46,6 +47,13 @@ body {
     padding: 20px;
 }
 
+.hamburger_buttons {
+    margin: 0px 10px 0px 10px;
+    font-size: 28px;
+    color: grey;
+    cursor: pointer;
+}
+
 .speaker_button {
     position: absolute;
     right: 0px;
@@ -54,9 +62,10 @@ body {
     font-size: 28px;
     color: white;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
-#speaker_off {
+#speaker_on {
     display: none;
 }
 
@@ -92,13 +101,6 @@ body {
     font-size: 20px;
     color: black;
     font-weight: bold;
-}
-
-.navbar_buttons {
-    margin: 0px 10px 0px 10px;
-    font-size: 28px;
-    color: grey;
-    cursor: pointer;
 }
 
 .button_active {

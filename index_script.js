@@ -5,11 +5,12 @@ const titleText = document.querySelector("#title_text");
 
 const hamburgerButton = document.querySelector("#hamburger_button");
 const hamburgerMenu = document.querySelector("#hamburger_menu");
-const navbarButtons = document.querySelectorAll(".navbar_buttons");
-const navbarVerb = document.querySelector("#verb_button");
-const navbarEmotion = document.querySelector("#emotions_button");
-const navbarRelation = document.querySelector("#relations_button");
-const navbarTimeAndDate = document.querySelector("#time_and_date_button")
+const hamburgerButtons = document.querySelectorAll(".hamburger_buttons");
+const hamburgerVerb = document.querySelector("#verb_button");
+const hamburgerEmotion = document.querySelector("#emotions_button");
+const hamburgerRelation = document.querySelector("#relations_button");
+const hamburgerTimeAndDate = document.querySelector("#time_and_date_button")
+const hamburgerClothes = document.querySelector("#clothes_button")
 
 const speakerOn = document.querySelector("#speaker_on")
 const speakerOff = document.querySelector("#speaker_off")
@@ -38,7 +39,7 @@ const state = {
   errorCounter: 0,
   errorRegister: false,
   hamburgerMenu: false,
-  speakerOn: true,
+  speakerOn: false,
   questionIndex: "",
 };
 
@@ -53,7 +54,7 @@ const emotions = [
   ["Descuidado", ["Thoughtless"]],
   ["Enamorado", ["In Love"]],
   ["Enfadado", ["Angry", "Mad"]],
-  ["Enfermo", ["Unwell"]],
+  ["Enfermo", ["Unwell", "Ill"]],
   ["Emocionado", ["Excited"]],
   ["Feliz", ["Happy"]],
   ["Molesto", ["Annoyed"]],
@@ -99,27 +100,39 @@ const relations = [
 ];
 
 const timeAndDate = [
+  ["Abril", ["April"]],
+  ["Agosto", ["August"]],
   ["Antesi", ["Before"]],
   ["Ayer", ["Yesterday"]],
   ["Despues", ["After"]],
+  ["Diciembre", ["December"]],
   ["Domingo", ["Sunday"]],
+  ["Enero", ["January"]],
+  ["Febrero", ["February"]],
   ["Fin de semana", ["Weekend"]],
   ["Hoy", ["Today"]],
   ["Hora", ["Hour", "Time"]],
+  ["Marzo", ["March"]],
+  ["Mayo", ["May"]],
   ["Minuto", ["Minute"]],
   ["Invierno", ["Winter"]],
   ["Lunes", ["Monday"]],
   ["Jueves", ["Thursday"]],
+  ["Julio", ["July"]],
+  ["Junio", ["June"]],
   ["Manana", ["Tomorrow", "Morning"]],
   ["Martes", ["Tuesday"]],
   ["Miercoles", ["Wednesday"]],
   ["Noche", ["Evening", "Night"]],
+  ["Noviembre", ["November"]],
+  ["Octubre", ["October"]],
   ["Otoño", ["Autumn"]],
   ["Primavera", ["Spring"]],
   ["Sabado", ["Saturday"]],
   ["Semana", ["Week"]],
   ["Semana pasada", ["Last week"]],
   ["Semana que viene", ["Next week"]],
+  ["Septiembre", ["September"]],
   ["Tarde", ["Afternoon"]],
   ["Verrano", ["Summer"]],
   ["Viernes", ["Friday"]],
@@ -152,6 +165,44 @@ const verbs = [
   ["Visitar", ["Visit"]],
 ];
 
+const clothes = [
+  ["Chaleco", ["Vest"]],
+  ["Pantalones", ["Trousers"]],
+  ["Camisa", ["Shirt"]],
+  ["Jersey", ["Jersey"]],
+  ["Sudadera", ["Hoodie"]],
+  ["Abrigo", ["Coat"]],
+  ["Chaqueta", ["Jacket"]],
+  ["Vestido", ["Dress"]],
+  ["Chándal", ["Tracksuit"]],
+  ["Blusa", ["Blouse"]],
+  ["Falda", ["Skirt"]],
+  ["Pijama", ["Pajamas"]],
+  ["Camisón", ["Nightgown"]],
+  ["Calzoncillos", ["Underpants", "Pants"]],
+  ["Calcetines", ["Socks"]],
+  ["Bragas", ["Panties", "Pants"]],
+  ["Camiseta", ["T-shirt"]],
+  ["Sujetador", ["Bra"]],
+  ["Pajarita", ["Bow tie"]],
+  ["Corbata", ["Tie"]],
+  ["Pañuelo", ["Handkerchief"]],
+  ["Gorro", ["Cap"]],
+  ["Gafas de sol", ["Sunglasses"]],
+  ["Bufanda", ["Scalf"]],
+  ["Guantes", ["Gloves"]],
+  ["Bañador", ["Swimsuit"]],
+  ["Cinturón", ["Belt"]],
+  ["Gorra", ["Cap"]],
+  ["Sombrero", ["Hat"]],
+  ["Botas", ["Boots"]],
+  ["Zapatos", ["Shoes"]],
+  ["Zapatillas", ["Trainers"]],
+  ["Zapatos de tacon", ["High heels"]],
+  ["Chanclas", ["Flip flops"]],
+  ["Sandailias", ["Sandals"]],
+];
+
 /////////////////////////////// EVENT LISTENERS ///////////////////////////////
 
 hamburgerButton.addEventListener("click", () => {
@@ -174,7 +225,7 @@ speakerOff.addEventListener("click", () => {
   turnSpeakerOnOff()
 })
 
-navbarVerb.addEventListener("click", () => {
+hamburgerVerb.addEventListener("click", () => {
   state.currentTab = "verbs";
   currentTab.textContent = "Verbos";
   hideHamburgerMenu()
@@ -182,7 +233,7 @@ navbarVerb.addEventListener("click", () => {
   resetTab();
 });
 
-navbarEmotion.addEventListener("click", () => {
+hamburgerEmotion.addEventListener("click", () => {
   state.currentTab = "emotions";
   currentTab.textContent = "Emociones";
   hideHamburgerMenu();
@@ -190,7 +241,7 @@ navbarEmotion.addEventListener("click", () => {
   resetTab();
 });
 
-navbarRelation.addEventListener("click", () => {
+hamburgerRelation.addEventListener("click", () => {
   state.currentTab = "relations";
   currentTab.textContent = "Relaciones";
   setNavbarStyling();
@@ -198,7 +249,7 @@ navbarRelation.addEventListener("click", () => {
   resetTab();
 });
 
-navbarTimeAndDate.addEventListener("click", () => {
+hamburgerTimeAndDate.addEventListener("click", () => {
   state.currentTab = "timeAndDate";
   currentTab.textContent = "Hora y fecha";
   setNavbarStyling();
@@ -226,6 +277,10 @@ questionText.addEventListener("click", () => {
       questionText.textContent = timeAndDate[state.questionIndex][1][0] + "...";
       currentQuestion = timeAndDate[state.questionIndex][0];
       break;
+    case "clothes":
+      questionText.textContent = clothes[state.questionIndex][1][0] + "...";
+      currentQuestion = clothes[state.questionIndex][0];
+      break;
   }
   questionText.style.color = "orange";
   if (state.errorRegister === false) {
@@ -237,6 +292,14 @@ questionText.addEventListener("click", () => {
     questionText.style.color = "black";
   }, 2000);
 });
+
+hamburgerClothes.addEventListener("click", () => {
+  state.currentTab = "clothes";
+  currentTab.textContent = "Ropas";
+  setNavbarStyling();
+  hideHamburgerMenu();
+  resetTab();
+})
 
 answerText.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
@@ -289,19 +352,22 @@ function resetTab() {
 }
 
 function setNavbarStyling() {
-  navbarButtons.forEach((element) => element.classList.remove("button_active"));
+  hamburgerButtons.forEach((element) => element.classList.remove("button_active"));
   switch (state.currentTab) {
     case "verbs":
-      navbarVerb.classList.add("button_active");
+      hamburgerVerb.classList.add("button_active");
       break;
     case "emotions":
-      navbarEmotion.classList.add("button_active");
+      hamburgerEmotion.classList.add("button_active");
       break;
     case "relations":
-      navbarRelation.classList.add("button_active");
+      hamburgerRelation.classList.add("button_active");
       break;
     case "timeAndDate":
-      navbarTimeAndDate.classList.add("button_active");
+      hamburgerTimeAndDate.classList.add("button_active");
+      break;
+    case "timeAndDate":
+      hamburgerClothes.classList.add("button_active");
       break;
   }
 }
@@ -324,6 +390,10 @@ function updateQuestionText() {
     case "timeAndDate":
       state.questionIndex = Math.floor(Math.random() * timeAndDate.length);
       randomQuestion = timeAndDate[state.questionIndex];
+      break;
+    case "clothes":
+      state.questionIndex = Math.floor(Math.random() * clothes.length);
+      randomQuestion = clothes[state.questionIndex];
       break;
   }
   questionText.textContent = randomQuestion[0];
@@ -411,6 +481,11 @@ function checkAnswer(answer) {
         return element.toLowerCase().trim() === inputFormatted;
       });
       break;
+    case "clothes":
+      answerIndex = clothes[state.questionIndex][1].findIndex((element) => {
+        return element.toLowerCase().trim() === inputFormatted;
+      });
+      break;
   }
 
   if (answerIndex !== -1) {
@@ -433,6 +508,9 @@ function checkAnswer(answer) {
         break;
       case "timeAndDate":
         timeAndDate.splice(state.questionIndex, 1);
+        break;
+      case "clothes":
+        clothes.splice(state.questionIndex, 1);
         break;
     }
     state.correctCounter++;
