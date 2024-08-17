@@ -1,5 +1,7 @@
 /////////////////////////////// GLOBAL QUERY SELECTORS ///////////////////////////////
 
+const body = document.querySelector("#body_container")
+
 const titleBar = document.querySelector("#title_bar")
 const titleText = document.querySelector("#title_text");
 
@@ -11,6 +13,7 @@ const hamburgerEmotion = document.querySelector("#emotions_button");
 const hamburgerRelation = document.querySelector("#relations_button");
 const hamburgerTimeAndDate = document.querySelector("#time_and_date_button")
 const hamburgerClothes = document.querySelector("#clothes_button")
+const hamburgerVerbConjugation = document.querySelector("#verb_conjugation_button");
 
 const speakerOn = document.querySelector("#speaker_on")
 const speakerOff = document.querySelector("#speaker_off")
@@ -120,8 +123,10 @@ const timeAndDate = [
   ["Jueves", ["Thursday"]],
   ["Julio", ["July"]],
   ["Junio", ["June"]],
+  ["Madrugada", ["Early morning"]],
   ["Manana", ["Tomorrow", "Morning"]],
   ["Martes", ["Tuesday"]],
+  ["Mediodía", ["Noon"]],
   ["Miercoles", ["Wednesday"]],
   ["Noche", ["Evening", "Night"]],
   ["Noviembre", ["November"]],
@@ -138,9 +143,17 @@ const timeAndDate = [
   ["Viernes", ["Friday"]],
 ];
 
+const pronouns = [
+  ["Yo", "Tú", "Él", "Nosotros", "Vosotros", "Ellos"],
+  ["ar"],
+  ["ir"],
+  ["er"]
+];
+
 const verbs = [
   ["Alquilar", ["Rent"]],
   ["Aprender", ["Learn"]],
+  ["Bajar", ["Go down"]],
   ["Buscar", ["Look", "Look for"]],
   ["Caminar", ["Walk"]],
   ["Cambiar", ["Change"]],
@@ -150,6 +163,7 @@ const verbs = [
   ["Enseñar", ["Teach"]],
   ["Escuchar", ["Listen"]],
   ["Leer", ["Read"]],
+  ["Madrugar", ["Wake up early"]],
   ["Mirar", ["Look"]],
   ["Olvidar", ["Forget"]],
   ["Pagar", ["Pay"]],
@@ -157,7 +171,9 @@ const verbs = [
   ["Prometer", ["Promise"]],
   ["Responder", ["Answer"]],
   ["Quedar", ["Meet"]],
+  ["Quedarse", ["Stay"]],
   ["Significa", ["Mean"]],
+  ["Subir", ["Go up"]],
   ["Tener", ["Have"]],
   ["Vender", ["Sell"]],
   ["Ver", ["Look", "View", "Watch"]],
@@ -166,41 +182,42 @@ const verbs = [
 ];
 
 const clothes = [
-  ["Chaleco", ["Vest"]],
-  ["Pantalones", ["Trousers"]],
-  ["Camisa", ["Shirt"]],
-  ["Jersey", ["Jersey"]],
-  ["Sudadera", ["Hoodie"]],
   ["Abrigo", ["Coat"]],
-  ["Chaqueta", ["Jacket"]],
-  ["Vestido", ["Dress"]],
-  ["Chándal", ["Tracksuit"]],
+  ["Bañador", ["Swimsuit"]],
   ["Blusa", ["Blouse"]],
-  ["Falda", ["Skirt"]],
-  ["Pijama", ["Pajamas"]],
-  ["Camisón", ["Nightgown"]],
+  ["Botas", ["Boots"]],
+  ["Bufanda", ["Scalf"]],
+  ["Camisa", ["Shirt"]],
+  ["Camiseta", ["T-shirt"]],
+  ["Camisón", ["Nightgown", "Night gown"]],
+  ["Chaleco", ["Vest"]],
+  ["Chándal", ["Tracksuit"]],
+  ["Chaqueta", ["Jacket"]],
   ["Calzoncillos", ["Underpants", "Pants"]],
   ["Calcetines", ["Socks"]],
-  ["Bragas", ["Panties", "Pants"]],
-  ["Camiseta", ["T-shirt"]],
-  ["Sujetador", ["Bra"]],
-  ["Pajarita", ["Bow tie"]],
-  ["Corbata", ["Tie"]],
-  ["Pañuelo", ["Handkerchief"]],
-  ["Gorro", ["Cap"]],
-  ["Gafas de sol", ["Sunglasses"]],
-  ["Bufanda", ["Scalf"]],
-  ["Guantes", ["Gloves"]],
-  ["Bañador", ["Swimsuit"]],
+  ["Chanclas", ["Flip flops"]],
   ["Cinturón", ["Belt"]],
-  ["Gorra", ["Cap"]],
+  ["Corbata", ["Tie"]],
+  ["Bragas", ["Panties", "Pants"]],
+  ["Falda", ["Skirt"]],
+  ["Gafas de sol", ["Sunglasses", "Sun glasses"]],
+  ["Gorra", ["Cap", "Baseball cap"]],
+  ["Gorro", ["Beanie", "Wooly hat"]],
+  ["Guantes", ["Gloves"]],
+  ["Jersey", ["Jersey"]],
+  ["Pantalones", ["Trousers"]],
+  ["Pañuelo", ["Handkerchief"]],
+  ["Pijama", ["Pajamas"]],
+  ["Pajarita", ["Bow tie"]],
+  ["Sandailias", ["Sandals"]],
+  ["Sudadera", ["Hoodie"]],
+  ["Sujetador", ["Bra"]],
+  ["Vestido", ["Dress"]],
   ["Sombrero", ["Hat"]],
-  ["Botas", ["Boots"]],
+  ["Vaqueros ", ["Jeans"]],
   ["Zapatos", ["Shoes"]],
   ["Zapatillas", ["Trainers"]],
   ["Zapatos de tacon", ["High heels"]],
-  ["Chanclas", ["Flip flops"]],
-  ["Sandailias", ["Sandals"]],
 ];
 
 /////////////////////////////// EVENT LISTENERS ///////////////////////////////
@@ -212,6 +229,12 @@ hamburgerButton.addEventListener("click", () => {
     showHamburgerMenu()
   }
 })
+
+body.addEventListener("click", () => {
+  if (state.hamburgerMenu) {
+    hideHamburgerMenu();
+  }
+});
 
 titleText.addEventListener("click", () => {
   resetTab();
@@ -235,7 +258,7 @@ hamburgerVerb.addEventListener("click", () => {
 
 hamburgerEmotion.addEventListener("click", () => {
   state.currentTab = "emotions";
-  currentTab.textContent = "Emociones";
+  currentTab.textContent = "Emociones y estados";
   hideHamburgerMenu();
   setNavbarStyling();
   resetTab();
@@ -281,6 +304,10 @@ questionText.addEventListener("click", () => {
       questionText.textContent = clothes[state.questionIndex][1][0] + "...";
       currentQuestion = clothes[state.questionIndex][0];
       break;
+    case "verbConjugation":
+      questionText.textContent = verbs[state.questionIndex][1][0] + "...";
+      currentQuestion = verbs[state.questionIndex][0];
+      break;
   }
   questionText.style.color = "orange";
   if (state.errorRegister === false) {
@@ -299,6 +326,14 @@ hamburgerClothes.addEventListener("click", () => {
   setNavbarStyling();
   hideHamburgerMenu();
   resetTab();
+})
+
+hamburgerVerbConjugation.addEventListener("click", () => {
+  state.currentTab = "verbConjugation"
+  currentTab.textContent = "Conjugación de verbos";
+  setNavbarStyling()
+  hideHamburgerMenu()
+  resetTab()
 })
 
 answerText.addEventListener("keydown", (event) => {
@@ -369,11 +404,15 @@ function setNavbarStyling() {
     case "timeAndDate":
       hamburgerClothes.classList.add("button_active");
       break;
+    case "verbConjugation":
+      hamburgerVerbConjugation.classList.add("button_active");
+      break;
   }
 }
 
 function updateQuestionText() {
   let randomQuestion;
+  let randomPronoun
   switch (state.currentTab) {
     case "verbs":
       state.questionIndex = Math.floor(Math.random() * verbs.length);
@@ -395,12 +434,23 @@ function updateQuestionText() {
       state.questionIndex = Math.floor(Math.random() * clothes.length);
       randomQuestion = clothes[state.questionIndex];
       break;
+    case "verbConjugation":
+      state.questionIndex = Math.floor(Math.random() * verbs.length);
+      randomQuestion = verbs[state.questionIndex];
+      state.pronounIndex = Math.floor(Math.random() * pronouns.length);
+      randomPronoun = pronouns[state.pronounIndex]
+      break;
   }
-  questionText.textContent = randomQuestion[0];
+  if (state.currentTab === "verbConjugation") {
+    questionText.textContent = randomPronoun + " " + randomQuestion[0];
+  } else {
+    questionText.textContent = randomQuestion[0];
+  }
   if (state.speakerOn) {
     playSpanish(randomQuestion[0]) 
   }
   state.answerSummary = randomQuestion;
+  state.pronoun = randomPronoun
   if (randomQuestion[0].length <= 12) {
     questionText.style.fontSize = "48px";
   } else if (randomQuestion[0].length > 12 && randomQuestion[0].length <= 17) {
@@ -486,6 +536,18 @@ function checkAnswer(answer) {
         return element.toLowerCase().trim() === inputFormatted;
       });
       break;
+    case "verbConjugation":
+      let conjugatedAnswer 
+      let trimedVerb = state.randomQuestion.substring(state.question -2)
+      switch (state.pronoun) {
+        case "Yo":
+          conjugatedAnswer = trimedVerb + "o"
+          break;
+      
+        default:
+          break;
+      }
+      break
   }
 
   if (answerIndex !== -1) {

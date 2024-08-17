@@ -3,6 +3,11 @@
     margin: 0;
 }
 
+body,
+html {
+    height: 100%;
+}
+
 body {
     position: relative;
     font-family: "Poppins", sans-serif;
@@ -106,6 +111,12 @@ body {
 .button_active {
     color: black;
     font-weight: bold;
+}
+
+/* ///////////////////// BODY CONTAINER ///////////////////// */
+
+#body_container {
+    height: 100%;
 }
 
 .answer_green {

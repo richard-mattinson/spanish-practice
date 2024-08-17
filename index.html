@@ -22,18 +22,19 @@
 </head>
 <body>
 
-        <i id="hamburger_button" class="bi bi-list"></i>
-        <div id="hamburger_menu">
-            <span class="fi fi-es"></span>
-            <div id="verb_button" class="hamburger_buttons button_active">Verbos</div>
-            <div id="emotions_button" class="hamburger_buttons">Emociones</div>
-            <div id="relations_button" class="hamburger_buttons">Relaciones</div>
-            <div id="time_and_date_button" class="hamburger_buttons">Hora y fecha</div>
-            <div id="clothes_button" class="hamburger_buttons">Ropas</div>
-        </div>
+    <i id="hamburger_button" class="bi bi-list"></i>
+    <div id="hamburger_menu">
+        <span class="fi fi-es"></span>
+        <div id="verb_button" class="hamburger_buttons button_active">Verbos</div>
+        <div id="emotions_button" class="hamburger_buttons">Emociones y estados</div>
+        <div id="relations_button" class="hamburger_buttons">Relaciones</div>
+        <div id="time_and_date_button" class="hamburger_buttons">Hora y fecha</div>
+        <div id="clothes_button" class="hamburger_buttons">Ropas</div>
+        <div id="verb_conjugation_button" class="hamburger_buttons" style="display: none;">Conjugación de verbos</div>
+    </div>
 
-        <i id="speaker_on" class="bi bi-volume-up-fill speaker_button"></i>
-        <i id="speaker_off" class="bi bi-volume-mute-fill speaker_button"></i>
+    <i id="speaker_on" class="bi bi-volume-up-fill speaker_button"></i>
+    <i id="speaker_off" class="bi bi-volume-mute-fill speaker_button"></i>
 
     <div id="title_bar" class="grey">
         <h1 id="title_text">¿Richard habla español?</h1>
@@ -42,36 +43,38 @@
         <div id="current_tab">Verbos</div>
     </nav>
 
-    <div id="question_container">
-        <div id="verb_text_question">---</div>
-    </div>
-    <div id="icon_container">
-        <i id="red_cross" class="bi bi-x-square-fill verb_question_icon"></i>
-        <i id="green_check" class="bi bi-check-square-fill verb_question_icon"></i>
-    </div>
-
-    <div id="verb_container_answer">
-        <input id="verb_text_answer" placeholder="Escribe en ingles" type="text" />
-        <!-- <button id="verb_button_answer">Entrar</button> -->
-    </div>
-
-    <div id="counter_container">
-        <div id="correct_text">Correcto</div>
-        <div id="correct_counter">0</div>
-        <div id="correct_ten">/10</div>
-    </div>
-
-    <div id="answer_summary_table_container">
-        <table id="answer_summary_table">
-            <thead>
-                <tr>
-                    <th>Español</th>
-                    <th>Inglés</th> 
-                </tr>
-            </thead>
-            <tbody id="table_body">
-            </tbody>
-        </table>
+    <div id="body_container">
+        <div id="question_container">
+            <div id="verb_text_question">---</div>
+        </div>
+        <div id="icon_container">
+            <i id="red_cross" class="bi bi-x-square-fill verb_question_icon"></i>
+            <i id="green_check" class="bi bi-check-square-fill verb_question_icon"></i>
+        </div>
+    
+        <div id="verb_container_answer">
+            <input id="verb_text_answer" placeholder="Escribe en ingles" type="text" />
+            <!-- <button id="verb_button_answer">Entrar</button> -->
+        </div>
+    
+        <div id="counter_container">
+            <div id="correct_text">Correcto</div>
+            <div id="correct_counter">0</div>
+            <div id="correct_ten">/10</div>
+        </div>
+    
+        <div id="answer_summary_table_container">
+            <table id="answer_summary_table">
+                <thead>
+                    <tr>
+                        <th>Español</th>
+                        <th>Inglés</th> 
+                    </tr>
+                </thead>
+                <tbody id="table_body">
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>
