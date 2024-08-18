@@ -601,8 +601,8 @@ function checkAnswer(answer) {
       });
       break;
     case "verbConjugation":
-      console.log("answer, trimmed answer: ", answer, state.conjugatedAnswer);
-      if (answer === state.conjugatedAnswer) {
+      console.log("answer, trimmed answer: ", inputFormatted, state.conjugatedAnswer);
+      if (inputFormatted === state.conjugatedAnswer) {
         answerIndex = 1
       } else {
         answerIndex = -1
