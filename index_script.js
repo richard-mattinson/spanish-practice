@@ -31,6 +31,7 @@ const correctTen = document.querySelector("#correct_ten");
 
 const answerText = document.querySelector("#verb_text_answer");
 
+const tableContainer = document.querySelector("#answer_summary_table_container");
 const tableBody = document.querySelector("#table_body");
 
 /////////////////////////////// VARIABLE STORAGE ///////////////////////////////
@@ -39,6 +40,7 @@ const state = {
   color: "red",
   correctCounter: 0,
   currentTab: "verbs",
+  defaultPlaceholder: "Escribe en ingles",
   errorCounter: 0,
   errorRegister: false,
   hamburgerMenu: false,
@@ -144,41 +146,51 @@ const timeAndDate = [
 ];
 
 const pronouns = [
-  ["Yo", "Tú", "Él", "Nosotros", "Vosotros", "Ellos"],
-  ["ar"],
-  ["ir"],
-  ["er"]
+  ["Yo", "Tú", "Él", "Nosotros", "Vosotros", "Ellos"], // spanish pronouns
+  ["o", "as", "a", "amos", "ais", "an"], // ar verbs
+  ["o", "es", "e", "emos", "eis", "en"], // er verbs
+  ["o", "es", "e", "imos", "is", "en"], // ir verbs
+  ["me", "te", "se", "nos", "os", "se"], // se verbs
+  ["I", "You", "He", "We", "You", "They"], // english pronouns
 ];
 
 const verbs = [
   ["Alquilar", ["Rent"]],
   ["Aprender", ["Learn"]],
   ["Bajar", ["Go down"]],
+  ["Beber", ["Drink"]],
   ["Buscar", ["Look", "Look for"]],
   ["Caminar", ["Walk"]],
   ["Cambiar", ["Change"]],
   ["Cenar", ["Eat Dinner", "Have Dinner"]],
+  ["Comer", ["Eat"]],
+  ["Correr", ["Run"]],
   ["Creer", ["Believe", "Think"]],
-  ["Desayuna", ["Eat Breakfast", "Have Breakfast"]],
+  ["Desayunar", ["Eat Breakfast", "Have Breakfast"]],
   ["Enseñar", ["Teach"]],
+  ["Escribir", ["Write"]],
   ["Escuchar", ["Listen"]],
+  ["Hacer", ["Make", "Do"]],
   ["Leer", ["Read"]],
+  ["Llamarse", ["Called"]],
   ["Madrugar", ["Wake up early"]],
   ["Mirar", ["Look"]],
   ["Olvidar", ["Forget"]],
   ["Pagar", ["Pay"]],
+  ["Ponerse", ["Put on", "Place on"]]
   ["Preguntar", ["Ask"]],
   ["Prometer", ["Promise"]],
   ["Responder", ["Answer"]],
   ["Quedar", ["Meet"]],
   ["Quedarse", ["Stay"]],
-  ["Significa", ["Mean"]],
+  ["Significar", ["Mean"]],
   ["Subir", ["Go up"]],
   ["Tener", ["Have"]],
   ["Vender", ["Sell"]],
   ["Ver", ["Look", "View", "Watch"]],
   ["Viajar", ["Travel"]],
   ["Visitar", ["Visit"]],
+  ["Vivir", ["Live"]],
 ];
 
 const clothes = [
@@ -251,6 +263,7 @@ speakerOff.addEventListener("click", () => {
 hamburgerVerb.addEventListener("click", () => {
   state.currentTab = "verbs";
   currentTab.textContent = "Verbos";
+  answerText.placeholder = state.defaultPlaceholder
   hideHamburgerMenu()
   setNavbarStyling();
   resetTab();
@@ -259,6 +272,7 @@ hamburgerVerb.addEventListener("click", () => {
 hamburgerEmotion.addEventListener("click", () => {
   state.currentTab = "emotions";
   currentTab.textContent = "Emociones y estados";
+  answerText.placeholder = state.defaultPlaceholder;
   hideHamburgerMenu();
   setNavbarStyling();
   resetTab();
@@ -267,6 +281,7 @@ hamburgerEmotion.addEventListener("click", () => {
 hamburgerRelation.addEventListener("click", () => {
   state.currentTab = "relations";
   currentTab.textContent = "Relaciones";
+  answerText.placeholder = state.defaultPlaceholder;
   setNavbarStyling();
   hideHamburgerMenu();
   resetTab();
@@ -275,9 +290,28 @@ hamburgerRelation.addEventListener("click", () => {
 hamburgerTimeAndDate.addEventListener("click", () => {
   state.currentTab = "timeAndDate";
   currentTab.textContent = "Hora y fecha";
+  answerText.placeholder = state.defaultPlaceholder;
   setNavbarStyling();
   hideHamburgerMenu();
   resetTab();
+})
+
+hamburgerClothes.addEventListener("click", () => {
+  state.currentTab = "clothes";
+  currentTab.textContent = "Ropas";
+  answerText.placeholder = state.defaultPlaceholder;
+  setNavbarStyling();
+  hideHamburgerMenu();
+  resetTab();
+})
+
+hamburgerVerbConjugation.addEventListener("click", () => {
+  state.currentTab = "verbConjugation"
+  currentTab.textContent = "Conjugación de verbos";
+  answerText.placeholder = "Conjugar en español";
+  setNavbarStyling()
+  hideHamburgerMenu()
+  resetTab()
 })
 
 questionText.addEventListener("click", () => {
@@ -319,22 +353,6 @@ questionText.addEventListener("click", () => {
     questionText.style.color = "black";
   }, 2000);
 });
-
-hamburgerClothes.addEventListener("click", () => {
-  state.currentTab = "clothes";
-  currentTab.textContent = "Ropas";
-  setNavbarStyling();
-  hideHamburgerMenu();
-  resetTab();
-})
-
-hamburgerVerbConjugation.addEventListener("click", () => {
-  state.currentTab = "verbConjugation"
-  currentTab.textContent = "Conjugación de verbos";
-  setNavbarStyling()
-  hideHamburgerMenu()
-  resetTab()
-})
 
 answerText.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
@@ -380,6 +398,7 @@ function resetTab() {
   correctText.style.color = "black";
   correctCounter.style.color = "black";
   correctTen.style.color = "black";
+  tableContainer.style.visibility = "hidden"
   updateQuestionText();
   while (tableBody.hasChildNodes()) {
     tableBody.removeChild(tableBody.firstChild);
@@ -437,12 +456,40 @@ function updateQuestionText() {
     case "verbConjugation":
       state.questionIndex = Math.floor(Math.random() * verbs.length);
       randomQuestion = verbs[state.questionIndex];
-      state.pronounIndex = Math.floor(Math.random() * pronouns.length);
-      randomPronoun = pronouns[state.pronounIndex]
+      state.spanishPronounIndex = Math.floor(Math.random() * pronouns[0].length);
+      randomPronoun = pronouns[0][state.spanishPronounIndex]
+
+      let conjugatedAnswer = "";
+      const stringMinusTwo = randomQuestion[0].length - 2;
+      const stringMinusFour = randomQuestion[0].length - 4;
+      console.log("state.random q", randomQuestion);
+      let trimedVerb = randomQuestion[0].substring(0, stringMinusTwo).toLowerCase();
+      let finalTwoLetters = randomQuestion[0].substring(stringMinusTwo);
+      if (finalTwoLetters === "se") {
+        trimedVerb = randomQuestion[0].substring(0, stringMinusFour).toLowerCase();
+        finalTwoLetters = randomQuestion[0].substring(stringMinusFour,stringMinusTwo);
+        conjugatedAnswer = pronouns[4][state.spanishPronounIndex] + " ";
+        state.seConjugation = true;
+      }
+      console.log("trimmed verb", trimedVerb, finalTwoLetters);
+      switch (finalTwoLetters) {
+        case "ar":
+          conjugatedAnswer += trimedVerb + pronouns[1][state.spanishPronounIndex];
+          break;
+        case "er":
+          conjugatedAnswer += trimedVerb + pronouns[2][state.spanishPronounIndex];
+          break;
+        case "ir":
+          conjugatedAnswer += trimedVerb + pronouns[3][state.spanishPronounIndex];
+          break;
+      }
+      state.conjugatedAnswer = conjugatedAnswer;
+      state.englishPronoun = pronouns[5][state.spanishPronounIndex];
       break;
   }
   if (state.currentTab === "verbConjugation") {
-    questionText.textContent = randomPronoun + " " + randomQuestion[0];
+    questionText.textContent = randomPronoun + " " + randomQuestion[0].toLowerCase();
+    state.spanishPronoun = randomPronoun    
   } else {
     questionText.textContent = randomQuestion[0];
   }
@@ -450,7 +497,6 @@ function updateQuestionText() {
     playSpanish(randomQuestion[0]) 
   }
   state.answerSummary = randomQuestion;
-  state.pronoun = randomPronoun
   if (randomQuestion[0].length <= 12) {
     questionText.style.fontSize = "48px";
   } else if (randomQuestion[0].length > 12 && randomQuestion[0].length <= 17) {
@@ -461,13 +507,30 @@ function updateQuestionText() {
 }
 
 function updateSummaryTable() {
+  let spanishText
+  let englishText
+  let optionalS = ""
+  console.log("state.answer summary: ", state.answerSummary);
+
+  if (state.englishPronoun === "He") {
+    optionalS = "s"
+  }
+  
+  if (state.currentTab === "verbConjugation") {
+    spanishText = state.spanishPronoun + " " + state.conjugatedAnswer
+    englishText = state.englishPronoun + " " + state.answerSummary[1][0].toLowerCase() + optionalS
+  } else {
+    spanishText = state.answerSummary[0];
+    englishText = state.answerSummary[1][0];
+  }
+
   const newRow = document.createElement("tr");
   const newSpanishCell = document.createElement("td");
   const newEnglishCell = document.createElement("td");
 
-  newSpanishCell.textContent = state.answerSummary[0];
+  newSpanishCell.textContent = spanishText;
   newSpanishCell.setAttribute("class", "summary_spanish");
-  newSpanishCell.setAttribute("id", state.answerSummary[0]);
+  newSpanishCell.setAttribute("id", spanishText);
   newSpanishCell.addEventListener("click", (event) => {
     const word = event.target.id;
     playSpanish(word);
@@ -479,11 +542,12 @@ function updateSummaryTable() {
     newEnglishCell.style.color = "white";
   }
   state.errorRegister = false;
-  newEnglishCell.textContent = state.answerSummary[1][0];
+  newEnglishCell.textContent = englishText;
 
   newRow.appendChild(newSpanishCell);
   newRow.appendChild(newEnglishCell);
   tableBody.appendChild(newRow);
+  tableContainer.style.visibility = "visible";
 }
 
 function chickenDinner() {
@@ -537,15 +601,11 @@ function checkAnswer(answer) {
       });
       break;
     case "verbConjugation":
-      let conjugatedAnswer 
-      let trimedVerb = state.randomQuestion.substring(state.question -2)
-      switch (state.pronoun) {
-        case "Yo":
-          conjugatedAnswer = trimedVerb + "o"
-          break;
-      
-        default:
-          break;
+      console.log("answer, trimmed answer: ", answer, state.conjugatedAnswer);
+      if (answer === state.conjugatedAnswer) {
+        answerIndex = 1
+      } else {
+        answerIndex = -1
       }
       break
   }
@@ -574,6 +634,9 @@ function checkAnswer(answer) {
       case "clothes":
         clothes.splice(state.questionIndex, 1);
         break;
+      case "verbConjugation":
+        verbs.splice(state.questionIndex, 1);
+        break;
     }
     state.correctCounter++;
     correctCounter.textContent = state.correctCounter;
@@ -598,7 +661,6 @@ function checkAnswer(answer) {
     }, 1500);
   }
   console.log("error register / counter", state.errorRegister, state.errorCounter);
-  
 }
 
 function playSpanish(word) {

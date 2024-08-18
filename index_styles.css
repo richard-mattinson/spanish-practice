@@ -34,9 +34,9 @@ body {
     left: 0px;
     top: 0px;
     padding: 10px 20px 20px 10px;
-    font-size: 28px;
     color: white;
     cursor: pointer;
+    font-size: 28px;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -47,14 +47,13 @@ body {
     left: 0px;
     background: whitesmoke;
     box-shadow: 3px 3px 3px rgb(179, 179, 179);
-    font-size: 32px;
     z-index: 5;
     padding: 20px;
 }
 
 .hamburger_buttons {
     margin: 0px 10px 0px 10px;
-    font-size: 28px;
+    font-size: 24px;
     color: grey;
     cursor: pointer;
 }
@@ -187,26 +186,14 @@ body {
     border-radius: 10px 10px 10px 10px;
 }
 
-/* #verb_button_answer {
-    border: grey 2px solid;
-    border-radius: 0px 5px 5px 0px;
-    padding: 20px;
-    font-family: "Poppins", sans-serif;
-    background: rgb(0, 128, 255);
-    color: white;
-    font-weight: bold;
-} */
-
 #verb_text_answer:focus {
     border: 1px black solid;
     border-radius: 10px 10px 10px 10px;
-    /* padding: 5px; */
     outline: 2px solid rgb(0, 128, 255);
 }
 
 #verb_button_answer:hover {
     background: rgb(0, 98, 196);;
-    /* color: yellow; */
 }
 
 #counter_container {
@@ -221,6 +208,7 @@ body {
 }
 
 #answer_summary_table_container {
+    visibility: hidden;
     display: flex;
     justify-content: center;
 }
