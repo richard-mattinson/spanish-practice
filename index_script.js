@@ -147,9 +147,9 @@ const timeAndDate = [
 
 const pronouns = [
   ["Yo", "Tú", "Él", "Nosotros", "Vosotros", "Ellos"], // spanish pronouns
-  ["o", "as", "a", "amos", "ais", "an"], // ar verbs
-  ["o", "es", "e", "emos", "eis", "en"], // er verbs
-  ["o", "es", "e", "imos", "is", "en"], // ir verbs
+  ["o", "as", "a", "amos", "áis", "an"], // ar verbs
+  ["o", "es", "e", "emos", "éis", "en"], // er verbs
+  ["o", "es", "e", "imos", "ís", "en"], // ir verbs
   ["me", "te", "se", "nos", "os", "se"], // se verbs
   ["I", "You", "He", "We", "You", "They"], // english pronouns
 ];
