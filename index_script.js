@@ -487,19 +487,23 @@ function updateQuestionText() {
       state.englishPronoun = pronouns[5][state.spanishPronounIndex];
       break;
   }
+  let questionTextLength 
   if (state.currentTab === "verbConjugation") {
-    questionText.textContent = randomPronoun + " " + randomQuestion[0].toLowerCase();
+    let pronounPlusQuestion = randomPronoun + " " + randomQuestion[0].toLowerCase();
+    questionText.textContent = pronounPlusQuestion
+    questionTextLength = pronounPlusQuestion.length
     state.spanishPronoun = randomPronoun    
   } else {
     questionText.textContent = randomQuestion[0];
+    questionTextLength = randomQuestion[0].length
   }
   if (state.speakerOn) {
     playSpanish(randomQuestion[0]) 
   }
   state.answerSummary = randomQuestion;
-  if (randomQuestion[0].length <= 12) {
+  if (questionTextLength <= 12) {
     questionText.style.fontSize = "48px";
-  } else if (randomQuestion[0].length > 12 && randomQuestion[0].length <= 17) {
+  } else if (questionTextLength > 12 && questionTextLength <= 17) {
     questionText.style.fontSize = "28px";
   } else {
     questionText.style.fontSize = "20px";
