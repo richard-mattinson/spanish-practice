@@ -1,8 +1,8 @@
 /////////////////////////////// GLOBAL QUERY SELECTORS ///////////////////////////////
 
-const body = document.querySelector("#body_container")
+const body = document.querySelector("#body_container");
 
-const titleBar = document.querySelector("#title_bar")
+const titleBar = document.querySelector("#title_bar");
 const titleText = document.querySelector("#title_text");
 
 const hamburgerButton = document.querySelector("#hamburger_button");
@@ -11,14 +11,16 @@ const hamburgerButtons = document.querySelectorAll(".hamburger_buttons");
 const hamburgerVerb = document.querySelector("#verb_button");
 const hamburgerEmotion = document.querySelector("#emotions_button");
 const hamburgerRelation = document.querySelector("#relations_button");
-const hamburgerTimeAndDate = document.querySelector("#time_and_date_button")
-const hamburgerClothes = document.querySelector("#clothes_button")
-const hamburgerVerbConjugation = document.querySelector("#verb_conjugation_button");
+const hamburgerTimeAndDate = document.querySelector("#time_and_date_button");
+const hamburgerClothes = document.querySelector("#clothes_button");
+const hamburgerVerbConjugation = document.querySelector(
+  "#verb_conjugation_button"
+);
 
-const speakerOn = document.querySelector("#speaker_on")
-const speakerOff = document.querySelector("#speaker_off")
+const speakerOn = document.querySelector("#speaker_on");
+const speakerOff = document.querySelector("#speaker_off");
 
-const currentTab = document.querySelector("#current_tab")
+const currentTab = document.querySelector("#current_tab");
 
 const questionText = document.querySelector("#verb_text_question");
 
@@ -31,7 +33,9 @@ const correctTen = document.querySelector("#correct_ten");
 
 const answerText = document.querySelector("#verb_text_answer");
 
-const tableContainer = document.querySelector("#answer_summary_table_container");
+const tableContainer = document.querySelector(
+  "#answer_summary_table_container"
+);
 const tableBody = document.querySelector("#table_body");
 
 /////////////////////////////// VARIABLE STORAGE ///////////////////////////////
@@ -70,7 +74,7 @@ const emotions = [
   ["Saludable", ["Healthy"]],
   ["Seguro", ["Confident"]],
   ["Serio", ["Serious"]],
-  ["Sorprendido", ["Suprised"]],
+  ["Sorprendido", ["Surprised"]],
   ["Tranquilo", ["Relaxed"]],
   ["Tonto", ["Silly"]],
   ["Triste", ["Sad"]],
@@ -79,14 +83,16 @@ const emotions = [
 const relations = [
   ["Abuela", ["Grandmother", "Grandma"]],
   ["Abuelo", ["Grandfather", "Grandad"]],
-  ["Amigo/a", ["Friend"]],
+  ["Amigo", ["Friend"]],
   ["Compañero de casa", ["Housemate"]],
   ["Compañero de piso", ["Flatmate"]],
   ["Compañero de trabajo", ["Workmate"]],
+  ["Divorciado", ["Divorced"]],
   ["Hermano", ["Brother"]],
   ["Hermana", ["Sister"]],
   ["Hijo", ["Son"]],
   ["Hija", ["Daughter"]],
+  ["Jubilado", ["Retired"]],
   ["Madre", ["Mother", "Mum"]],
   ["Marido", ["Husband"]],
   ["Marida", ["Wife"]],
@@ -97,8 +103,11 @@ const relations = [
   ["Padre", ["Father", "Dad"]],
   ["Padres", ["Parents"]],
   ["Primo/a", ["Cousin"]],
+  ["Relación", ["Relationship"]],
+  ["Separado", ["Separated"]],
   ["Sobrino", ["Nephew"]],
   ["Sobrina", ["Niece"]],
+  ["Soltero", ["Single"]],
   ["Suegros", ["Parents in Law"]],
   ["Tia", ["Aunty"]],
   ["Tio", ["Uncle"]],
@@ -109,7 +118,7 @@ const timeAndDate = [
   ["Agosto", ["August"]],
   ["Antesi", ["Before"]],
   ["Ayer", ["Yesterday"]],
-  ["Despues", ["After"]],
+  ["Después", ["After"]],
   ["Diciembre", ["December"]],
   ["Domingo", ["Sunday"]],
   ["Enero", ["January"]],
@@ -128,20 +137,20 @@ const timeAndDate = [
   ["Madrugada", ["Early morning"]],
   ["Manana", ["Tomorrow", "Morning"]],
   ["Martes", ["Tuesday"]],
-  ["Mediodía", ["Noon"]],
-  ["Miercoles", ["Wednesday"]],
+  ["Mediodía", ["Noon", "Midday"]],
+  ["Miércoles", ["Wednesday"]],
   ["Noche", ["Evening", "Night"]],
   ["Noviembre", ["November"]],
   ["Octubre", ["October"]],
   ["Otoño", ["Autumn"]],
   ["Primavera", ["Spring"]],
-  ["Sabado", ["Saturday"]],
+  ["Sábado", ["Saturday"]],
   ["Semana", ["Week"]],
   ["Semana pasada", ["Last week"]],
   ["Semana que viene", ["Next week"]],
   ["Septiembre", ["September"]],
   ["Tarde", ["Afternoon"]],
-  ["Verrano", ["Summer"]],
+  ["Verano", ["Summer"]],
   ["Viernes", ["Friday"]],
 ];
 
@@ -159,7 +168,7 @@ const verbs = [
   ["Aprender", ["Learn"]],
   ["Bajar", ["Go down"]],
   ["Beber", ["Drink"]],
-  ["Buscar", ["Look", "Look for"]],
+  ["Buscar", ["Look for"]],
   ["Caminar", ["Walk"]],
   ["Cambiar", ["Change"]],
   ["Cenar", ["Eat Dinner", "Have Dinner"]],
@@ -173,16 +182,19 @@ const verbs = [
   ["Hacer", ["Make", "Do"]],
   ["Leer", ["Read"]],
   ["Llamarse", ["Called"]],
-  ["Madrugar", ["Wake up early"]],
+  ["Madrugar", ["Wake up early", "Get up early", "Rise Early"]],
   ["Mirar", ["Look"]],
+  ["Necesitar", ["Need"]],
   ["Olvidar", ["Forget"]],
   ["Pagar", ["Pay"]],
-  ["Ponerse", ["Put on", "Place on"]]
+  ["Podria", ["Could"]],
+  ["Ponerse", ["Put on", "Place on"]],
   ["Preguntar", ["Ask"]],
   ["Prometer", ["Promise"]],
   ["Responder", ["Answer"]],
   ["Quedar", ["Meet"]],
   ["Quedarse", ["Stay"]],
+  ["Querer", ["Want"]],
   ["Significar", ["Mean"]],
   ["Subir", ["Go up"]],
   ["Tener", ["Have"]],
@@ -236,11 +248,11 @@ const clothes = [
 
 hamburgerButton.addEventListener("click", () => {
   if (state.hamburgerMenu) {
-    hideHamburgerMenu()
+    hideHamburgerMenu();
   } else {
-    showHamburgerMenu()
+    showHamburgerMenu();
   }
-})
+});
 
 body.addEventListener("click", () => {
   if (state.hamburgerMenu) {
@@ -253,18 +265,18 @@ titleText.addEventListener("click", () => {
 });
 
 speakerOn.addEventListener("click", () => {
-  turnSpeakerOnOff();
-})
+  toggleSpeaker();
+});
 
 speakerOff.addEventListener("click", () => {
-  turnSpeakerOnOff()
-})
+  toggleSpeaker();
+});
 
 hamburgerVerb.addEventListener("click", () => {
   state.currentTab = "verbs";
   currentTab.textContent = "Verbos";
-  answerText.placeholder = state.defaultPlaceholder
-  hideHamburgerMenu()
+  answerText.placeholder = state.defaultPlaceholder;
+  hideHamburgerMenu();
   setNavbarStyling();
   resetTab();
 });
@@ -294,7 +306,7 @@ hamburgerTimeAndDate.addEventListener("click", () => {
   setNavbarStyling();
   hideHamburgerMenu();
   resetTab();
-})
+});
 
 hamburgerClothes.addEventListener("click", () => {
   state.currentTab = "clothes";
@@ -303,53 +315,27 @@ hamburgerClothes.addEventListener("click", () => {
   setNavbarStyling();
   hideHamburgerMenu();
   resetTab();
-})
+});
 
 hamburgerVerbConjugation.addEventListener("click", () => {
-  state.currentTab = "verbConjugation"
+  state.currentTab = "verbConjugation";
   currentTab.textContent = "Conjugación de verbos";
   answerText.placeholder = "Conjugar en español";
-  setNavbarStyling()
-  hideHamburgerMenu()
-  resetTab()
-})
+  setNavbarStyling();
+  hideHamburgerMenu();
+  resetTab();
+});
 
 questionText.addEventListener("click", () => {
   // shows answer on click briefly (for idiots)
-  let currentQuestion;
-  switch (state.currentTab) {
-    case "verbs":
-      questionText.textContent = verbs[state.questionIndex][1][0] + "...";
-      currentQuestion = verbs[state.questionIndex][0];
-      break;
-    case "emotions":
-      questionText.textContent = emotions[state.questionIndex][1][0] + "...";
-      currentQuestion = emotions[state.questionIndex][0];
-      break;
-    case "relations":
-      questionText.textContent = relations[state.questionIndex][1][0] + "...";
-      currentQuestion = relations[state.questionIndex][0];
-      break;
-    case "timeAndDate":
-      questionText.textContent = timeAndDate[state.questionIndex][1][0] + "...";
-      currentQuestion = timeAndDate[state.questionIndex][0];
-      break;
-    case "clothes":
-      questionText.textContent = clothes[state.questionIndex][1][0] + "...";
-      currentQuestion = clothes[state.questionIndex][0];
-      break;
-    case "verbConjugation":
-      questionText.textContent = verbs[state.questionIndex][1][0] + "...";
-      currentQuestion = verbs[state.questionIndex][0];
-      break;
-  }
+  questionText.textContent = state.questionEnglish + "...";
   questionText.style.color = "orange";
   if (state.errorRegister === false) {
     state.errorCounter++;
   }
   state.errorRegister = true;
   setTimeout(() => {
-    questionText.textContent = currentQuestion;
+    questionText.textContent = state.questionSpanish;
     questionText.style.color = "black";
   }, 2000);
 });
@@ -364,7 +350,7 @@ answerText.addEventListener("keydown", (event) => {
 /////////////////////////////// FUNCTIONS ///////////////////////////////
 
 function showHamburgerMenu() {
-  hamburgerButton.style.opacity = "0.7"
+  hamburgerButton.style.opacity = "0.7";
   hamburgerMenu.style.display = "block";
   // hamburgerMenu.classList.add("isOpen")
   state.hamburgerMenu = true;
@@ -377,7 +363,7 @@ function hideHamburgerMenu() {
   state.hamburgerMenu = false;
 }
 
-function turnSpeakerOnOff() {
+function toggleSpeaker() {
   if (state.speakerOn) {
     state.speakerOn = false;
     speakerOn.style.display = "none";
@@ -398,7 +384,7 @@ function resetTab() {
   correctText.style.color = "black";
   correctCounter.style.color = "black";
   correctTen.style.color = "black";
-  tableContainer.style.visibility = "hidden"
+  tableContainer.style.visibility = "hidden";
   updateQuestionText();
   while (tableBody.hasChildNodes()) {
     tableBody.removeChild(tableBody.firstChild);
@@ -406,7 +392,9 @@ function resetTab() {
 }
 
 function setNavbarStyling() {
-  hamburgerButtons.forEach((element) => element.classList.remove("button_active"));
+  hamburgerButtons.forEach((element) =>
+    element.classList.remove("button_active")
+  );
   switch (state.currentTab) {
     case "verbs":
       hamburgerVerb.classList.add("button_active");
@@ -420,7 +408,7 @@ function setNavbarStyling() {
     case "timeAndDate":
       hamburgerTimeAndDate.classList.add("button_active");
       break;
-    case "timeAndDate":
+    case "clothes":
       hamburgerClothes.classList.add("button_active");
       break;
     case "verbConjugation":
@@ -431,7 +419,7 @@ function setNavbarStyling() {
 
 function updateQuestionText() {
   let randomQuestion;
-  let randomPronoun
+  let randomPronoun;
   switch (state.currentTab) {
     case "verbs":
       state.questionIndex = Math.floor(Math.random() * verbs.length);
@@ -456,54 +444,74 @@ function updateQuestionText() {
     case "verbConjugation":
       state.questionIndex = Math.floor(Math.random() * verbs.length);
       randomQuestion = verbs[state.questionIndex];
-      state.spanishPronounIndex = Math.floor(Math.random() * pronouns[0].length);
-      randomPronoun = pronouns[0][state.spanishPronounIndex]
+      state.spanishPronounIndex = Math.floor(
+        Math.random() * pronouns[0].length
+      );
+      randomPronoun = pronouns[0][state.spanishPronounIndex];
 
       let conjugatedAnswer = "";
       const stringMinusTwo = randomQuestion[0].length - 2;
       const stringMinusFour = randomQuestion[0].length - 4;
       console.log("state.random q", randomQuestion);
-      let trimedVerb = randomQuestion[0].substring(0, stringMinusTwo).toLowerCase();
+      let trimedVerb = randomQuestion[0]
+        .substring(0, stringMinusTwo)
+        .toLowerCase();
       let finalTwoLetters = randomQuestion[0].substring(stringMinusTwo);
       if (finalTwoLetters === "se") {
-        trimedVerb = randomQuestion[0].substring(0, stringMinusFour).toLowerCase();
-        finalTwoLetters = randomQuestion[0].substring(stringMinusFour,stringMinusTwo);
+        trimedVerb = randomQuestion[0]
+          .substring(0, stringMinusFour)
+          .toLowerCase();
+        finalTwoLetters = randomQuestion[0].substring(
+          stringMinusFour,
+          stringMinusTwo
+        );
         conjugatedAnswer = pronouns[4][state.spanishPronounIndex] + " ";
         state.seConjugation = true;
       }
       console.log("trimmed verb", trimedVerb, finalTwoLetters);
       switch (finalTwoLetters) {
         case "ar":
-          conjugatedAnswer += trimedVerb + pronouns[1][state.spanishPronounIndex];
+          conjugatedAnswer +=
+            trimedVerb + pronouns[1][state.spanishPronounIndex];
           break;
         case "er":
-          conjugatedAnswer += trimedVerb + pronouns[2][state.spanishPronounIndex];
+          conjugatedAnswer +=
+            trimedVerb + pronouns[2][state.spanishPronounIndex];
           break;
         case "ir":
-          conjugatedAnswer += trimedVerb + pronouns[3][state.spanishPronounIndex];
+          conjugatedAnswer +=
+            trimedVerb + pronouns[3][state.spanishPronounIndex];
           break;
       }
       state.conjugatedAnswer = conjugatedAnswer;
       state.englishPronoun = pronouns[5][state.spanishPronounIndex];
       break;
   }
-  let questionTextLength 
+  let questionSpanish;
+  let questionSpanishLength;
+  let questionEnglish;
   if (state.currentTab === "verbConjugation") {
     let pronounPlusQuestion = randomPronoun + " " + randomQuestion[0].toLowerCase();
-    questionText.textContent = pronounPlusQuestion
-    questionTextLength = pronounPlusQuestion.length
-    state.spanishPronoun = randomPronoun    
+    questionSpanish = pronounPlusQuestion;
+    questionEnglish = randomQuestion[0][0]
+    questionText.textContent = pronounPlusQuestion;
+    questionSpanishLength = pronounPlusQuestion.length;
+    state.spanishPronoun = randomPronoun;
   } else {
-    questionText.textContent = randomQuestion[0];
-    questionTextLength = randomQuestion[0].length
+    questionSpanish = randomQuestion[0];
+    questionEnglish = randomQuestion[1][0];
+    questionText.textContent = questionSpanish;
+    questionSpanishLength = questionSpanish.length;
   }
   if (state.speakerOn) {
-    playSpanish(randomQuestion[0]) 
+    playSpanish(questionSpanish);
   }
+  state.questionSpanish = questionSpanish;
+  state.questionEnglish = questionEnglish
   state.answerSummary = randomQuestion;
-  if (questionTextLength <= 12) {
+  if (questionSpanishLength <= 12) {
     questionText.style.fontSize = "48px";
-  } else if (questionTextLength > 12 && questionTextLength <= 17) {
+  } else if (questionSpanishLength > 12 && questionSpanishLength <= 17) {
     questionText.style.fontSize = "28px";
   } else {
     questionText.style.fontSize = "20px";
@@ -511,18 +519,22 @@ function updateQuestionText() {
 }
 
 function updateSummaryTable() {
-  let spanishText
-  let englishText
-  let optionalS = ""
+  let spanishText;
+  let englishText;
+  let optionalS = "";
   console.log("state.answer summary: ", state.answerSummary);
 
   if (state.englishPronoun === "He") {
-    optionalS = "s"
+    optionalS = "s";
   }
-  
+
   if (state.currentTab === "verbConjugation") {
-    spanishText = state.spanishPronoun + " " + state.conjugatedAnswer
-    englishText = state.englishPronoun + " " + state.answerSummary[1][0].toLowerCase() + optionalS
+    spanishText = state.spanishPronoun + " " + state.conjugatedAnswer;
+    englishText =
+      state.englishPronoun +
+      " " +
+      state.answerSummary[1][0].toLowerCase() +
+      optionalS;
   } else {
     spanishText = state.answerSummary[0];
     englishText = state.answerSummary[1][0];
@@ -561,17 +573,36 @@ function chickenDinner() {
     correctText.style.color = "green";
     correctCounter.style.color = "green";
     correctTen.style.color = "green";
+    titleText.textContent = "¡Richard habla español!";
+    titleBar.classList.replace("grey", "winner_winner_animation");
+    if (state.speakerOn) {
+      playSpanish("Cena de pollo"); // chicken dinner :D
+    }
+    setTimeout(() => {
+      titleBar.classList.replace("winner_winner_animation", "grey");
+      titleText.textContent = "¿De nuevo?";
+      if (state.speakerOn) {
+        playSpanish("De nuevo");
+      }
+    }, 3000);
   } else {
     questionText.textContent = "Esfuérzate más";
     correctText.textContent = "Errores";
     correctCounter.textContent = state.errorCounter;
+    titleText.textContent = "Richard no habla español";
+    titleBar.classList.replace("grey", "try_harder_animation");
+    if (state.speakerOn) {
+      playSpanish("Boca seca"); // dry mouth ;/
+    }
+    setTimeout(() => {
+      titleBar.classList.replace("try_harder_animation", "grey");
+      titleText.textContent = "¿De nuevo?";
+      if (state.speakerOn) {
+        playSpanish("De nuevo");
+      }
+    }, 3000);
   }
-  titleText.textContent = "¡Richard habla español!";
-  titleBar.classList.replace("grey", "winner_winner_animation");
-  setTimeout(() => {
-    titleBar.classList.replace("winner_winner_animation", "grey");
-    titleText.textContent = "¿De nuevo?";
-  }, 3000);
+
 }
 
 function checkAnswer(answer) {
@@ -605,13 +636,17 @@ function checkAnswer(answer) {
       });
       break;
     case "verbConjugation":
-      console.log("answer, trimmed answer: ", inputFormatted, state.conjugatedAnswer);
+      console.log(
+        "answer, trimmed answer: ",
+        inputFormatted,
+        state.conjugatedAnswer
+      );
       if (inputFormatted === state.conjugatedAnswer) {
-        answerIndex = 1
+        answerIndex = 1;
       } else {
-        answerIndex = -1
+        answerIndex = -1;
       }
-      break
+      break;
   }
 
   if (answerIndex !== -1) {
@@ -624,7 +659,9 @@ function checkAnswer(answer) {
     }, 1500);
     switch (state.currentTab) {
       case "verbs":
+        console.log("verb to splice", verbs[state.questionIndex]);
         verbs.splice(state.questionIndex, 1);
+        console.log("new verb array", verbs);
         break;
       case "emotions":
         emotions.splice(state.questionIndex, 1);
@@ -664,7 +701,11 @@ function checkAnswer(answer) {
       redCross.style.color = "whitesmoke";
     }, 1500);
   }
-  console.log("error register / counter", state.errorRegister, state.errorCounter);
+  console.log(
+    "error register / counter",
+    state.errorRegister,
+    state.errorCounter
+  );
 }
 
 function playSpanish(word) {

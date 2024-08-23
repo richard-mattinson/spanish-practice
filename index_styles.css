@@ -88,9 +88,13 @@ body {
     background: red;
 }
 
-.winner_winner {
+/* .winner_winner {
     animation: winner_winner_animation 5s;
 }
+
+.try_harder {
+    animation: try_harder_animation 5s;
+} */
 
 #navbar {
     display: flex;
@@ -118,16 +122,12 @@ body {
     height: 100%;
 }
 
-.answer_green {
-    /* color: rgb(4, 172, 4); */
-}
-
-.answer_red {
-    /* color: red; */
-}
-
 .winner_winner_animation {
     animation: winner-winner-strobe 500ms 6;
+}
+
+.try_harder_animation {
+    animation: try-harder-strobe 1000ms 3;
 }
 
 .green_check_animation {
@@ -260,5 +260,17 @@ table, th, td {
     100% {
         background: yellow;
         color: red;
+    }
+}
+
+@keyframes try-harder-strobe {
+    0% {
+        background: black;
+        color: whitesmoke;
+    }
+
+    100% {
+        background: whitesmoke;
+        color: black;
     }
 }
