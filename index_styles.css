@@ -127,7 +127,7 @@ body {
 }
 
 .try_harder_animation {
-    animation: try-harder-strobe 1000ms 3;
+    animation: try-harder-strobe 750ms 4;
 }
 
 .green_check_animation {
@@ -266,11 +266,11 @@ table, th, td {
 @keyframes try-harder-strobe {
     0% {
         background: black;
-        color: whitesmoke;
+        color: lightcoral;
     }
 
     100% {
-        background: whitesmoke;
+        background: lightcoral;
         color: black;
     }
 }

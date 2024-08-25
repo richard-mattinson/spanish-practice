@@ -48,9 +48,58 @@ const state = {
   errorCounter: 0,
   errorRegister: false,
   hamburgerMenu: false,
+  questionLetterIndex: 1,
   speakerOn: false,
   questionIndex: "",
 };
+
+const placeholder = [
+  ["", "", "", "", "", ""]
+]; 
+
+const verbs = [
+  ["Alquilar", ["Rent"], ["", "", "", "", "", ""]],
+  ["Aprender", ["Learn"], ["", "", "", "", "", ""]],
+  ["Bajar", ["Go down"], ["", "", "", "", "", ""]],
+  ["Beber", ["Drink"], ["", "", "", "", "", ""]],
+  ["Buscar", ["Look for"], ["", "", "", "", "", ""]],
+  ["Caminar", ["Walk"], ["", "", "", "", "", ""]],
+  ["Cambiar", ["Change"], ["", "", "", "", "", ""]],
+  ["Cenar", ["Eat Dinner", "Have Dinner"], ["", "", "", "", "", ""]],
+  ["Comer", ["Eat"], ["", "", "", "", "", ""]],
+  ["Correr", ["Run"], ["", "", "", "", "", ""]],
+  ["Creer", ["Believe", "Think"], ["", "", "", "", "", ""]],
+  ["Desayunar", ["Eat Breakfast", "Have Breakfast"], ["", "", "", "", "", ""]],
+  ["Enseñar", ["Teach"], ["", "", "", "", "", ""]],
+  ["Empezar", ["Begin", "Start"], ["", "", "", "", "", ""]],
+  ["Escribir", ["Write"], ["", "", "", "", "", ""]],
+  ["Escuchar", ["Listen"], ["", "", "", "", "", ""]],
+  ["Hacer", ["Make", "Do"], ["", "", "", "", "", ""]],
+  ["Leer", ["Read"], ["", "", "", "", "", ""]],
+  ["Llamarse", ["Called"], ["", "", "", "", "", ""]],
+  ["Madrugar", ["Wake up early", "Get up early", "Rise Early"], ["", "", "", "", "", ""],],
+  ["Mirar", ["Look"], ["", "", "", "", "", ""]],
+  ["Necesitar", ["Need"], ["", "", "", "", "", ""]],
+  ["Olvidar", ["Forget"], ["", "", "", "", "", ""]],
+  ["Pagar", ["Pay"], ["", "", "", "", "", ""]],
+  ["Podria", ["Could"], ["", "", "", "", "", ""]],
+  ["Ponerse", ["Put on", "Place on"], ["", "", "", "", "", ""]],
+  ["Preguntar", ["Ask"], ["", "", "", "", "", ""]],
+  ["Prometer", ["Promise"], ["", "", "", "", "", ""]],
+  ["Responder", ["Answer"], ["", "", "", "", "", ""]],
+  ["Quedar", ["Meet"], ["", "", "", "", "", ""]],
+  ["Quedarse", ["Stay"], ["", "", "", "", "", ""]],
+  ["Querer", ["Want"], ["", "", "", "", "", ""]],
+  ["Significar", ["Mean"], ["", "", "", "", "", ""]],
+  ["Subir", ["Go up"], ["", "", "", "", "", ""]],
+  ["Tener", ["Have"], ["", "", "", "", "", ""]],
+  ["Terminar", ["Finish", "End"], ["", "", "", "", "", ""]],
+  ["Vender", ["Sell"], ["", "", "", "", "", ""]],
+  ["Ver", ["Watch", "View", "Look"], ["", "", "", "", "", ""]],
+  ["Viajar", ["Travel"], ["", "", "", "", "", ""]],
+  ["Visitar", ["Visit"], ["", "", "", "", "", ""]],
+  ["Vivir", ["Live"], ["", "", "", "", "", ""]],
+];
 
 const emotions = [
   ["Aburrido", ["Bored"]],
@@ -154,57 +203,6 @@ const timeAndDate = [
   ["Viernes", ["Friday"]],
 ];
 
-const pronouns = [
-  ["Yo", "Tú", "Él", "Nosotros", "Vosotros", "Ellos"], // spanish pronouns
-  ["o", "as", "a", "amos", "áis", "an"], // ar verbs
-  ["o", "es", "e", "emos", "éis", "en"], // er verbs
-  ["o", "es", "e", "imos", "ís", "en"], // ir verbs
-  ["me", "te", "se", "nos", "os", "se"], // se verbs
-  ["I", "You", "He", "We", "You", "They"], // english pronouns
-];
-
-const verbs = [
-  ["Alquilar", ["Rent"]],
-  ["Aprender", ["Learn"]],
-  ["Bajar", ["Go down"]],
-  ["Beber", ["Drink"]],
-  ["Buscar", ["Look for"]],
-  ["Caminar", ["Walk"]],
-  ["Cambiar", ["Change"]],
-  ["Cenar", ["Eat Dinner", "Have Dinner"]],
-  ["Comer", ["Eat"]],
-  ["Correr", ["Run"]],
-  ["Creer", ["Believe", "Think"]],
-  ["Desayunar", ["Eat Breakfast", "Have Breakfast"]],
-  ["Enseñar", ["Teach"]],
-  ["Escribir", ["Write"]],
-  ["Escuchar", ["Listen"]],
-  ["Hacer", ["Make", "Do"]],
-  ["Leer", ["Read"]],
-  ["Llamarse", ["Called"]],
-  ["Madrugar", ["Wake up early", "Get up early", "Rise Early"]],
-  ["Mirar", ["Look"]],
-  ["Necesitar", ["Need"]],
-  ["Olvidar", ["Forget"]],
-  ["Pagar", ["Pay"]],
-  ["Podria", ["Could"]],
-  ["Ponerse", ["Put on", "Place on"]],
-  ["Preguntar", ["Ask"]],
-  ["Prometer", ["Promise"]],
-  ["Responder", ["Answer"]],
-  ["Quedar", ["Meet"]],
-  ["Quedarse", ["Stay"]],
-  ["Querer", ["Want"]],
-  ["Significar", ["Mean"]],
-  ["Subir", ["Go up"]],
-  ["Tener", ["Have"]],
-  ["Vender", ["Sell"]],
-  ["Ver", ["Look", "View", "Watch"]],
-  ["Viajar", ["Travel"]],
-  ["Visitar", ["Visit"]],
-  ["Vivir", ["Live"]],
-];
-
 const clothes = [
   ["Abrigo", ["Coat"]],
   ["Bañador", ["Swimsuit"]],
@@ -244,7 +242,34 @@ const clothes = [
   ["Zapatos de tacon", ["High heels"]],
 ];
 
+const pronouns = [
+  ["Yo", "Tú", "Él", "Nosotros", "Vosotros", "Ellos"], // spanish pronouns
+  ["o", "as", "a", "amos", "áis", "an"], // ar verbs
+  ["o", "es", "e", "emos", "éis", "en"], // er verbs
+  ["o", "es", "e", "imos", "ís", "en"], // ir verbs
+  ["me", "te", "se", "nos", "os", "se"], // se verbs
+  ["I", "You", "He", "We", "You", "They"], // english pronouns
+];
+
+const linkWords = [
+  ["También", ["Also", "As well"]],
+  ["Porque", ["Because"]],
+  ["Siempre", ["Always"]],
+  ["Todos", ["Every", "All"]],
+  ["A veces", ["Sometimes"]],
+  ["Cuando", ["When"]],
+  ["Dónde", ["Where"]],
+  ["Por qué", ["Why"]],
+  ["Cuantos", ["How many"]],
+  ["Demasiado", ["Too much"]],
+  ["Demasiado poco", ["Too little"]],
+  ["", [""]],
+];
+
+
 /////////////////////////////// EVENT LISTENERS ///////////////////////////////
+
+// TITLE BAR
 
 hamburgerButton.addEventListener("click", () => {
   if (state.hamburgerMenu) {
@@ -271,6 +296,8 @@ speakerOn.addEventListener("click", () => {
 speakerOff.addEventListener("click", () => {
   toggleSpeaker();
 });
+
+// HAMBURGER MENU
 
 hamburgerVerb.addEventListener("click", () => {
   state.currentTab = "verbs";
@@ -326,13 +353,18 @@ hamburgerVerbConjugation.addEventListener("click", () => {
   resetTab();
 });
 
+// BODY
+
 questionText.addEventListener("click", () => {
   // shows answer on click briefly (for idiots)
-  questionText.textContent = state.questionEnglish + "...";
-  questionText.style.color = "orange";
+  questionText.textContent = state.questionEnglish.substring(0, state.questionLetterIndex) + "...";
+  if (state.questionLetterIndex < state.questionEnglish.length) {
+    state.questionLetterIndex++
+  }
   if (state.errorRegister === false) {
     state.errorCounter++;
   }
+  questionText.style.color = "orange";
   state.errorRegister = true;
   setTimeout(() => {
     questionText.textContent = state.questionSpanish;
@@ -444,6 +476,7 @@ function updateQuestionText() {
     case "verbConjugation":
       state.questionIndex = Math.floor(Math.random() * verbs.length);
       randomQuestion = verbs[state.questionIndex];
+      //update randomQuestion for ie verbs 
       state.spanishPronounIndex = Math.floor(
         Math.random() * pronouns[0].length
       );
@@ -452,13 +485,10 @@ function updateQuestionText() {
       let conjugatedAnswer = "";
       const stringMinusTwo = randomQuestion[0].length - 2;
       const stringMinusFour = randomQuestion[0].length - 4;
-      console.log("state.random q", randomQuestion);
-      let trimedVerb = randomQuestion[0]
-        .substring(0, stringMinusTwo)
-        .toLowerCase();
+      let trimmedVerb = randomQuestion[0].substring(0, stringMinusTwo).toLowerCase();
       let finalTwoLetters = randomQuestion[0].substring(stringMinusTwo);
       if (finalTwoLetters === "se") {
-        trimedVerb = randomQuestion[0]
+        trimmedVerb = randomQuestion[0]
           .substring(0, stringMinusFour)
           .toLowerCase();
         finalTwoLetters = randomQuestion[0].substring(
@@ -468,19 +498,18 @@ function updateQuestionText() {
         conjugatedAnswer = pronouns[4][state.spanishPronounIndex] + " ";
         state.seConjugation = true;
       }
-      console.log("trimmed verb", trimedVerb, finalTwoLetters);
       switch (finalTwoLetters) {
         case "ar":
           conjugatedAnswer +=
-            trimedVerb + pronouns[1][state.spanishPronounIndex];
+            trimmedVerb + pronouns[1][state.spanishPronounIndex];
           break;
         case "er":
           conjugatedAnswer +=
-            trimedVerb + pronouns[2][state.spanishPronounIndex];
+            trimmedVerb + pronouns[2][state.spanishPronounIndex];
           break;
         case "ir":
           conjugatedAnswer +=
-            trimedVerb + pronouns[3][state.spanishPronounIndex];
+            trimmedVerb + pronouns[3][state.spanishPronounIndex];
           break;
       }
       state.conjugatedAnswer = conjugatedAnswer;
@@ -493,7 +522,8 @@ function updateQuestionText() {
   if (state.currentTab === "verbConjugation") {
     let pronounPlusQuestion = randomPronoun + " " + randomQuestion[0].toLowerCase();
     questionSpanish = pronounPlusQuestion;
-    questionEnglish = randomQuestion[0][0]
+    // TODO: replace this with the answer during question update
+    questionEnglish = randomQuestion[1][0]
     questionText.textContent = pronounPlusQuestion;
     questionSpanishLength = pronounPlusQuestion.length;
     state.spanishPronoun = randomPronoun;
@@ -506,6 +536,7 @@ function updateQuestionText() {
   if (state.speakerOn) {
     playSpanish(questionSpanish);
   }
+  state.questionLetterIndex = 1;
   state.questionSpanish = questionSpanish;
   state.questionEnglish = questionEnglish
   state.answerSummary = randomQuestion;
@@ -522,7 +553,6 @@ function updateSummaryTable() {
   let spanishText;
   let englishText;
   let optionalS = "";
-  console.log("state.answer summary: ", state.answerSummary);
 
   if (state.englishPronoun === "He") {
     optionalS = "s";
@@ -530,11 +560,7 @@ function updateSummaryTable() {
 
   if (state.currentTab === "verbConjugation") {
     spanishText = state.spanishPronoun + " " + state.conjugatedAnswer;
-    englishText =
-      state.englishPronoun +
-      " " +
-      state.answerSummary[1][0].toLowerCase() +
-      optionalS;
+    englishText = state.englishPronoun + " " + state.answerSummary[1][0].toLowerCase() + optionalS;
   } else {
     spanishText = state.answerSummary[0];
     englishText = state.answerSummary[1][0];
@@ -636,11 +662,6 @@ function checkAnswer(answer) {
       });
       break;
     case "verbConjugation":
-      console.log(
-        "answer, trimmed answer: ",
-        inputFormatted,
-        state.conjugatedAnswer
-      );
       if (inputFormatted === state.conjugatedAnswer) {
         answerIndex = 1;
       } else {
@@ -659,9 +680,7 @@ function checkAnswer(answer) {
     }, 1500);
     switch (state.currentTab) {
       case "verbs":
-        console.log("verb to splice", verbs[state.questionIndex]);
         verbs.splice(state.questionIndex, 1);
-        console.log("new verb array", verbs);
         break;
       case "emotions":
         emotions.splice(state.questionIndex, 1);
@@ -701,11 +720,6 @@ function checkAnswer(answer) {
       redCross.style.color = "whitesmoke";
     }, 1500);
   }
-  console.log(
-    "error register / counter",
-    state.errorRegister,
-    state.errorCounter
-  );
 }
 
 function playSpanish(word) {
@@ -720,9 +734,6 @@ function playSpanish(word) {
 
   // create an instance of the speech synthesis object
   const speechSynthesis = window.speechSynthesis;
-
-  console.log(message);
-
   // start speaking
   speechSynthesis.speak(message);
 }
