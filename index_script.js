@@ -1,12 +1,21 @@
 /////////////////////////////// GLOBAL QUERY SELECTORS ///////////////////////////////
 
+// TITLE BAR
 const body = document.querySelector("#body_container");
 
 const titleBar = document.querySelector("#title_bar");
 const titleText = document.querySelector("#title_text");
 
+const speakerOn = document.querySelector("#speaker_on");
+const speakerOff = document.querySelector("#speaker_off");
+
+const currentTab = document.querySelector("#current_tab");
+
+// HAMBURGER MENU
 const hamburgerButton = document.querySelector("#hamburger_button");
 const hamburgerMenu = document.querySelector("#hamburger_menu");
+const testSectionButton = document.querySelector("#test_section_button");
+const studySectionButton = document.querySelector("#study_section_button");
 const hamburgerButtons = document.querySelectorAll(".hamburger_buttons");
 const hamburgerVerb = document.querySelector("#verb_button");
 const hamburgerEmotion = document.querySelector("#emotions_button");
@@ -17,10 +26,8 @@ const hamburgerVerbConjugation = document.querySelector(
   "#verb_conjugation_button"
 );
 
-const speakerOn = document.querySelector("#speaker_on");
-const speakerOff = document.querySelector("#speaker_off");
-
-const currentTab = document.querySelector("#current_tab");
+// BODY
+const testContainers = document.querySelectorAll(".test_containers")
 
 const questionText = document.querySelector("#verb_text_question");
 
@@ -44,6 +51,9 @@ const state = {
   color: "red",
   correctCounter: 0,
   currentTab: "verbs",
+  currentTabLength: 0,
+  currentTabArray: "",
+  currentSectionTitle: "Prueba",
   defaultPlaceholder: "Escribe en ingles",
   errorCounter: 0,
   errorRegister: false,
@@ -77,7 +87,11 @@ const verbs = [
   ["Hacer", ["Make", "Do"], ["", "", "", "", "", ""]],
   ["Leer", ["Read"], ["", "", "", "", "", ""]],
   ["Llamarse", ["Called"], ["", "", "", "", "", ""]],
-  ["Madrugar", ["Wake up early", "Get up early", "Rise Early"], ["", "", "", "", "", ""],],
+  [
+    "Madrugar",
+    ["Wake up early", "Get up early", "Rise Early"],
+    ["", "", "", "", "", ""],
+  ],
   ["Mirar", ["Look"], ["", "", "", "", "", ""]],
   ["Necesitar", ["Need"], ["", "", "", "", "", ""]],
   ["Olvidar", ["Forget"], ["", "", "", "", "", ""]],
@@ -90,6 +104,7 @@ const verbs = [
   ["Quedar", ["Meet"], ["", "", "", "", "", ""]],
   ["Quedarse", ["Stay"], ["", "", "", "", "", ""]],
   ["Querer", ["Want"], ["", "", "", "", "", ""]],
+  ["Saber", ["Know"], ["", "", "", "", "", ""]],
   ["Significar", ["Mean"], ["", "", "", "", "", ""]],
   ["Subir", ["Go up"], ["", "", "", "", "", ""]],
   ["Tener", ["Have"], ["", "", "", "", "", ""]],
@@ -266,6 +281,9 @@ const linkWords = [
   ["", [""]],
 ];
 
+state.currentTabLength = verbs.length
+state.currentTabArray = verbs
+
 
 /////////////////////////////// EVENT LISTENERS ///////////////////////////////
 
@@ -286,7 +304,7 @@ body.addEventListener("click", () => {
 });
 
 titleText.addEventListener("click", () => {
-  resetTab();
+  resetTestComponents();
 });
 
 speakerOn.addEventListener("click", () => {
@@ -299,49 +317,111 @@ speakerOff.addEventListener("click", () => {
 
 // HAMBURGER MENU
 
+testSectionButton.addEventListener("click", () => {
+  for (let i = 0; i < testContainers.length; i++) {
+    testContainers[i].style.display = "flex"
+  }
+  tableContainer.style.visibility = "hidden";
+  state.currentSection = "test"
+  state.currentSectionTitle = "Prueba";
+  testSectionButton.classList.add("section_active")
+  studySectionButton.classList.remove("section_active")
+  while (tableBody.hasChildNodes()) {
+    tableBody.removeChild(tableBody.firstChild);
+  }
+  resetTestComponents()
+})
+
+studySectionButton.addEventListener("click", () => {
+  for (let i = 0; i < testContainers.length; i++) {
+    testContainers[i].style.display = "none";
+  }
+  tableContainer.style.visibility = "visible"
+  state.currentSection = "study";
+  state.currentSectionTitle = "Estudiar";
+  testSectionButton.classList.remove("section_active");
+  studySectionButton.classList.add("section_active");
+  setStudyTable()
+})
+
 hamburgerVerb.addEventListener("click", () => {
   state.currentTab = "verbs";
-  currentTab.textContent = "Verbos";
+  currentTab.textContent = `${state.currentSectionTitle} | Verbos`;
   answerText.placeholder = state.defaultPlaceholder;
+  state.currentTabLength = verbs.length
+  state.currentTabArray = verbs
   hideHamburgerMenu();
   setNavbarStyling();
-  resetTab();
+  //TODO: turn this into a single function
+  if (state.currentSection === "test") {
+    resetTestComponents();
+  } else { // study
+    setStudyTable()
+  }
 });
 
 hamburgerEmotion.addEventListener("click", () => {
   state.currentTab = "emotions";
-  currentTab.textContent = "Emociones y estados";
+  currentTab.textContent = `${state.currentSectionTitle} - Emociones y estados`;
   answerText.placeholder = state.defaultPlaceholder;
+  state.currentTabLength = emotions.length;
+  state.currentTabArray = emotions;
   hideHamburgerMenu();
   setNavbarStyling();
-  resetTab();
+  if (state.currentSection === "test") {
+    resetTestComponents();
+  } else {
+    // study
+    setStudyTable();
+  }
 });
 
 hamburgerRelation.addEventListener("click", () => {
   state.currentTab = "relations";
-  currentTab.textContent = "Relaciones";
+  currentTab.textContent = `${state.currentSectionTitle} - Relaciones`;
   answerText.placeholder = state.defaultPlaceholder;
+  state.currentTabLength = relations.length;
+  state.currentTabArray = relations;
   setNavbarStyling();
   hideHamburgerMenu();
-  resetTab();
+  if (state.currentSection === "test") {
+    resetTestComponents();
+  } else {
+    // study
+    setStudyTable();
+  }
 });
 
 hamburgerTimeAndDate.addEventListener("click", () => {
   state.currentTab = "timeAndDate";
-  currentTab.textContent = "Hora y fecha";
+  currentTab.textContent = `${state.currentSectionTitle} - Hora y fecha`;
   answerText.placeholder = state.defaultPlaceholder;
+  state.currentTabLength = timeAndDate.length;
+  state.currentTabArray = timeAndDate;
   setNavbarStyling();
   hideHamburgerMenu();
-  resetTab();
+  if (state.currentSection === "test") {
+    resetTestComponents();
+  } else {
+    // study
+    setStudyTable();
+  }
 });
 
 hamburgerClothes.addEventListener("click", () => {
   state.currentTab = "clothes";
-  currentTab.textContent = "Ropas";
+  currentTab.textContent = `${state.currentSectionTitle} - Ropas`;
   answerText.placeholder = state.defaultPlaceholder;
+  state.currentTabLength = clothes.length;
+  state.currentTabArray = clothes;
   setNavbarStyling();
   hideHamburgerMenu();
-  resetTab();
+  if (state.currentSection === "test") {
+    resetTestComponents();
+  } else {
+    // study
+    setStudyTable();
+  }
 });
 
 hamburgerVerbConjugation.addEventListener("click", () => {
@@ -350,7 +430,7 @@ hamburgerVerbConjugation.addEventListener("click", () => {
   answerText.placeholder = "Conjugar en español";
   setNavbarStyling();
   hideHamburgerMenu();
-  resetTab();
+  resetTestComponents();
 });
 
 // BODY
@@ -407,7 +487,7 @@ function toggleSpeaker() {
   }
 }
 
-function resetTab() {
+function resetTestComponents() {
   state.correctCounter = 0;
   state.errorCounter = 0;
   titleText.textContent = "¿Richard habla español?";
@@ -592,6 +672,33 @@ function updateSummaryTable() {
   tableContainer.style.visibility = "visible";
 }
 
+function setStudyTable() {
+  while (tableBody.hasChildNodes()) {
+    tableBody.removeChild(tableBody.firstChild);
+  }
+  for (let i = 0; i < state.currentTabLength; i++) {
+    const spanishText = state.currentTabArray[i][0]
+    const englishText = state.currentTabArray[i][1][0]
+
+    const newRow = document.createElement("tr");
+    const newSpanishCell = document.createElement("td");
+    const newEnglishCell = document.createElement("td");
+
+    newSpanishCell.textContent = spanishText;
+    newSpanishCell.setAttribute("class", "summary_spanish");
+    newSpanishCell.setAttribute("id", spanishText);
+    newSpanishCell.addEventListener("click", (event) => {
+      const word = event.target.id;
+      playSpanish(word);
+    });
+    newEnglishCell.textContent = englishText;
+
+    newRow.appendChild(newSpanishCell);
+    newRow.appendChild(newEnglishCell);
+    tableBody.appendChild(newRow);
+  }
+}
+
 function chickenDinner() {
   if (state.errorCounter === 0) {
     questionText.textContent = "¡Bien hecho!";
@@ -628,7 +735,6 @@ function chickenDinner() {
       }
     }, 3000);
   }
-
 }
 
 function checkAnswer(answer) {
