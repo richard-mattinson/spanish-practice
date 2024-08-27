@@ -329,6 +329,7 @@ testSectionButton.addEventListener("click", () => {
   while (tableBody.hasChildNodes()) {
     tableBody.removeChild(tableBody.firstChild);
   }
+  hideHamburgerMenu()
   resetTestComponents()
 })
 
@@ -341,6 +342,7 @@ studySectionButton.addEventListener("click", () => {
   state.currentSectionTitle = "Estudiar";
   testSectionButton.classList.remove("section_active");
   studySectionButton.classList.add("section_active");
+  hideHamburgerMenu()
   setStudyTable()
 })
 
@@ -673,9 +675,9 @@ function updateSummaryTable() {
 }
 
 function setStudyTable() {
-  while (tableBody.hasChildNodes()) {
-    tableBody.removeChild(tableBody.firstChild);
-  }
+    while (tableBody.hasChildNodes()) {
+      tableBody.removeChild(tableBody.firstChild);
+    }
   for (let i = 0; i < state.currentTabLength; i++) {
     const spanishText = state.currentTabArray[i][0]
     const englishText = state.currentTabArray[i][1][0]
