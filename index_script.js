@@ -53,6 +53,7 @@ const state = {
   currentTab: "verbs",
   currentTabLength: 0,
   currentTabArray: "",
+  currentSection: "test",
   currentSectionTitle: "Prueba",
   defaultPlaceholder: "Escribe en ingles",
   errorCounter: 0,
@@ -128,6 +129,7 @@ const emotions = [
   ["Enamorado", ["In Love"]],
   ["Enfadado", ["Angry", "Mad"]],
   ["Enfermo", ["Unwell", "Ill"]],
+  ["Embarazado", ["Pregnant"]],
   ["Emocionado", ["Excited"]],
   ["Feliz", ["Happy"]],
   ["Molesto", ["Annoyed"]],
@@ -278,6 +280,7 @@ const linkWords = [
   ["Cuantos", ["How many"]],
   ["Demasiado", ["Too much"]],
   ["Demasiado poco", ["Too little"]],
+  ["Otra vez", ["Again"]],
   ["", [""]],
 ];
 
