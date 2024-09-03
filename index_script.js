@@ -22,6 +22,9 @@ const hamburgerEmotion = document.querySelector("#emotions_button");
 const hamburgerRelation = document.querySelector("#relations_button");
 const hamburgerTimeAndDate = document.querySelector("#time_and_date_button");
 const hamburgerClothes = document.querySelector("#clothes_button");
+const hamburgerWeatherAndNature = document.querySelector(
+  "#weather_and_nature_button"
+);
 const hamburgerVerbConjugation = document.querySelector(
   "#verb_conjugation_button"
 );
@@ -46,6 +49,10 @@ const tableContainer = document.querySelector(
 const tableBody = document.querySelector("#table_body");
 
 /////////////////////////////// VARIABLE STORAGE ///////////////////////////////
+
+//TODO: study searching and order by english word
+
+const accentedCharacters = ["á", "é", "í", "ñ", "ó", "ú"]
 
 const state = {
   color: "red",
@@ -117,7 +124,16 @@ const verbs = [
   ["Vivir", ["Live"], ["", "", "", "", "", ""]],
 ];
 
-const emotions = [
+const verbPronouns = [
+  ["Yo", "Tú", "Él", "Nosotros", "Vosotros", "Ellos"], // spanish pronouns
+  ["o", "as", "a", "amos", "áis", "an"], // ar verbs
+  ["o", "es", "e", "emos", "éis", "en"], // er verbs
+  ["o", "es", "e", "imos", "ís", "en"], // ir verbs
+  ["me", "te", "se", "nos", "os", "se"], // se verbs
+  ["I", "You", "He", "We", "You", "They"], // english pronouns
+];
+
+const emotionsAndStates = [
   ["Aburrido", ["Bored"]],
   ["Alegre", ["Joyful", "Happy"]],
   ["Asustado", ["Scared"]],
@@ -131,16 +147,20 @@ const emotions = [
   ["Enfermo", ["Unwell", "Ill"]],
   ["Embarazado", ["Pregnant"]],
   ["Emocionado", ["Excited"]],
-  ["Feliz", ["Happy"]],
+  ["Feliz", ["Happy"]],    
+  ["Hambre", ["Hungry"]],
+  ["Miedo", ["Afraid"]],
   ["Molesto", ["Annoyed"]],
   ["Nervioso", ["Nervous"]],
   ["Orgulloso", ["Proud"]],
   ["Pensativo", ["Thoughtful"]],
   ["Preocupado", ["Worried"]],
   ["Saludable", ["Healthy"]],
+  ["Sed", ["Thirsty"]],
   ["Seguro", ["Confident"]],
   ["Serio", ["Serious"]],
   ["Sorprendido", ["Surprised"]],
+  ["Sueno", ["Sleepy"]],
   ["Tranquilo", ["Relaxed"]],
   ["Tonto", ["Silly"]],
   ["Triste", ["Sad"]],
@@ -253,20 +273,40 @@ const clothes = [
   ["Sujetador", ["Bra"]],
   ["Vestido", ["Dress"]],
   ["Sombrero", ["Hat"]],
+  ["Sombrillas", ["Umbrella"]],
   ["Vaqueros ", ["Jeans"]],
   ["Zapatos", ["Shoes"]],
   ["Zapatillas", ["Trainers"]],
   ["Zapatos de tacon", ["High heels"]],
 ];
 
-const pronouns = [
-  ["Yo", "Tú", "Él", "Nosotros", "Vosotros", "Ellos"], // spanish pronouns
-  ["o", "as", "a", "amos", "áis", "an"], // ar verbs
-  ["o", "es", "e", "emos", "éis", "en"], // er verbs
-  ["o", "es", "e", "imos", "ís", "en"], // ir verbs
-  ["me", "te", "se", "nos", "os", "se"], // se verbs
-  ["I", "You", "He", "We", "You", "They"], // english pronouns
-];
+const weatherAndNature = [
+  ["Calor", ["Hot"]],
+  ["Charcos", ["Puddles"]],
+  ["Frío", ["Cold"]],
+  ["Humedad", ["Humid"]],
+  ["La Temperatura", ["Temperature"]],
+  ["Tiempo", ["Time", "Weather"]],
+  ["Hace bueno", ["Nice day", "Good day", "Sunny day", "Good weather"]],
+  ["Hace mal", ["Bad day", "Cloudy day", "Bad weather"]],
+  ["Sol", ["Sun"]],
+  ["Nubes", ["Cloud"]],
+  ["Está soleado", ["It's sunny", "Sunny day"]],
+  ["Está Nublado", ["It's cloudy", "Cloudy day"]],
+  ["Lluvia", ["Rain"]],
+  ["Está lloviendo", ["It's raining"]],
+  ["Nieve", ["Snow"]],
+  ["Está nevando", ["It's snowing"]],
+  ["Tormenta", ["Storm"]],
+  ["Viento", ["Wind"]],
+  ["Hace viento", ["It's windy"]],
+  ["Cielo", ["Sky"]],
+  ["Árbol", ["Tree"]],
+  ["Mar", ["Sea"]],
+  ["Río", ["River"]],
+  ["Lago", ["Lake"]],
+  ["Montaña", ["Mountain"]],
+]
 
 const linkWords = [
   ["También", ["Also", "As well"]],
@@ -369,8 +409,8 @@ hamburgerEmotion.addEventListener("click", () => {
   state.currentTab = "emotions";
   currentTab.textContent = `${state.currentSectionTitle} - Emociones y estados`;
   answerText.placeholder = state.defaultPlaceholder;
-  state.currentTabLength = emotions.length;
-  state.currentTabArray = emotions;
+  state.currentTabLength = emotionsAndStates.length;
+  state.currentTabArray = emotionsAndStates;
   hideHamburgerMenu();
   setNavbarStyling();
   if (state.currentSection === "test") {
@@ -419,6 +459,22 @@ hamburgerClothes.addEventListener("click", () => {
   answerText.placeholder = state.defaultPlaceholder;
   state.currentTabLength = clothes.length;
   state.currentTabArray = clothes;
+  setNavbarStyling();
+  hideHamburgerMenu();
+  if (state.currentSection === "test") {
+    resetTestComponents();
+  } else {
+    // study
+    setStudyTable();
+  }
+});
+
+hamburgerWeatherAndNature.addEventListener("click", () => {
+  state.currentTab = "weatherAndNature";
+  currentTab.textContent = `${state.currentSectionTitle} - Clima y naturaleza`;
+  answerText.placeholder = state.defaultPlaceholder;
+  state.currentTabLength = weatherAndNature.length;
+  state.currentTabArray = weatherAndNature;
   setNavbarStyling();
   hideHamburgerMenu();
   if (state.currentSection === "test") {
@@ -528,6 +584,9 @@ function setNavbarStyling() {
     case "clothes":
       hamburgerClothes.classList.add("button_active");
       break;
+    case "weatherAndNature":
+      hamburgerWeatherAndNature.classList.add("active_button")
+      break;
     case "verbConjugation":
       hamburgerVerbConjugation.classList.add("button_active");
       break;
@@ -543,8 +602,10 @@ function updateQuestionText() {
       randomQuestion = verbs[state.questionIndex];
       break;
     case "emotions":
-      state.questionIndex = Math.floor(Math.random() * emotions.length);
-      randomQuestion = emotions[state.questionIndex];
+      state.questionIndex = Math.floor(
+        Math.random() * emotionsAndStates.length
+      );
+      randomQuestion = emotionsAndStates[state.questionIndex];
       break;
     case "relations":
       state.questionIndex = Math.floor(Math.random() * relations.length);
@@ -558,19 +619,25 @@ function updateQuestionText() {
       state.questionIndex = Math.floor(Math.random() * clothes.length);
       randomQuestion = clothes[state.questionIndex];
       break;
+    case "weatherAndNature":
+      state.questionIndex = Math.floor(Math.random() * weatherAndNature.length);
+      randomQuestion = weatherAndNature[state.questionIndex];
+      break;
     case "verbConjugation":
       state.questionIndex = Math.floor(Math.random() * verbs.length);
       randomQuestion = verbs[state.questionIndex];
-      //update randomQuestion for ie verbs 
+      //update randomQuestion for ie verbs
       state.spanishPronounIndex = Math.floor(
-        Math.random() * pronouns[0].length
+        Math.random() * verbPronouns[0].length
       );
-      randomPronoun = pronouns[0][state.spanishPronounIndex];
+      randomPronoun = verbPronouns[0][state.spanishPronounIndex];
 
       let conjugatedAnswer = "";
       const stringMinusTwo = randomQuestion[0].length - 2;
       const stringMinusFour = randomQuestion[0].length - 4;
-      let trimmedVerb = randomQuestion[0].substring(0, stringMinusTwo).toLowerCase();
+      let trimmedVerb = randomQuestion[0]
+        .substring(0, stringMinusTwo)
+        .toLowerCase();
       let finalTwoLetters = randomQuestion[0].substring(stringMinusTwo);
       if (finalTwoLetters === "se") {
         trimmedVerb = randomQuestion[0]
@@ -580,25 +647,25 @@ function updateQuestionText() {
           stringMinusFour,
           stringMinusTwo
         );
-        conjugatedAnswer = pronouns[4][state.spanishPronounIndex] + " ";
+        conjugatedAnswer = verbPronouns[4][state.spanishPronounIndex] + " ";
         state.seConjugation = true;
       }
       switch (finalTwoLetters) {
         case "ar":
           conjugatedAnswer +=
-            trimmedVerb + pronouns[1][state.spanishPronounIndex];
+            trimmedVerb + verbPronouns[1][state.spanishPronounIndex];
           break;
         case "er":
           conjugatedAnswer +=
-            trimmedVerb + pronouns[2][state.spanishPronounIndex];
+            trimmedVerb + verbPronouns[2][state.spanishPronounIndex];
           break;
         case "ir":
           conjugatedAnswer +=
-            trimmedVerb + pronouns[3][state.spanishPronounIndex];
+            trimmedVerb + verbPronouns[3][state.spanishPronounIndex];
           break;
       }
       state.conjugatedAnswer = conjugatedAnswer;
-      state.englishPronoun = pronouns[5][state.spanishPronounIndex];
+      state.englishPronoun = verbPronouns[5][state.spanishPronounIndex];
       break;
   }
   let questionSpanish;
@@ -753,9 +820,11 @@ function checkAnswer(answer) {
       });
       break;
     case "emotions":
-      answerIndex = emotions[state.questionIndex][1].findIndex((element) => {
-        return element.toLowerCase().trim() === inputFormatted;
-      });
+      answerIndex = emotionsAndStates[state.questionIndex][1].findIndex(
+        (element) => {
+          return element.toLowerCase().trim() === inputFormatted;
+        }
+      );
       break;
     case "relations":
       answerIndex = relations[state.questionIndex][1].findIndex((element) => {
@@ -769,6 +838,11 @@ function checkAnswer(answer) {
       break;
     case "clothes":
       answerIndex = clothes[state.questionIndex][1].findIndex((element) => {
+        return element.toLowerCase().trim() === inputFormatted;
+      });
+      break;
+    case "weatherAndNature":
+      answerIndex = weatherAndNature[state.questionIndex][1].findIndex((element) => {
         return element.toLowerCase().trim() === inputFormatted;
       });
       break;
@@ -794,7 +868,7 @@ function checkAnswer(answer) {
         verbs.splice(state.questionIndex, 1);
         break;
       case "emotions":
-        emotions.splice(state.questionIndex, 1);
+        emotionsAndStates.splice(state.questionIndex, 1);
         break;
       case "relations":
         relations.splice(state.questionIndex, 1);
@@ -803,6 +877,9 @@ function checkAnswer(answer) {
         timeAndDate.splice(state.questionIndex, 1);
         break;
       case "clothes":
+        clothes.splice(state.questionIndex, 1);
+        break;
+      case "weatherAndNature":
         clothes.splice(state.questionIndex, 1);
         break;
       case "verbConjugation":
