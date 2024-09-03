@@ -52,7 +52,6 @@ const tableBody = document.querySelector("#table_body");
 
 //TODO: study searching and order by english word
 
-const accentedCharacters = ["á", "é", "í", "ñ", "ó", "ú"]
 
 const state = {
   color: "red",
@@ -71,57 +70,56 @@ const state = {
   questionIndex: "",
 };
 
-const placeholder = [
-  ["", "", "", "", "", ""]
-]; 
+// resources for cut and pasting
+const accentedCharacters = ["á", "é", "í", "ñ", "ó", "ú"];
+const placeholder = 
+["", [""], ["", "", "", "", "", ""]] 
 
 const verbs = [
-  ["Alquilar", ["Rent"], ["", "", "", "", "", ""]],
-  ["Aprender", ["Learn"], ["", "", "", "", "", ""]],
-  ["Bajar", ["Go down"], ["", "", "", "", "", ""]],
-  ["Beber", ["Drink"], ["", "", "", "", "", ""]],
-  ["Buscar", ["Look for"], ["", "", "", "", "", ""]],
-  ["Caminar", ["Walk"], ["", "", "", "", "", ""]],
-  ["Cambiar", ["Change"], ["", "", "", "", "", ""]],
-  ["Cenar", ["Eat Dinner", "Have Dinner"], ["", "", "", "", "", ""]],
-  ["Comer", ["Eat"], ["", "", "", "", "", ""]],
-  ["Correr", ["Run"], ["", "", "", "", "", ""]],
-  ["Creer", ["Believe", "Think"], ["", "", "", "", "", ""]],
-  ["Desayunar", ["Eat Breakfast", "Have Breakfast"], ["", "", "", "", "", ""]],
-  ["Enseñar", ["Teach"], ["", "", "", "", "", ""]],
-  ["Empezar", ["Begin", "Start"], ["", "", "", "", "", ""]],
-  ["Escribir", ["Write"], ["", "", "", "", "", ""]],
-  ["Escuchar", ["Listen"], ["", "", "", "", "", ""]],
-  ["Hacer", ["Make", "Do"], ["", "", "", "", "", ""]],
-  ["Leer", ["Read"], ["", "", "", "", "", ""]],
-  ["Llamarse", ["Called"], ["", "", "", "", "", ""]],
-  [
-    "Madrugar",
-    ["Wake up early", "Get up early", "Rise Early"],
-    ["", "", "", "", "", ""],
-  ],
-  ["Mirar", ["Look"], ["", "", "", "", "", ""]],
-  ["Necesitar", ["Need"], ["", "", "", "", "", ""]],
-  ["Olvidar", ["Forget"], ["", "", "", "", "", ""]],
-  ["Pagar", ["Pay"], ["", "", "", "", "", ""]],
-  ["Podria", ["Could"], ["", "", "", "", "", ""]],
-  ["Ponerse", ["Put on", "Place on"], ["", "", "", "", "", ""]],
-  ["Preguntar", ["Ask"], ["", "", "", "", "", ""]],
-  ["Prometer", ["Promise"], ["", "", "", "", "", ""]],
-  ["Responder", ["Answer"], ["", "", "", "", "", ""]],
-  ["Quedar", ["Meet"], ["", "", "", "", "", ""]],
-  ["Quedarse", ["Stay"], ["", "", "", "", "", ""]],
-  ["Querer", ["Want"], ["", "", "", "", "", ""]],
-  ["Saber", ["Know"], ["", "", "", "", "", ""]],
-  ["Significar", ["Mean"], ["", "", "", "", "", ""]],
-  ["Subir", ["Go up"], ["", "", "", "", "", ""]],
-  ["Tener", ["Have"], ["", "", "", "", "", ""]],
-  ["Terminar", ["Finish", "End"], ["", "", "", "", "", ""]],
-  ["Vender", ["Sell"], ["", "", "", "", "", ""]],
-  ["Ver", ["Watch", "View", "Look"], ["", "", "", "", "", ""]],
-  ["Viajar", ["Travel"], ["", "", "", "", "", ""]],
-  ["Visitar", ["Visit"], ["", "", "", "", "", ""]],
-  ["Vivir", ["Live"], ["", "", "", "", "", ""]],
+  ["Alquilar", ["Rent"], []],
+  ["Aprender", ["Learn"], []],
+  ["Bajar", ["Go down"], []],
+  ["Beber", ["Drink"], []],
+  ["Buscar", ["Look for"], []],
+  ["Caminar", ["Walk"], []],
+  ["Cambiar", ["Change"], []],
+  ["Cenar", ["Eat Dinner", "Have Dinner"], []],
+  ["Comer", ["Eat"], []],
+  ["Correr", ["Run"], []],
+  ["Creer", ["Believe", "Think"], []],
+  ["Desayunar", ["Eat Breakfast", "Have Breakfast"], []],
+  ["Enseñar", ["Teach"], []],
+  ["Empezar", ["Begin", "Start"], ["Empiezo", "Empiezas", "Empieza", "Empezamos", "Empezáis", "Empiezan"]],
+  ["Escribir", ["Write"], []],
+  ["Escuchar", ["Listen"], []],
+  ["Hacer", ["Make", "Do"], ["Hago", "Haces", "Hace", "Hacemos", "Hacéis", "Hacen"]],
+  ["Ir", ["Go"], ["Voy", "Vas", "Va", "Vamos", "Vais", "Van"]],
+  ["Leer", ["Read"], []],
+  ["Llamarse", ["Called"], []],
+  ["Llegar", ["Arrive", "Come"], ["", "", "", "", "", ""]],
+  ["Madrugar", ["Wake up early", "Get up early", "Rise Early"], []],
+  ["Mirar", ["Look"], []],
+  ["Necesitar", ["Need"], []],
+  ["Olvidar", ["Forget"], []],
+  ["Pagar", ["Pay"], []],
+  ["Podria", ["Could"], ["Puedo", "Puedes", "Puede", "Podemos", "Podéis", "Pueden"]],
+  ["Ponerse", ["Put on", "Place on"], ["me Pongo", "te Pones", "se Pone", "nos Ponemos", "os Ponéis", "se Ponen"]],
+  ["Preguntar", ["Ask"], []],
+  ["Prometer", ["Promise"], []],
+  ["Responder", ["Answer"], []],
+  ["Quedar", ["Meet"], []],
+  ["Quedarse", ["Stay"], []],
+  ["Querer", ["Want"], ["Quiero", "Quieres", "Quiere", "Queremos", "Queréis", "Quieren"]],
+  ["Saber", ["Know"], ["Sé", "Sabes", "Sabe", "Sabemos", "Sabéis", "Saben"]],
+  ["Significar", ["Mean"], []],
+  ["Subir", ["Go up"], []],
+  ["Tener", ["Have"], ["Tengo", "Tiene", "Tienes", "Tenemos", "Tenéis", "Tienen"]],
+  ["Terminar", ["Finish", "End"], []],
+  ["Vender", ["Sell"], []],
+  ["Ver", ["Watch", "View", "Look"], ["Veo", "Ves", "Ve", "Vemos", "Veis", "Ven"]],
+  ["Viajar", ["Travel"], []],
+  ["Visitar", ["Visit"], []],
+  ["Vivir", ["Live"], []],
 ];
 
 const verbPronouns = [
@@ -624,9 +622,9 @@ function updateQuestionText() {
       randomQuestion = weatherAndNature[state.questionIndex];
       break;
     case "verbConjugation":
+      // this section prepares the conjugation answer in advance
       state.questionIndex = Math.floor(Math.random() * verbs.length);
       randomQuestion = verbs[state.questionIndex];
-      //update randomQuestion for ie verbs
       state.spanishPronounIndex = Math.floor(
         Math.random() * verbPronouns[0].length
       );
@@ -638,32 +636,38 @@ function updateQuestionText() {
       let trimmedVerb = randomQuestion[0]
         .substring(0, stringMinusTwo)
         .toLowerCase();
-      let finalTwoLetters = randomQuestion[0].substring(stringMinusTwo);
-      if (finalTwoLetters === "se") {
-        trimmedVerb = randomQuestion[0]
-          .substring(0, stringMinusFour)
-          .toLowerCase();
-        finalTwoLetters = randomQuestion[0].substring(
-          stringMinusFour,
-          stringMinusTwo
-        );
-        conjugatedAnswer = verbPronouns[4][state.spanishPronounIndex] + " ";
-        state.seConjugation = true;
+      if (randomQuestion[2].length === 0) { // verb is NOT irregular, so conjugation array is empty
+        let finalTwoLetters = randomQuestion[0].substring(stringMinusTwo);
+        if (finalTwoLetters === "se") {
+          trimmedVerb = randomQuestion[0]
+            .substring(0, stringMinusFour)
+            .toLowerCase();
+          finalTwoLetters = randomQuestion[0].substring(
+            stringMinusFour,
+            stringMinusTwo
+          );
+          conjugatedAnswer =
+            verbPronouns[4][state.spanishPronounIndex] + " ";
+          state.seConjugation = true;
+        }
+        switch (finalTwoLetters) {
+          case "ar":
+            conjugatedAnswer +=
+              trimmedVerb + verbPronouns[1][state.spanishPronounIndex];
+            break;
+          case "er":
+            conjugatedAnswer +=
+              trimmedVerb + verbPronouns[2][state.spanishPronounIndex];
+            break;
+          case "ir":
+            conjugatedAnswer +=
+              trimmedVerb + verbPronouns[3][state.spanishPronounIndex];
+            break;
+        }
+      } else {
+        conjugatedAnswer = randomQuestion[2][state.spanishPronounIndex]
       }
-      switch (finalTwoLetters) {
-        case "ar":
-          conjugatedAnswer +=
-            trimmedVerb + verbPronouns[1][state.spanishPronounIndex];
-          break;
-        case "er":
-          conjugatedAnswer +=
-            trimmedVerb + verbPronouns[2][state.spanishPronounIndex];
-          break;
-        case "ir":
-          conjugatedAnswer +=
-            trimmedVerb + verbPronouns[3][state.spanishPronounIndex];
-          break;
-      }
+      console.log("conjugated answer", conjugatedAnswer);
       state.conjugatedAnswer = conjugatedAnswer;
       state.englishPronoun = verbPronouns[5][state.spanishPronounIndex];
       break;
@@ -847,7 +851,8 @@ function checkAnswer(answer) {
       });
       break;
     case "verbConjugation":
-      if (inputFormatted === state.conjugatedAnswer) {
+      console.log("answer", inputFormatted, state.conjugatedAnswer);
+      if (inputFormatted === state.conjugatedAnswer.toLowerCase()) {
         answerIndex = 1;
       } else {
         answerIndex = -1;
