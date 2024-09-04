@@ -96,7 +96,7 @@ const verbs = [
   ["Ir", ["Go"], ["Voy", "Vas", "Va", "Vamos", "Vais", "Van"]],
   ["Leer", ["Read"], []],
   ["Llamarse", ["Called"], []],
-  ["Llegar", ["Arrive", "Come"], ["", "", "", "", "", ""]],
+  ["Llegar", ["Arrive", "Come"], []],
   ["Madrugar", ["Wake up early", "Get up early", "Rise Early"], []],
   ["Mirar", ["Look"], []],
   ["Necesitar", ["Need"], []],
@@ -234,6 +234,7 @@ const timeAndDate = [
   ["Semana que viene", ["Next week"]],
   ["Septiembre", ["September"]],
   ["Tarde", ["Afternoon"]],
+  ["Tiempo", ["Weather"]],
   ["Verano", ["Summer"]],
   ["Viernes", ["Friday"]],
 ];
@@ -279,31 +280,31 @@ const clothes = [
 ];
 
 const weatherAndNature = [
+  ["Árbol", ["Tree"]],
   ["Calor", ["Hot"]],
-  ["Charcos", ["Puddles"]],
+  ["Cielo", ["Sky"]],
+  ["Charco", ["Puddle"]],
+  ["Está lloviendo", ["It's raining"]],
+  ["Está nevando", ["It's snowing"]],
+  ["Está nublado", ["It's cloudy", "Cloudy day"]],
+  ["Está soleado", ["It's sunny", "Sunny day"]],
   ["Frío", ["Cold"]],
   ["Humedad", ["Humid"]],
-  ["La Temperatura", ["Temperature"]],
-  ["Tiempo", ["Time", "Weather"]],
   ["Hace bueno", ["Nice day", "Good day", "Sunny day", "Good weather"]],
   ["Hace mal", ["Bad day", "Cloudy day", "Bad weather"]],
-  ["Sol", ["Sun"]],
-  ["Nubes", ["Cloud"]],
-  ["Está soleado", ["It's sunny", "Sunny day"]],
-  ["Está Nublado", ["It's cloudy", "Cloudy day"]],
+  ["Hace viento", ["It's windy"]],
+  ["La Temperatura", ["Temperature"]],
+  ["Lago", ["Lake"]],
   ["Lluvia", ["Rain"]],
-  ["Está lloviendo", ["It's raining"]],
+  ["Mar", ["Sea"]],
+  ["Montaña", ["Mountain"]],
   ["Nieve", ["Snow"]],
-  ["Está nevando", ["It's snowing"]],
+  ["Nubes", ["Cloud"]],
+  ["Río", ["River"]],
+  ["Sol", ["Sun"]],
+  ["Tiempo", ["Weather"]],
   ["Tormenta", ["Storm"]],
   ["Viento", ["Wind"]],
-  ["Hace viento", ["It's windy"]],
-  ["Cielo", ["Sky"]],
-  ["Árbol", ["Tree"]],
-  ["Mar", ["Sea"]],
-  ["Río", ["River"]],
-  ["Lago", ["Lake"]],
-  ["Montaña", ["Mountain"]],
 ]
 
 const linkWords = [
@@ -496,7 +497,11 @@ hamburgerVerbConjugation.addEventListener("click", () => {
 
 questionText.addEventListener("click", () => {
   // shows answer on click briefly (for idiots)
-  questionText.textContent = state.questionEnglish.substring(0, state.questionLetterIndex) + "...";
+  if (state.currentTab !== "verbConjugation") {
+    questionText.textContent = state.questionEnglish.substring(0, state.questionLetterIndex) + "...";
+  } else {
+    questionText.textContent = state.conjugatedAnswer
+  }
   if (state.questionLetterIndex < state.questionEnglish.length) {
     state.questionLetterIndex++
   }
@@ -583,7 +588,7 @@ function setNavbarStyling() {
       hamburgerClothes.classList.add("button_active");
       break;
     case "weatherAndNature":
-      hamburgerWeatherAndNature.classList.add("active_button")
+      hamburgerWeatherAndNature.classList.add("button_active")
       break;
     case "verbConjugation":
       hamburgerVerbConjugation.classList.add("button_active");
@@ -885,7 +890,7 @@ function checkAnswer(answer) {
         clothes.splice(state.questionIndex, 1);
         break;
       case "weatherAndNature":
-        clothes.splice(state.questionIndex, 1);
+        weatherAndNature.splice(state.questionIndex, 1);
         break;
       case "verbConjugation":
         verbs.splice(state.questionIndex, 1);
