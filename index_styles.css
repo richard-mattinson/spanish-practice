@@ -70,13 +70,6 @@ body {
     color: rgb(255, 255, 255);
 }
 
-/* #current_tab {
-    margin: 0px 10px 0px 10px;
-    font-size: 20px;
-    color: black;
-    font-weight: bold;
-} */
-
 /* ///////////////////// HAMBURGER MENU ///////////////////// */
 
 #hamburger_menu {
@@ -224,6 +217,33 @@ table, th, td {
 
 .summary_spanish {
     cursor: pointer;
+}
+
+#verb_conjugation_table_container {
+    display: none;
+    z-index: 10;
+    position: fixed;
+    justify-content: center;
+    top: 200px;
+    left: 100px;
+    height: 300px;
+    width: 300px;
+    border: grey solid 5px;
+    border-radius: 5px;
+    padding: 50px 10px 10px 10px;
+    background: whitesmoke;
+}
+
+#verb_conjugation_table {
+    background: white;
+}
+
+#close_verb_conjugation_table {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 36px;
+    padding: 5px;
 }
 
 /* ///////////////////// ANIMATIONS ///////////////////// */
