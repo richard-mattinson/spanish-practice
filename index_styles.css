@@ -219,6 +219,12 @@ table, th, td {
     cursor: pointer;
 }
 
+.irregular_verb_highlight {
+    color: blue;
+}
+
+/* ///////////////////// VERB CONJUGATION POP UP ///////////////////// */
+
 #verb_conjugation_table_container {
     display: none;
     z-index: 10;

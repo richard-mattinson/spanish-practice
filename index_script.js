@@ -115,9 +115,11 @@ const verbs = [
   ["Llegar", ["Arrive", "Come"], []],
   ["Madrugar", ["Wake up early", "Get up early", "Rise Early"], []],
   ["Mirar", ["Look"], []],
+  ["Montar", ["Ride", "Mount"], []],
   ["Necesitar", ["Need"], []],
   ["Olvidar", ["Forget"], []],
   ["Pagar", ["Pay"], []],
+  ["Pasar", ["Pass", "Happen"], []],
   ["Podria", ["Could"], ["Puedo", "Puedes", "Puede", "Podemos", "Podéis", "Pueden"]],
   ["Ponerse", ["Put on", "Place on"], ["me Pongo", "te Pones", "se Pone", "nos Ponemos", "os Ponéis", "se Ponen"]],
   ["Preguntar", ["Ask"], []],
@@ -131,6 +133,7 @@ const verbs = [
   ["Subir", ["Go up"], []],
   ["Tener", ["Have"], ["Tengo", "Tiene", "Tienes", "Tenemos", "Tenéis", "Tienen"]],
   ["Terminar", ["Finish", "End"], []],
+  ["Tocar", ["Touch", "Play"], []],
   ["Vender", ["Sell"], []],
   ["Ver", ["Watch", "View", "Look"], ["Veo", "Ves", "Ve", "Vemos", "Veis", "Ven"]],
   ["Viajar", ["Travel"], []],
@@ -707,6 +710,10 @@ function updateQuestionText() {
     // TODO: replace this with the answer during question update
     questionEnglish = randomQuestion[1][0]
     questionText.textContent = pronounPlusQuestion;
+    console.log(randomQuestion);
+    if (randomQuestion[2].length !== 0) { 
+      questionText.setAttribute("class", "irregular_verb_highlight")
+    }
     questionSpanishLength = pronounPlusQuestion.length;
     state.spanishPronoun = randomPronoun;
   } else {
@@ -775,9 +782,9 @@ function updateSummaryTable() {
 }
 
 function setStudyTable() {
-    while (tableBody.hasChildNodes()) {
-      tableBody.removeChild(tableBody.firstChild);
-    }
+  while (tableBody.hasChildNodes()) {
+    tableBody.removeChild(tableBody.firstChild);
+  }
   for (let i = 0; i < state.currentTabLength; i++) {
     const spanishText = state.currentTabArray[i][0]
     const englishText = state.currentTabArray[i][1][0]
@@ -793,6 +800,9 @@ function setStudyTable() {
       const word = event.target.id;
       playSpanish(word);
     });
+    if (state.currentTab === "verbs" && state.currentTabArray[i][2].length !== 0) {
+      newSpanishCell.setAttribute("class", "irregular_verb_highlight");
+    }
 
     newEnglishCell.textContent = englishText;
     newEnglishCell.addEventListener("click", (event) => {
@@ -802,7 +812,7 @@ function setStudyTable() {
       while (verbConjugationTableBody.hasChildNodes()) {
         verbConjugationTableBody.removeChild(verbConjugationTableBody.firstChild);
       }
-      verbConjugationTableContainer.style.left = (screen.width / 2) - 150 + "px";
+      verbConjugationTableContainer.style.left = (screen.width / 2) - 175 + "px";
       verbConjugationTableContainer.style.display = "flex"
       let infinitiveEnglishText = event.target.getAttribute("data-english-infinitive")
       let infinitiveSpanishText = event.target.getAttribute("data-spanish-infinitive");
