@@ -198,6 +198,7 @@ const verbs = [
   ["Viajar", ["Travel"], []],
   ["Visitar", ["Visit"], []],
   ["Vivir", ["Live"], []],
+  ["Valer", ["Worth"], ["Valgo", "Vales", "Vale", "Valemos", "Valéis", "Valen"]],
 ];
 
 const verbPronouns = [
@@ -438,10 +439,10 @@ const phrases = [
   ["Me parece bien", ["Seems good to me", "Seems good"]],
   ["Me parece mal", ["Seems bad to me", "Seems bad"]],
   ["No soy bueno", ["I'm not good at it", "I'm bad at it"]],
-  ["¿Puede repetir, por favor?", ["Can you repeat that please"]],
-  ["¿Como se dice '(English word)'?", ["How do you say this word?"]],
-  ["Disculpe, no entiendo", ["Sorry, I don't understand"]],
-  ["¿Que significa '(Spanish word)'?", ["What does this word mean?"]],
+  ["¿Puede repetir?", ["Can you repeat that", "Could you repeat", "Could you say that again"]],
+  ["¿Como se dice '(English word)'?", ["How do you say this word", "How do you say this", "How do you say"]],
+  ["No entiendo", ["I don't understand"]],
+  ["¿Que significa '(Spanish word)'?", ["What does this word mean", "What does this mean"]],
 ];
 
 state.currentTabLength = verbs.length;
