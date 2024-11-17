@@ -34,7 +34,8 @@ const hamburgerVerbConjugation = document.querySelector(
 // BODY
 const testContainers = document.querySelectorAll(".test_containers");
 
-const questionText = document.querySelector("#verb_text_question");
+const questionText = document.querySelector("#text_question");
+const questionExample = document.querySelector("#text_example")
 
 const redCross = document.querySelector("#red_cross");
 const greenCheck = document.querySelector("#green_check");
@@ -92,113 +93,70 @@ const accentedCharacters = ["á", "é", "í", "ñ", "ó", "ú"];
 const placeholder = ["", [""], ["", "", "", "", "", ""]];
 
 const verbs = [
-  ["Abrir", ["Open"], []],
-  ["Alquilar", ["Rent"], []],
-  ["Aprender", ["Learn"], []],
-  ["Bajar", ["Go down"], []],
-  ["Beber", ["Drink"], []],
-  ["Buscar", ["Look for"], []],
-  ["Caminar", ["Walk"], []],
-  ["Cambiar", ["Change"], []],
-  ["Cenar", ["Eat Dinner", "Have Dinner"], []],
-  ["Comer", ["Eat"], []],
-  [
-    "Conocer",
-    ["Know"],
-    ["Conozco", "Conoces", "Conoce", "Conocemos", "Conocéis", "Conocen"],
-  ],
-  [
-    "Cerrar",
-    ["Close"],
-    ["Cierro", "Cierras", "Cierra", "Cerramos", "Cerráis", "Cierran"],
-  ],
-  ["Correr", ["Run"], []],
-  ["Creer", ["Believe", "Think"], []],
-  [
-    "Decir",
-    ["Say", "Tell"],
-    ["Digo", "Dices", "Dice", "Decimos", "Decís", "Dicen"],
-  ],
-  ["Desayunar", ["Eat Breakfast", "Have Breakfast"], []],
-  [
-    "Dormir",
-    ["Sleep"],
-    ["Duermo", "Duermes", "Duerme", "Dormimos", "Dormís", "Duermen"],
-  ],
-  ["Encantar", ["Love"], []],
-  ["Enseñar", ["Teach"], []],
-  [
-    "Empezar",
-    ["Begin", "Start"],
-    ["Empiezo", "Empiezas", "Empieza", "Empezamos", "Empezáis", "Empiezan"],
-  ],
-  ["Escribir", ["Write"], []],
-  ["Escuchar", ["Listen"], []],
-  ["Fumar", ["Smoke"], ["", "", "", "", "", ""]][("Gustar", ["Like"], [])],
-  [
-    "Hacer",
-    ["Make", "Do"],
-    ["Hago", "Haces", "Hace", "Hacemos", "Hacéis", "Hacen"],
-  ],
-  ["Interesar", ["Interest"], ["", "", "", "", "", ""]][
-    ("Ir", ["Go"], ["Voy", "Vas", "Va", "Vamos", "Vais", "Van"])
-  ],
-  ["Leer", ["Read"], []],
-  ["Limpiar", ["Clean"], []],
-  ["Llamarse", ["Call", "Called"], []],
-  ["Llegar", ["Arrive", "Come"], []],
-  ["Madrugar", ["Wake up early", "Get up early", "Rise Early"], []],
-  ["Mirar", ["Look"], []],
-  ["Montar", ["Ride", "Mount"], []],
-  ["Necesitar", ["Need"], []],
-  ["Odiar", ["Hate"], []],
-  ["Olvidar", ["Forget"], []],
-  ["Pagar", ["Pay"], []],
-  ["Pasar", ["Pass", "Happen"], []],
-  [
-    "Poder",
-    ["Be able", "Could"],
-    ["Puedo", "Puedes", "Puede", "Podemos", "Podéis", "Pueden"],
-  ],
-  [
-    "Ponerse",
-    ["Put on", "Place on"],
-    ["me Pongo", "te Pones", "se Pone", "nos Ponemos", "os Ponéis", "se Ponen"],
-  ],
-  ["Preguntar", ["Ask"], []],
-  ["Prometer", ["Promise"], []],
-  ["Responder", ["Answer"], []],
-  ["Quedar", ["Meet"], []],
-  ["Quedarse", ["Stay"], []],
-  [
-    "Querer",
-    ["Want"],
-    ["Quiero", "Quieres", "Quiere", "Queremos", "Queréis", "Quieren"],
-  ],
-  ["Saber", ["Know"], ["Sé", "Sabes", "Sabe", "Sabemos", "Sabéis", "Saben"]],
-  [
-    "Salir",
-    ["Go out", "Leave"],
-    ["Salgo", "Sales", "Sale", "Salimos", "Salis", "Salen"],
-  ][("Significar", ["Mean"], [])],
-  ["Subir", ["Go up"], []],
-  [
-    "Tener",
-    ["Have"],
-    ["Tengo", "Tiene", "Tienes", "Tenemos", "Tenéis", "Tienen"],
-  ],
-  ["Terminar", ["Finish", "End"], []],
-  ["Tocar", ["Touch", "Play"], []],
-  ["Vender", ["Sell"], []],
-  [
-    "Ver",
-    ["Watch", "View", "Look"],
-    ["Veo", "Ves", "Ve", "Vemos", "Veis", "Ven"],
-  ],
-  ["Viajar", ["Travel"], []],
-  ["Visitar", ["Visit"], []],
-  ["Vivir", ["Live"], []],
-  ["Valer", ["Worth"], ["Valgo", "Vales", "Vale", "Valemos", "Valéis", "Valen"]],
+  ["Abrir", ["Open"], [], ["Él abre la puerta"]],
+  ["Alquilar", ["Rent"], [], ["Alquilo una casa"]],
+  ["Aprender", ["Learn"], [], ["Me gusta aprender español"]],
+  ["Bajar", ["Go down"], [], ["Nosotros bajamos las escaleras"]],
+  ["Beber", ["Drink"], [], ["Ellos beben cervezas juntas"]],
+  ["Buscar", ["Look for"], [], ["Ella busca un nuevo trabajo"]],
+  ["Caminar", ["Walk"], [], ["Nos gusta caminar los domingos por la mañana"]],
+  ["Cambiar", ["Change"], [], ["Creo que vas a cambiar de opinión."]],
+  ["Cenar", ["Eat Dinner", "Have Dinner"], [], ["Nosotros cenamos a las siete de la tarde"]],
+  ["Comer", ["Eat"], [], ["Yo como un plátano todos los días"]],
+  ["Conocer", ["Know"], ["Conozco", "Conoces", "Conoce", "Conocemos", "Conocéis", "Conocen"], ["Ellos conocen a mi hermano"]],
+  ["Cerrar", ["Close"], ["Cierro", "Cierras", "Cierra", "Cerramos", "Cerráis", "Cierran"], ["Las tiendas cierran a las cinco de la tarde."]],
+  ["Correr", ["Run"], [], ["Corro la mayoría de los días"]],
+  ["Creer", ["Believe", "Think"], ["Creemos que es divertido"]],
+  ["Decir", ["Say", "Tell"], ["Digo", "Dices", "Dice", "Decimos", "Decís", "Dicen"], ["Yo digo hola"]],
+  ["Deber", ["Should"], [], ["Deberíamos comer más frutas y verduras."]],
+  ["Desayunar", ["Eat Breakfast", "Have Breakfast"], [], ["¿A qué hora es el desayuno?"]],
+  ["Dormir", ["Sleep"], ["Duermo", "Duermes", "Duerme", "Dormimos", "Dormís", "Duermen"], ["Nosotros dormimos más el fin de semana"]],
+  ["Encantar", ["Love"], [], ["Ellos encanta su jardín"]],
+  ["Enseñar", ["Teach"], [], ["Mónica me enseña español"]],
+  ["Empezar", ["Begin", "Start"], ["Empiezo", "Empiezas", "Empieza", "Empezamos", "Empezáis", "Empiezan"], ["Empezamos a trabajar a las nueve de la mañana."]],
+  ["Entender", ["Understand"], ["Entiendo", "Entiendes", "Entiende", "Entendemos", "Entendéis", "Entienden"], ["No entiendo. ¿Podrías repetirlo?"]],
+  ["Escribir", ["Write"], [], ["Ella escribe mucho por trabajo."]],
+  ["Escuchar", ["Listen"], [], ["Ellos escuchan mucha música"]],
+  ["Fumar", ["Smoke"], ["", "", "", "", "", ""], ["No me gusta fumar. Es repugnante."]],
+  ["Gustar", ["Like"], [], [""], ["Me gustan bastante los programas de televisión, pero prefiero las películas."]],
+  ["Hacer", ["Make", "Do"], ["Hago", "Haces", "Hace", "Hacemos", "Hacéis", "Hacen"], ["Ella hace bolsos y mascarillas para vender."]],
+  ["Interesar", ["Interest"], ["", "", "", "", "", ""], ["A mi no me interesan los museos"]],
+  ["Ir", ["Go"], ["Voy", "Vas", "Va", "Vamos", "Vais", "Van"], ["Ella va a las tiendas temprano los sábados."]],
+  ["Leer", ["Read"], [], ["Ellos leen muchos libros en el verano"]],
+  ["Limpiar", ["Clean"], [], ["Ellos limpian la mesa después de la cena"]],
+  ["Llamarse", ["Call", "Called"], [], ["Llamo a mis padres cada dos semanas."]],
+  ["Llegar", ["Arrive", "Come"], [], ["Él siempre llega tarde."]],
+  ["Madrugar", ["Wake up early", "Get up early", "Rise early"], [], ["Yo madrugo tres días cada semana."]],
+  ["Mirar", ["Look"], [], ["Miro mis fotos a menudo"]],
+  ["Montar", ["Ride", "Mount"], [], ["En vacaciones montamos en bicicleta."]],
+  ["Necesitar", ["Need"], [], ["Necesitas más tiempo"]],
+  ["Odiar", ["Hate"], [], ["Odio a los propietarios"]],
+  ["Olvidar", ["Forget"], [], ["A veces olvido palabras en español."]],
+  ["Pagar", ["Pay"], [], ["Le pago al barista por café."]],
+  ["Pasar", ["Pass", "Happen"], [], ["Pasas por la estación de tren de camino a casa."]],
+  ["Perder", ["Lose"], ["Pierdo", "Pierdes", "Pierde", "Perdemos", "Perdéis", "Pierden"], [""]],
+  ["Poder", ["Be able", "Could"], ["Puedo", "Puedes", "Puede", "Podemos", "Podéis", "Pueden"], [""]],
+  ["Ponerse", ["Put on", "Place on"], ["me Pongo", "te Pones", "se Pone", "nos Ponemos", "os Ponéis", "se Ponen"], [""]],
+  ["Preguntar", ["Ask"], [], ["Ella me hace preguntas en español"]],
+  ["Prometer", ["Promise"], [], ["Prometo limpiar la cocina"]],
+  ["Responder", ["Answer"], [], ["Ellos responden la pregunta"]],
+  ["Quedar", ["Meet", "Left", "Remain"], [], ["Quedo con mis amigos los fines de semana"]],
+  ["Quedarse", ["Stay"], [], ["Nosotros nos quedamos en casa los domingos"]],
+  ["Querer", ["Want"], ["Quiero", "Quieres", "Quiere", "Queremos", "Queréis", "Quieren"], ["Ella quiere hamburguesa y patatas fritas para el almuerzo."]],
+  ["Saber", ["Know"], ["Sé", "Sabes", "Sabe", "Sabemos", "Sabéis", "Saben"], ["Sé cómo escribir código en Javascript."]],
+  ["Salir", ["Go out", "Leave"], ["Salgo", "Sales", "Sale", "Salimos", "Salis", "Salen"], ["Nosotros salimos el fin de semana"]],
+  ["Significar", ["Mean"], [], ["No significan nada para mí, ahora"]],
+  ["Subir", ["Go up"], [], ["Cuando es tarde, subimos las escaleras"]],
+  ["Tener", ["Have"], ["Tengo", "Tiene", "Tienes", "Tenemos", "Tenéis", "Tienen"], ["Tengo frio"]],
+  ["Terminar", ["Finish", "End"], [], ["Termino de trabajar a las cinco de la tarde."]],
+  ["Tocar", ["Touch", "Play"], [], ["Ella toca muy bien la guitarra."]],
+  ["Vender", ["Sell"], [], ["Ella vende el mejor café de la ciudad."]],
+  ["Ver", ["Watch", "View", "Look"], ["Veo", "Ves", "Ve", "Vemos", "Veis", "Ven"], ["Nosotros vemos películas juntos en navidad"]],
+  ["Viajar", ["Travel"], [], ["Yo viajo al trabajo en autobús"]],
+  ["Visitar", ["Visit"], [], ["Visito la cafetería al final de mi calle todos los días."]],
+  ["Vivir", ["Live"], [], ["Ahora vive en Japón."]],
+  ["Valer", ["Worth"], ["Valgo", "Vales", "Vale", "Valemos", "Valéis", "Valen"], ["No vale la pena el dinero"]],
+  ["Volver", ["Come back", "Return"], ["Vuelvo", "Vuelves", "Vuelve", "Volemos", "Volvéis", "Vuelven"], ["Nosotros volvemos mas tarde"]],
 ];
 
 const verbPronouns = [
@@ -399,8 +357,9 @@ const linkWords = [
   ["Bastante", ["Quite"]],
   ["Basura", ["Rubbish"]],
   ["Cada", ["Each"]],
-  ["Cerca", ["Close"]],
+  ["Cerca", ["Close", "Near"]],
   ["Con", ["With"]],
+  ["Conmigo", ["With me"]]
   ["Cosa", ["Thing"]],
   ["Cuando", ["When"]],
   ["Cuantos", ["How many"]],
@@ -411,11 +370,15 @@ const linkWords = [
   ["La mayoría", ["Most"]],
   ["Lejos", ["Far"]],
   ["Lo mismo", ["The same", "Same"]],
+  ["Juntos", ["Together"]],
+  ["Más", ["More"]],
   ["Mejor", ["Better"]],
   ["Mucho", ["A lot"]],
   ["Muy", ["Very"]],
   ["Otra vez", ["Again"]],
   ["Pero", ["But"]],
+  ["Poco", ["Little", "A little", "Few"]],
+  ["Pequeño", ["Small", "Young", "Short"]],
   ["Por eso", ["That's why", "Therefore"]],
   ["Por qué", ["Why"]],
   ["Porque", ["Because"]],
@@ -656,8 +619,8 @@ hamburgerVerbConjugation.addEventListener("click", () => {
 questionText.addEventListener("click", () => {
   // shows answer on click briefly (for idiots)
   if (state.currentTab !== "verbConjugation") {
-    questionText.textContent =
-      state.questionEnglish.substring(0, state.questionLetterIndex) + "...";
+    questionText.textContent = state.questionEnglish + "...";
+    // questionText.textContent = state.questionEnglish.substring(0, state.questionLetterIndex) + "...";
   } else {
     questionText.textContent = state.conjugatedAnswer;
   }
@@ -676,7 +639,7 @@ questionText.addEventListener("click", () => {
 });
 
 answerText.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
+  if (event.key === "Enter" && answerText.value !== "") {
     const answer = answerText.value;
     checkAnswer(answer);
   }
@@ -774,6 +737,7 @@ function updateQuestionText() {
     case "verbs":
       state.questionIndex = Math.floor(Math.random() * verbs.length);
       randomQuestion = verbs[state.questionIndex];
+      questionExample.textContent = verbs[state.questionIndex][3][0];
       state.verbSummary.push(randomQuestion);
       break;
     case "emotions":
@@ -852,7 +816,6 @@ function updateQuestionText() {
       } else {
         conjugatedAnswer = randomQuestion[2][state.spanishPronounIndex];
       }
-      console.log("conjugated answer", conjugatedAnswer);
       state.conjugatedAnswer = conjugatedAnswer;
       state.englishPronoun = verbPronouns[5][state.spanishPronounIndex];
       break;
@@ -867,7 +830,6 @@ function updateQuestionText() {
     // TODO: replace this with the answer during question update
     questionEnglish = randomQuestion[1][0];
     questionText.textContent = pronounPlusQuestion;
-    console.log(randomQuestion);
     if (randomQuestion[2].length !== 0) {
       questionText.setAttribute("class", "irregular_verb_highlight");
     }
@@ -1214,7 +1176,6 @@ function checkAnswer(answer) {
       });
       break;
     case "verbConjugation":
-      console.log("answer", inputFormatted, state.conjugatedAnswer);
       if (inputFormatted === state.conjugatedAnswer.toLowerCase()) {
         answerIndex = 1;
       } else {
@@ -1223,6 +1184,8 @@ function checkAnswer(answer) {
       break;
   }
 
+  console.log("answer index", answerIndex);
+  
   if (answerIndex !== -1) {
     // if any answer matches input
     greenCheck.style.color = "green";
@@ -1234,6 +1197,7 @@ function checkAnswer(answer) {
     switch (state.currentTab) {
       case "verbs":
         verbs.splice(state.questionIndex, 1);
+        console.log("verbs", verbs);
         break;
       case "emotions":
         emotionsAndStates.splice(state.questionIndex, 1);

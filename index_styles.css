@@ -139,15 +139,19 @@ body {
     height: 60px;
 }
 
-#verb_text_question {
+.test_containers {
+    display: flex;
+    justify-content: center;
+}
+
+#text_question {
     padding: 0px 10px 0px 10px;
     font-weight: bold;
     font-size: 48px;
 }
 
-#icon_container {
-    display: flex;
-    justify-content: center;
+#text_example {
+    font-style: italic;
 }
 
 .verb_question_icon {
@@ -157,14 +161,10 @@ body {
 }
 
 #answer_summary_table {
-    display: flex;
-    justify-content: center;
     margin: 0px 0px 10px 0px;
 }
 
 #verb_container_answer {
-    display: flex;
-    justify-content: center;
     margin: 10px 0px 10px 0px;
 }
 
