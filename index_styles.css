@@ -227,6 +227,7 @@ table, th, td {
 
 #verb_conjugation_table_container {
     display: none;
+
     z-index: 10;
     position: fixed;
     justify-content: center;
@@ -242,6 +243,11 @@ table, th, td {
 
 #verb_conjugation_table {
     background: white;
+}
+
+.verb_conjugation_table_title {
+    position: absolute;
+    top: 10px;
 }
 
 #close_verb_conjugation_table {

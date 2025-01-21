@@ -55,6 +55,7 @@ const tableBody = document.querySelector("#table_body");
 const verbConjugationTableContainer = document.querySelector(
   "#verb_conjugation_table_container"
 );
+const verbConjugationTableTitle = document.querySelector(".verb_conjugation_table_title");
 const verbConjugationTableHead = document.querySelector(
   "#verb_conjugation_table_head"
 );
@@ -106,13 +107,14 @@ const verbs = [
   ["Cenar", ["Eat Dinner", "Have Dinner"], [], ["Nosotros cenamos a las siete de la tarde"]],
   ["Coger", ["Take"], ["Cojo", "Coges", "Coge"], ["Yo cojo el autobus para ir al trabajo"]],
   ["Comer", ["Eat"], [], ["Yo como un plátano todos los días"]],
-  ["Conducir", ["Drive"], ["Conduzco", "Conduces", "Conduce", "Conducimos", "Conducís", "Conducen"], ["El conduce al trabajo tres veces por semana"]],
+  ["Conducir", ["Drive", "Drives"], ["Conduzco", "Conduces", "Conduce", "Conducimos", "Conducís", "Conducen"], ["El conduce al trabajo tres veces por semana"]],
   ["Conocer", ["Know"], ["Conozco", "Conoces", "Conoce", "Conocemos", "Conocéis", "Conocen"], ["Ellos conocen a mi hermano"]],
   ["Cerrar", ["Close"], ["Cierro", "Cierras", "Cierra", "Cerramos", "Cerráis", "Cierran"], ["Las tiendas cierran a las cinco de la tarde."]],
   ["Correr", ["Run"], [], ["Corro la mayoría de los días"]],
-  ["Creer", ["Believe", "Think"], ["Creemos que es divertido"]],
+  ["Creer", ["Believe", "Think"], [], ["Creemos que es divertido"]],
+  ["Dar", ["Give"], ["Doy", "Das", "Da", "Damos", "Dais", "Dan"], ["Ellos me dan regalos para mi cumpleaños"]],
   ["Decir", ["Say", "Tell"], ["Digo", "Dices", "Dice", "Decimos", "Decís", "Dicen"], ["Yo digo hola"]],
-  ["Deber", ["Should"], [], ["Deberíamos comer más frutas y verduras."]],
+  ["Deber", ["Must", "Should"], [], ["Deberíamos comer más frutas y verduras."]],
   ["Despertarse", ["Wake up"], ["Me despierto", "Te despiertas", "Se despierta", "Nos despertamos", "Os despertáis", "Se despiertan"], ["Se despiertan tarde en la fin de semana"]],
   ["Desayunar", ["Eat Breakfast", "Have Breakfast"], [], ["¿A qué hora es el desayuno?"]],
   ["Dormir", ["Sleep", "Asleep", "Be asleep"], ["Duermo", "Duermes", "Duerme", "Dormimos", "Dormís", "Duermen"], ["Nosotros dormimos más el fin de semana"]],
@@ -124,6 +126,8 @@ const verbs = [
   ["Entender", ["Understand"], ["Entiendo", "Entiendes", "Entiende", "Entendemos", "Entendéis", "Entienden"], ["No entiendo. ¿Podrías repetirlo?"]],
   ["Escribir", ["Write"], [], ["Ella escribe mucho por trabajo."]],
   ["Escuchar", ["Listen"], [], ["Ellos escuchan mucha música"]],
+  ["Esperar", ["Hope"], [], ["Espero poder verla más"]],
+  ["Estudiar", ["Study"], [], ["Estudio español con Mónica dos veces por semana"]],
   ["Fumar", ["Smoke"], [], ["No me gusta fumar. Es repugnante."]],
   ["Gustar", ["Like"], [], ["Me gustan bastante los programas de televisión, pero prefiero las películas."]],
   ["Hacer", ["Make", "Do"], ["Hago", "Haces", "Hace", "Hacemos", "Hacéis", "Hacen"], ["Ella hace bolsos y mascarillas para vender."]],
@@ -136,6 +140,7 @@ const verbs = [
   ["Llegar", ["Arrive", "Come"], [], ["Él siempre llega tarde."]],
   ["Levantarse", ["Get up"], [], ["Se levanta a las ocho y media cada dia"]],
   ["Madrugar", ["Wake up early", "Get up early", "Rise early"], [], ["Yo madrugo tres días cada semana."]],
+  ["Mejorar", ["Improve"], [], ["Mejoro mi español cada semana"]],
   ["Mirar", ["Look"], [], ["Miro mis fotos a menudo"]],
   ["Montar", ["Ride", "Mount"], [], ["En vacaciones montamos en bicicleta."]],
   ["Necesitar", ["Need"], [], ["Necesitas más tiempo"]],
@@ -171,16 +176,20 @@ const verbs = [
   ["Visitar", ["Visit"], [], ["Visito la cafetería al final de mi calle todos los días."]],
   ["Vivir", ["Live"], [], ["Ahora vive en Japón."]],
   ["Valer", ["Worth"], ["Valgo", "Vales", "Vale", "Valemos", "Valéis", "Valen"], ["No vale la pena el dinero"]],
+  ["Volar", ["Fly"], ["Vuelo", "Vuelas", "Vuela", "Volamos", "Voláis", "Vuelan"], ["Vuela a Japón esta noche"]],
   ["Volver", ["Come back", "Return"], ["Vuelvo", "Vuelves", "Vuelve", "Volemos", "Volvéis", "Vuelven"], ["Nosotros volvemos mas tarde"]],
 ];
 
 const verbPronouns = [
   ["Yo", "Tú", "Él", "Nosotros", "Vosotros", "Ellos"], // spanish pronouns
-  ["o", "as", "a", "amos", "áis", "an"], // ar verbs
-  ["o", "es", "e", "emos", "éis", "en"], // er verbs
-  ["o", "es", "e", "imos", "ís", "en"], // ir verbs
+  ["o", "as", "a", "amos", "áis", "an"], // ar verbs - present
+  ["o", "es", "e", "emos", "éis", "en"], // er verbs - present
+  ["o", "es", "e", "imos", "ís", "en"], // ir verbs - present
   ["me", "te", "se", "nos", "os", "se"], // se verbs
   ["I", "You", "He", "We", "You", "They"], // english pronouns
+  ["é", "aste", "ó", "amos", "asteis", "aron"], // ar verbs - past
+  ["í", "iste", "ó", "imos", "isteis", "ieron"], // er verbs - past
+  ["í", "ste", "ó", "imos", "steis", "eron"], // ir verbs - past
 ];
 
 const emotionsAndStates = [
@@ -404,6 +413,7 @@ const linkWords = [
   ["Por eso", ["That's why", "Therefore"]],
   ["Por qué", ["Why"]],
   ["Porque", ["Because"]],
+  ["Quien", ["Who"]]
   ["Si", ["If"]],
   ["Siempre", ["Always"]],
   ["Sin", ["Without"]],
@@ -436,6 +446,11 @@ const phrases = [
   ["Casi nunca", ["Almost never"]],
   ["De fez un cuando", ["Every so often", "From time to time", "Time to time"]],
   ["El día pasa rápido", ["Today went fast"]],
+  ["¿Como te llamas?", ["What's your name", "What is your name"]],
+  ["¿Que tal?", ["How are you"]],
+  ["¿Que tal tu dia?", ["How was your day"]],
+  ["¿Como te sientes?", ["How do you feel"]],
+  ["Me alegro", ["Glad to hear it", "I'm glad", "I'm glad to hear it"]],
 ];
 
 state.currentTabLength = verbs.length;
@@ -927,57 +942,61 @@ function updateSummaryTable() {
   }
   state.errorRegister = false;
   newEnglishCell.textContent = englishText;
-  newEnglishCell.addEventListener("click", (event) => {
-    while (verbConjugationTableHead.hasChildNodes()) {
-      verbConjugationTableHead.removeChild(verbConjugationTableHead.firstChild);
-    }
-    while (verbConjugationTableBody.hasChildNodes()) {
-      verbConjugationTableBody.removeChild(verbConjugationTableBody.firstChild);
-    }
-    verbConjugationTableContainer.style.left = screen.width / 2 - 175 + "px";
-    verbConjugationTableContainer.style.display = "flex";
-    let infinitiveEnglishText = event.target.getAttribute(
-      "data-english-infinitive"
-    );
-    let infinitiveSpanishText = event.target.getAttribute(
-      "data-spanish-infinitive"
-    );
-    const newInfinitiveEnglishCell = document.createElement("th");
-    const newInfinitiveSpanishCell = document.createElement("th");
-    newInfinitiveSpanishCell.textContent = infinitiveSpanishText;
-    newInfinitiveEnglishCell.textContent =
-      "To" + " " + infinitiveEnglishText.toLowerCase();
-    newInfinitiveSpanishCell.setAttribute("id", infinitiveSpanishText);
 
-    newInfinitiveSpanishCell.addEventListener("click", (event) => {
-      const word = event.target.id;
-      playSpanish(word);
-    });
-    verbConjugationTableHead.appendChild(newInfinitiveEnglishCell);
-    verbConjugationTableHead.appendChild(newInfinitiveSpanishCell);
-
-    for (let i = 0; i < verbPronouns[0].length; i++) {
-      let particleSpanishText = verbPronouns[0][i];
-      let conjugatedSpanishText = event.target.getAttribute(`data-${i}`);
-      const popupRow = document.createElement("tr");
-      const particleSpanishCell = document.createElement("td");
-      const conjugatedSpanishCell = document.createElement("td");
-      particleSpanishCell.textContent = particleSpanishText;
-      conjugatedSpanishCell.textContent = conjugatedSpanishText;
-      conjugatedSpanishCell.setAttribute("id", conjugatedSpanishText);
-      conjugatedSpanishCell.setAttribute("class", "summary_table");
-      conjugatedSpanishCell.addEventListener("click", (event) => {
+  //TODO: show conjugation modal onclick (same as study table)
+  if (state.currentSection === "study" && state.currentTab === "verbs") {
+    newEnglishCell.addEventListener("click", (event) => {
+      while (verbConjugationTableHead.hasChildNodes()) {
+        verbConjugationTableHead.removeChild(verbConjugationTableHead.firstChild);
+      }
+      while (verbConjugationTableBody.hasChildNodes()) {
+        verbConjugationTableBody.removeChild(verbConjugationTableBody.firstChild);
+      }
+      verbConjugationTableContainer.style.left = screen.width / 2 - 175 + "px";
+      verbConjugationTableContainer.style.display = "flex";
+      let infinitiveEnglishText = event.target.getAttribute(
+        "data-english-infinitive"
+      );
+      let infinitiveSpanishText = event.target.getAttribute(
+        "data-spanish-infinitive"
+      );
+      const newInfinitiveEnglishCell = document.createElement("th");
+      const newInfinitiveSpanishCell = document.createElement("th");
+      newInfinitiveSpanishCell.textContent = infinitiveSpanishText;
+      newInfinitiveEnglishCell.textContent =
+        "To" + " " + infinitiveEnglishText.toLowerCase();
+      newInfinitiveSpanishCell.setAttribute("id", infinitiveSpanishText);
+  
+      newInfinitiveSpanishCell.addEventListener("click", (event) => {
         const word = event.target.id;
         playSpanish(word);
       });
-      verbConjugationTableBody.appendChild(popupRow);
-      popupRow.appendChild(particleSpanishCell);
-      popupRow.appendChild(conjugatedSpanishCell);
-    }
-    setTimeout(() => {
-      state.studyPopUp = true;
-    }, 1000);
-  });
+      verbConjugationTableHead.appendChild(newInfinitiveEnglishCell);
+      verbConjugationTableHead.appendChild(newInfinitiveSpanishCell);
+  
+      for (let i = 0; i < verbPronouns[0].length; i++) {      
+        let particleSpanishText = verbPronouns[0][i];
+        let conjugatedSpanishText = event.target.getAttribute(`data-present-${i}`);
+        const popupRow = document.createElement("tr");
+        const particleSpanishCell = document.createElement("td");
+        const conjugatedSpanishCell = document.createElement("td");
+        particleSpanishCell.textContent = particleSpanishText;
+        conjugatedSpanishCell.textContent = conjugatedSpanishText;
+        conjugatedSpanishCell.setAttribute("id", conjugatedSpanishText);
+        conjugatedSpanishCell.setAttribute("class", "summary_table");
+        conjugatedSpanishCell.addEventListener("click", (event) => {
+          const word = event.target.id;
+          playSpanish(word);
+        });
+        verbConjugationTableBody.appendChild(popupRow);
+        popupRow.appendChild(particleSpanishCell);
+        popupRow.appendChild(conjugatedSpanishCell);
+      }
+      setTimeout(() => {
+        state.studyPopUp = true;
+      }, 1000);
+    });
+  }
   newEnglishCell.setAttribute("data-spanish-infinitive", spanishText);
   newEnglishCell.setAttribute("data-english-infinitive", englishText);
 
@@ -1014,56 +1033,54 @@ function setStudyTable() {
     }
 
     newEnglishCell.textContent = englishText;
+    // pop up verb conjugation table
     newEnglishCell.addEventListener("click", (event) => {
-      while (verbConjugationTableHead.hasChildNodes()) {
-        verbConjugationTableHead.removeChild(
-          verbConjugationTableHead.firstChild
-        );
-      }
       while (verbConjugationTableBody.hasChildNodes()) {
-        verbConjugationTableBody.removeChild(
-          verbConjugationTableBody.firstChild
-        );
+        verbConjugationTableBody.removeChild(verbConjugationTableBody.firstChild);
       }
       verbConjugationTableContainer.style.left = screen.width / 2 - 175 + "px";
       verbConjugationTableContainer.style.display = "flex";
-      let infinitiveEnglishText = event.target.getAttribute(
-        "data-english-infinitive"
-      );
-      let infinitiveSpanishText = event.target.getAttribute(
-        "data-spanish-infinitive"
-      );
-      const newInfinitiveEnglishCell = document.createElement("th");
-      const newInfinitiveSpanishCell = document.createElement("th");
-      newInfinitiveSpanishCell.textContent = infinitiveSpanishText;
-      newInfinitiveEnglishCell.textContent =
-        "To" + " " + infinitiveEnglishText.toLowerCase();
-      newInfinitiveSpanishCell.setAttribute("id", infinitiveSpanishText);
-
-      newInfinitiveSpanishCell.addEventListener("click", (event) => {
+      let infinitiveEnglishText = event.target.getAttribute("data-english-infinitive");
+      let infinitiveSpanishText = event.target.getAttribute("data-spanish-infinitive");
+      verbConjugationTableTitle.innerHTML = `<b>${infinitiveSpanishText}</b> - To ${infinitiveEnglishText}`;
+      verbConjugationTableTitle.setAttribute("id", infinitiveSpanishText)
+      verbConjugationTableTitle.addEventListener("click", (event) => {
         const word = event.target.id;
         playSpanish(word);
       });
-      verbConjugationTableHead.appendChild(newInfinitiveEnglishCell);
-      verbConjugationTableHead.appendChild(newInfinitiveSpanishCell);
 
       for (let i = 0; i < verbPronouns[0].length; i++) {
         let particleSpanishText = verbPronouns[0][i];
-        let conjugatedSpanishText = event.target.getAttribute(`data-${i}`);
+        let conjugatedPresentSpanishText = event.target.getAttribute(`data-present-${i}`);
+        let conjugatedPastSpanishText = event.target.getAttribute(`data-past-${i}`);
+
         const popupRow = document.createElement("tr");
         const particleSpanishCell = document.createElement("td");
-        const conjugatedSpanishCell = document.createElement("td");
+        const conjugatedPresentSpanishCell = document.createElement("td");
+        const conjugatedPastSpanishCell = document.createElement("td");
+
         particleSpanishCell.textContent = particleSpanishText;
-        conjugatedSpanishCell.textContent = conjugatedSpanishText;
-        conjugatedSpanishCell.setAttribute("id", conjugatedSpanishText);
-        conjugatedSpanishCell.setAttribute("class", "summary_table");
-        conjugatedSpanishCell.addEventListener("click", (event) => {
+
+        conjugatedPresentSpanishCell.textContent = conjugatedPresentSpanishText;
+        conjugatedPresentSpanishCell.setAttribute("id", conjugatedPresentSpanishText);
+        conjugatedPresentSpanishCell.setAttribute("class", "summary_table");
+        conjugatedPresentSpanishCell.addEventListener("click", (event) => {
           const word = event.target.id;
           playSpanish(word);
         });
+
+        conjugatedPastSpanishCell.textContent = conjugatedPastSpanishText;
+        conjugatedPastSpanishCell.setAttribute("id", conjugatedPastSpanishText);
+        conjugatedPastSpanishCell.setAttribute("class", "summary_table");
+        conjugatedPastSpanishCell.addEventListener("click", (event) => {
+          const word = event.target.id;
+          playSpanish(word);
+        });
+
         verbConjugationTableBody.appendChild(popupRow);
         popupRow.appendChild(particleSpanishCell);
-        popupRow.appendChild(conjugatedSpanishCell);
+        popupRow.appendChild(conjugatedPresentSpanishCell);
+        popupRow.appendChild(conjugatedPastSpanishCell);
       }
       setTimeout(() => {
         state.studyPopUp = true;
@@ -1074,7 +1091,8 @@ function setStudyTable() {
       newEnglishCell.setAttribute("data-spanish-infinitive", spanishText);
       newEnglishCell.setAttribute("data-english-infinitive", englishText);
       for (let j = 0; j < verbPronouns[0].length; j++) {
-        let conjugatedAnswer = "";
+        let conjugatedAnswerPresent = "";
+        let conjugatedAnswerPast = ""
         const stringMinusTwo = verbs[i][0].length - 2;
         const stringMinusFour = verbs[i][0].length - 4;
         let trimmedVerb = verbs[i][0]
@@ -1091,24 +1109,28 @@ function setStudyTable() {
               stringMinusFour,
               stringMinusTwo
             );
-            conjugatedAnswer = verbPronouns[4][j] + " ";
+            conjugatedAnswerPresent = verbPronouns[4][j] + " ";
             // state.seConjugation = true;
           }
           switch (finalTwoLetters) {
             case "ar":
-              conjugatedAnswer += trimmedVerb + verbPronouns[1][j];
+              conjugatedAnswerPresent += trimmedVerb + verbPronouns[1][j];
+              conjugatedAnswerPast += trimmedVerb + verbPronouns[6][j]
               break;
             case "er":
-              conjugatedAnswer += trimmedVerb + verbPronouns[2][j];
+              conjugatedAnswerPresent += trimmedVerb + verbPronouns[2][j];
+              conjugatedAnswerPast += trimmedVerb + verbPronouns[7][j];
               break;
             case "ir":
-              conjugatedAnswer += trimmedVerb + verbPronouns[3][j];
+              conjugatedAnswerPresent += trimmedVerb + verbPronouns[3][j];
+              conjugatedAnswerPast += trimmedVerb + verbPronouns[8][j];
               break;
           }
         } else {
-          conjugatedAnswer = verbs[i][2][j];
+          conjugatedAnswerPresent = verbs[i][2][j];
         }
-        newEnglishCell.setAttribute(`data-${j}`, conjugatedAnswer);
+        newEnglishCell.setAttribute(`data-present-${j}`, conjugatedAnswerPresent);
+        newEnglishCell.setAttribute(`data-past-${j}`, conjugatedAnswerPast)
       }
     }
 
