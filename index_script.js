@@ -94,6 +94,7 @@ const accentedCharacters = ["á", "é", "í", "ñ", "ó", "ú"];
 const placeholder = ["", [""], ["", "", "", "", "", ""], [""]];
 const example = ["Verb (Spanish)", ["Verb (English)"], ["Conjugations (Irregular only"], ["Example sentence"]];
 
+// add decide, take?
 const verbs = [
   ["Abrir", ["Open"], [], ["Él abre la puerta"]],
   ["Acostarse", ["Lie down", "Lay down"], ["me acuesto", "te acuestas", "se acuesta", "nos acostamos", "os acostáis", "se acuestan"], [""]],
@@ -143,6 +144,7 @@ const verbs = [
   ["Mejorar", ["Improve"], [], ["Mejoro mi español cada semana"]],
   ["Mirar", ["Look"], [], ["Miro mis fotos a menudo"]],
   ["Montar", ["Ride", "Mount"], [], ["En vacaciones montamos en bicicleta."]],
+  ["Nacir", ["Be Born", "Born"], [], ["Yo nací en un pueblo pequeño"]],
   ["Necesitar", ["Need"], [], ["Necesitas más tiempo"]],
   ["Odiar", ["Hate"], [], ["Odio a los propietarios"]],
   ["Olvidar", ["Forget"], [], ["A veces olvido palabras en español."]],
@@ -189,7 +191,7 @@ const verbPronouns = [
   ["I", "You", "He", "We", "You", "They"], // english pronouns
   ["é", "aste", "ó", "amos", "asteis", "aron"], // ar verbs - past
   ["í", "iste", "ó", "imos", "isteis", "ieron"], // er verbs - past
-  ["í", "ste", "ó", "imos", "steis", "eron"], // ir verbs - past
+  ["í", "iste", "ó", "imos", "isteis", "ieron"], // ir verbs - past
 ];
 
 const emotionsAndStates = [
