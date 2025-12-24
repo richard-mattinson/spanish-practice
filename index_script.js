@@ -3,7 +3,7 @@
 // TITLE BAR
 const body = document.querySelector("#body_container");
 
-const titleBar = document.querySelector("#title_bar");
+const navbar = document.querySelector("#navbar");
 const titleText = document.querySelector("#title_text");
 
 const speakerOn = document.querySelector("#speaker_on");
@@ -1104,12 +1104,12 @@ function chickenDinner() {
     correctCounter.style.color = "green";
     correctTen.style.color = "green";
     titleText.textContent = "¡Richard habla español!";
-    titleBar.classList.replace("grey", "winner_winner_animation");
+    navbar.classList.replace("grey", "winner_winner_animation");
     if (state.speakerOn) {
       playSpanish("Cena de pollo"); // chicken dinner :D
     }
     setTimeout(() => {
-      titleBar.classList.replace("winner_winner_animation", "grey");
+      navbar.classList.replace("winner_winner_animation", "grey");
       titleText.textContent = "¿De nuevo?";
       if (state.speakerOn) {
         playSpanish("De nuevo");
@@ -1120,12 +1120,12 @@ function chickenDinner() {
     correctText.textContent = "Errores";
     correctCounter.textContent = state.errorCounter;
     titleText.textContent = "Richard no habla español";
-    titleBar.classList.replace("grey", "try_harder_animation");
+    navbar.classList.replace("grey", "try_harder_animation");
     if (state.speakerOn) {
       playSpanish("Boca seca"); // dry mouth ;/
     }
     setTimeout(() => {
-      titleBar.classList.replace("try_harder_animation", "grey");
+      navbar.classList.replace("try_harder_animation", "grey");
       titleText.textContent = "¿De nuevo?";
       if (state.speakerOn) {
         playSpanish("De nuevo");

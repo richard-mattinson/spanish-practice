@@ -24,9 +24,12 @@ body {
     position: sticky;
     top: 0;
     width: 100%;
-    background: grey;
 }
 
+.grey {
+    background: grey;
+    color: white;
+}
 
 #title_text {
     font-size: 20px;
@@ -40,16 +43,16 @@ body {
     color: white;
     cursor: pointer;
     font-size: 28px;
-    -webkit-tap-highlight-color: transparent;
 }
+/* -webkit-tap-highlight-color: transparent; */
 
 .speaker_button {
     padding: 5px 10px;
     font-size: 28px;
     color: white;
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
 }
+/* -webkit-tap-highlight-color: transparent; */
 
 #speaker_on {
     display: none;
@@ -61,11 +64,6 @@ body {
     text-align: center;
     background: rgb(234, 233, 233);
     margin: 0px 0px 10px 0px;
-}
-
-.grey {
-    background: grey;
-    color: rgb(255, 255, 255);
 }
 
 #section_title {
