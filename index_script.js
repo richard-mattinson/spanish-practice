@@ -9,7 +9,7 @@ const titleText = document.querySelector("#title_text");
 const speakerOn = document.querySelector("#speaker_on");
 const speakerOff = document.querySelector("#speaker_off");
 
-const currentTab = document.querySelector("#current_tab");
+const currentSection = document.querySelector("#current_section");
 
 // HAMBURGER MENU
 const hamburgerButton = document.querySelector("#hamburger_button");
@@ -17,18 +17,19 @@ const hamburgerMenu = document.querySelector("#hamburger_menu");
 const testSectionButton = document.querySelector("#test_section_button");
 const studySectionButton = document.querySelector("#study_section_button");
 const hamburgerButtons = document.querySelectorAll(".hamburger_buttons");
-const hamburgerVerb = document.querySelector("#verb_button");
+
+const hamburgerVerb = document.querySelector("#verbs_button");
 const hamburgerEmotion = document.querySelector("#emotions_button");
 const hamburgerRelation = document.querySelector("#relations_button");
-const hamburgerTimeAndDate = document.querySelector("#time_and_date_button");
+const hamburgerTimeAndDate = document.querySelector("#time-and-date_button");
 const hamburgerClothes = document.querySelector("#clothes_button");
 const hamburgerWeatherAndNature = document.querySelector(
-  "#weather_and_nature_button"
+  "#weather-and-nature_button"
 );
-const hamburgerLinkWords = document.querySelector("#link_words_button");
+const hamburgerLinkWords = document.querySelector("#link-words_button");
 const hamburgerPhrases = document.querySelector("#phrases_button");
 const hamburgerVerbConjugation = document.querySelector(
-  "#verb_conjugation_button"
+  "#verb-conjugation_button"
 );
 
 // BODY
@@ -52,6 +53,7 @@ const tableContainer = document.querySelector(
 const tableBody = document.querySelector("#table_body");
 
 // STUDY TABLE
+const modalMask = document.querySelector("#modal_mask")
 const verbConjugationTableContainer = document.querySelector(
   "#verb_conjugation_table_container"
 );
@@ -154,8 +156,8 @@ const verbs = [
   ["Perder", ["Lose"], ["Pierdo", "Pierdes", "Pierde", "Perdemos", "Perdéis", "Pierden"], [""]],
   ["Pensar", ["Think about", "Think"], ["Pienso", "Piensas", "Piensa", "Pensemos", "Pensáis", "Piensen"], ["Pienso en Japón a menudo"]],
   ["Poder", ["Be able", "Could"], ["Puedo", "Puedes", "Puede", "Podemos", "Podéis", "Pueden"], ["Puedo hablar un poco de espanol"]],
-  ["Poner", ["Put an item in / on something", "Put in", "Put on", "Place on"], ["Pongo", "Pones", "Pone", "Ponemos", "Ponéis", "Ponen"], ["Pongo la comida en el frigorífico"]],
-  ["Ponerse", ["Put on (clothes) / Put yourself in a mood", "Put on"], ["me Pongo", "te Pones", "se Pone", "nos Ponemos", "os Ponéis", "se Ponen"], ["Me pongo mi camisa favorita"]],
+  ["Poner", ["Put in", "Put an item in / on something", "Put on", "Place on"], ["Pongo", "Pones", "Pone", "Ponemos", "Ponéis", "Ponen"], ["Pongo la comida en el frigorífico"]],
+  ["Ponerse", ["Put on", "Put on (clothes) / Put yourself in a mood"], ["me Pongo", "te Pones", "se Pone", "nos Ponemos", "os Ponéis", "se Ponen"], ["Me pongo mi camisa favorita"]],
   ["Preguntar", ["Ask"], [], ["Ella me hace preguntas en español"]],
   ["Preguntarse", ["Wonder"], [], ["Me pregunto si ella está ocupada ahora."]],
   ["Prometer", ["Promise"], [], ["Prometo limpiar la cocina"]],
@@ -455,6 +457,17 @@ const phrases = [
   ["Me alegro", ["Glad to hear it", "I'm glad", "I'm glad to hear it"]],
 ];
 
+const dictionaryLengths = {
+  verbs: verbs.length,
+  emotions: emotionsAndStates.length,
+  relations: relations.length,
+  timeAndDate: timeAndDate.length,
+  clothes: clothes.length,
+  weatherAndNature: weatherAndNature.length,
+  linkWords: linkWords.length,
+  phrases: phrases.length
+}
+
 state.currentTabLength = verbs.length;
 state.currentTabArray = verbs;
 
@@ -499,6 +512,9 @@ testSectionButton.addEventListener("click", () => {
     testContainers[i].style.display = "flex";
   }
   tableContainer.style.visibility = "hidden";
+  if (state.currentTab === "verbs") {
+    questionExample.style.display = "block"
+  }
   state.currentSection = "test";
   state.currentSectionTitle = "Prueba";
   testSectionButton.classList.add("section_active");
@@ -515,6 +531,7 @@ studySectionButton.addEventListener("click", () => {
     testContainers[i].style.display = "none";
   }
   tableContainer.style.visibility = "visible";
+  questionExample.style.display = "none";
   state.currentSection = "study";
   state.currentSectionTitle = "Estudiar";
   testSectionButton.classList.remove("section_active");
@@ -523,143 +540,67 @@ studySectionButton.addEventListener("click", () => {
   setStudyTable();
 });
 
-hamburgerVerb.addEventListener("click", () => {
-  state.currentTab = "verbs";
-  currentTab.textContent = `${state.currentSectionTitle} | Verbos`;
-  answerText.placeholder = state.defaultPlaceholder;
-  state.currentTabLength = verbs.length;
-  state.currentTabArray = verbs;
-  hideHamburgerMenu();
-  setNavbarStyling();
-  //TODO: turn this into a single function
-  if (state.currentSection === "test") {
-    resetTestComponents();
-  } else {
-    // study
-    setStudyTable();
-  }
+hamburgerButtons.forEach(button => {
+  button.addEventListener("click", event => {
+    const tabSelected = event.target.id.split("_")
+    const tabName = event.target.getAttribute("data-tab-name");
+    processHamburgerMenuChange(tabSelected[0], tabName)
+  })
 });
 
-hamburgerEmotion.addEventListener("click", () => {
-  state.currentTab = "emotions";
-  currentTab.textContent = `${state.currentSectionTitle} - Emociones y estados`;
+function processHamburgerMenuChange(tab, tabName) {
+  state.currentTab = tab;
+  if (tab === "verbs") {
+    questionExample.style.display = "block";
+  } else {
+    questionExample.style.display = "none"
+  }
+  currentSection.textContent = `${state.currentSectionTitle} | ${tabName}`;
   answerText.placeholder = state.defaultPlaceholder;
-  state.currentTabLength = emotionsAndStates.length;
-  state.currentTabArray = emotionsAndStates;
+  state.currentTabArray = setCurrentDictionary(tab)
+  state.currentTabLength = dictionaryLengths[tab];
   hideHamburgerMenu();
   setNavbarStyling();
   if (state.currentSection === "test") {
     resetTestComponents();
-  } else {
-    // study
+  } else { // study
     setStudyTable();
   }
-});
+}
 
-hamburgerRelation.addEventListener("click", () => {
-  state.currentTab = "relations";
-  currentTab.textContent = `${state.currentSectionTitle} - Relaciones`;
-  answerText.placeholder = state.defaultPlaceholder;
-  state.currentTabLength = relations.length;
-  state.currentTabArray = relations;
-  setNavbarStyling();
-  hideHamburgerMenu();
-  if (state.currentSection === "test") {
-    resetTestComponents();
-  } else {
-    // study
-    setStudyTable();
+function setCurrentDictionary(tab) {
+  let tabArray
+  switch (tab) {
+    case "verbs":
+      tabArray = verbs
+      break;
+    case "emotions":
+      tabArray = emotionsAndStates
+      break
+    case "relations":
+      tabArray = relations
+      break
+    case "timeAndDate":
+      tabArray = timeAndDate
+      break
+    case "clothes":
+      tabArray = clothes
+      break
+    case "weatherAndNature":
+      tabArray = weatherAndNature
+      break
+    case "linkWords":
+      tabArray = linkWords
+      break
+    case "phrases":
+      tabArray = phrases
+      break
+    case "verbConjugation":
+      tabArray = verbs
+      break
   }
-});
-
-hamburgerTimeAndDate.addEventListener("click", () => {
-  state.currentTab = "timeAndDate";
-  currentTab.textContent = `${state.currentSectionTitle} - Hora y fecha`;
-  answerText.placeholder = state.defaultPlaceholder;
-  state.currentTabLength = timeAndDate.length;
-  state.currentTabArray = timeAndDate;
-  setNavbarStyling();
-  hideHamburgerMenu();
-  if (state.currentSection === "test") {
-    resetTestComponents();
-  } else {
-    // study
-    setStudyTable();
-  }
-});
-
-hamburgerClothes.addEventListener("click", () => {
-  state.currentTab = "clothes";
-  currentTab.textContent = `${state.currentSectionTitle} - Ropas`;
-  answerText.placeholder = state.defaultPlaceholder;
-  state.currentTabLength = clothes.length;
-  state.currentTabArray = clothes;
-  setNavbarStyling();
-  hideHamburgerMenu();
-  if (state.currentSection === "test") {
-    resetTestComponents();
-  } else {
-    // study
-    setStudyTable();
-  }
-});
-
-hamburgerWeatherAndNature.addEventListener("click", () => {
-  state.currentTab = "weatherAndNature";
-  currentTab.textContent = `${state.currentSectionTitle} - Clima y naturaleza`;
-  answerText.placeholder = state.defaultPlaceholder;
-  state.currentTabLength = weatherAndNature.length;
-  state.currentTabArray = weatherAndNature;
-  setNavbarStyling();
-  hideHamburgerMenu();
-  if (state.currentSection === "test") {
-    resetTestComponents();
-  } else {
-    // study
-    setStudyTable();
-  }
-});
-
-hamburgerLinkWords.addEventListener("click", () => {
-  state.currentTab = "linkWords";
-  currentTab.textContent = `${state.currentSectionTitle} - Palabras de enlace`;
-  answerText.placeholder = state.defaultPlaceholder;
-  state.currentTabLength = linkWords.length;
-  state.currentTabArray = linkWords;
-  setNavbarStyling();
-  hideHamburgerMenu();
-  if (state.currentSection === "test") {
-    resetTestComponents();
-  } else {
-    // study
-    setStudyTable();
-  }
-});
-
-hamburgerPhrases.addEventListener("click", () => {
-  state.currentTab = "phrases";
-  currentTab.textContent = `${state.currentSectionTitle} - Frases`;
-  answerText.placeholder = state.defaultPlaceholder;
-  state.currentTabLength = phrases.length;
-  state.currentTabArray = phrases;
-  setNavbarStyling();
-  hideHamburgerMenu();
-  if (state.currentSection === "test") {
-    resetTestComponents();
-  } else {
-    // study
-    setStudyTable();
-  }
-});
-
-hamburgerVerbConjugation.addEventListener("click", () => {
-  state.currentTab = "verbConjugation";
-  currentTab.textContent = "Conjugación de verbos";
-  answerText.placeholder = "Conjugar en español";
-  setNavbarStyling();
-  hideHamburgerMenu();
-  resetTestComponents();
-});
+  return tabArray
+}
 
 // BODY
 
@@ -692,10 +633,13 @@ answerText.addEventListener("keydown", (event) => {
   }
 });
 
+modalMask.addEventListener("click", () => {
+  closeModal()
+})
+
 // STUDY TABLE
 closeVerbConjugationTable.addEventListener("click", () => {
-  verbConjugationTableContainer.style.display = "none";
-  state.studyPopUp = false;
+  closeModal()
 });
 
 /////////////////////////////// FUNCTIONS ///////////////////////////////
@@ -712,6 +656,12 @@ function hideHamburgerMenu() {
   hamburgerMenu.style.display = "none";
   // hamburgerMenu.classList.remove("isOpen");
   state.hamburgerMenu = false;
+}
+
+function closeModal() {
+  modalMask.style.display = "none";
+  verbConjugationTableContainer.style.display = "none";
+  state.studyPopUp = false;
 }
 
 function toggleSpeaker() {
@@ -954,8 +904,7 @@ function updateSummaryTable() {
       while (verbConjugationTableBody.hasChildNodes()) {
         verbConjugationTableBody.removeChild(verbConjugationTableBody.firstChild);
       }
-      verbConjugationTableContainer.style.left = screen.width / 2 - 175 + "px";
-      verbConjugationTableContainer.style.display = "flex";
+      verbConjugationTableContainer.style.display = "block";
       let infinitiveEnglishText = event.target.getAttribute(
         "data-english-infinitive"
       );
@@ -1034,14 +983,18 @@ function setStudyTable() {
       newSpanishCell.setAttribute("class", "irregular_verb_highlight");
     }
 
-    newEnglishCell.textContent = englishText;
+    newEnglishCell.textContent = englishText
+    newEnglishCell.classList.add("english_study_cell")
     // pop up verb conjugation table
     newEnglishCell.addEventListener("click", (event) => {
+      const currentEnglishCellId = event.target.id
+      const currentEnglishCell = document.querySelector(`#${currentEnglishCellId}`)
+      currentEnglishCell.classList.remove("english_study_cell")
+      modalMask.style.display = "block"
       while (verbConjugationTableBody.hasChildNodes()) {
         verbConjugationTableBody.removeChild(verbConjugationTableBody.firstChild);
       }
-      verbConjugationTableContainer.style.left = screen.width / 2 - 175 + "px";
-      verbConjugationTableContainer.style.display = "flex";
+      verbConjugationTableContainer.style.display = "block";
       let infinitiveEnglishText = event.target.getAttribute("data-english-infinitive");
       let infinitiveSpanishText = event.target.getAttribute("data-spanish-infinitive");
       verbConjugationTableTitle.innerHTML = `<b>${infinitiveSpanishText}</b> - To ${infinitiveEnglishText}`;
@@ -1089,7 +1042,8 @@ function setStudyTable() {
       }, 1000);
     });
     if (state.currentTab === "verbs") {
-      newEnglishCell.setAttribute("class", "summary_table");
+      newEnglishCell.classList.add("summary_table", "english_study_cell");
+      newEnglishCell.id = `english_for_${spanishText}`
       newEnglishCell.setAttribute("data-spanish-infinitive", spanishText);
       newEnglishCell.setAttribute("data-english-infinitive", englishText);
       for (let j = 0; j < verbPronouns[0].length; j++) {
@@ -1248,36 +1202,38 @@ function checkAnswer(answer) {
       greenCheck.classList.remove("green_check_animation");
       greenCheck.style.color = "whitesmoke";
     }, 1500);
-    switch (state.currentTab) {
-      case "verbs":
-        verbs.splice(state.questionIndex, 1);
-        console.log("verbs", verbs);
-        break;
-      case "emotions":
-        emotionsAndStates.splice(state.questionIndex, 1);
-        break;
-      case "relations":
-        relations.splice(state.questionIndex, 1);
-        break;
-      case "timeAndDate":
-        timeAndDate.splice(state.questionIndex, 1);
-        break;
-      case "clothes":
-        clothes.splice(state.questionIndex, 1);
-        break;
-      case "weatherAndNature":
-        weatherAndNature.splice(state.questionIndex, 1);
-        break;
-      case "linkWords":
-        linkWords.splice(state.questionIndex, 1)
-        break;
-      case "phrases":
-        phrases.splice(state.questionIndex, 1)
-        break;
-      case "verbConjugation":
-        verbs.splice(state.questionIndex, 1);
-        break;
-    }
+    console.log("verbs", state.currentTabArray);
+    state.currentTabArray.splice(state.questionIndex, 1);
+    // switch (state.currentTab) {
+    //   case "verbs":
+    //     verbs.splice(state.questionIndex, 1);
+    //     console.log("verbs", verbs);
+    //     break;
+    //   case "emotions":
+    //     emotionsAndStates.splice(state.questionIndex, 1);
+    //     break;
+    //   case "relations":
+    //     relations.splice(state.questionIndex, 1);
+    //     break;
+    //   case "timeAndDate":
+    //     timeAndDate.splice(state.questionIndex, 1);
+    //     break;
+    //   case "clothes":
+    //     clothes.splice(state.questionIndex, 1);
+    //     break;
+    //   case "weatherAndNature":
+    //     weatherAndNature.splice(state.questionIndex, 1);
+    //     break;
+    //   case "linkWords":
+    //     linkWords.splice(state.questionIndex, 1)
+    //     break;
+    //   case "phrases":
+    //     phrases.splice(state.questionIndex, 1)
+    //     break;
+    //   case "verbConjugation":
+    //     verbs.splice(state.questionIndex, 1);
+    //     break;
+    // }
     state.correctCounter++;
     correctCounter.textContent = state.correctCounter;
     answerText.value = "";
