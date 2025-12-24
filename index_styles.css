@@ -20,22 +20,18 @@ body {
 #navbar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     position: sticky;
     top: 0;
     width: 100%;
     background: grey;
 }
 
-#title_bar {
-    justify-content: center;
-    text-align: center;
-    font-size: 12px;
-    background: grey;
-}
 
 #title_text {
-    padding: 5px 0px;
-    margin: 0px;
+    font-size: 20px;
+    color: white;
+    padding: 5px;
     cursor: pointer;
 }
 
