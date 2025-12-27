@@ -21,15 +21,15 @@ const hamburgerButtons = document.querySelectorAll(".hamburger_buttons");
 const hamburgerVerb = document.querySelector("#verbs_button");
 const hamburgerEmotion = document.querySelector("#emotions_button");
 const hamburgerRelation = document.querySelector("#relations_button");
-const hamburgerTimeAndDate = document.querySelector("#time-and-date_button");
+const hamburgerTimeAndDate = document.querySelector("#timeAndDate_button");
 const hamburgerClothes = document.querySelector("#clothes_button");
 const hamburgerWeatherAndNature = document.querySelector(
-  "#weather-and-nature_button"
+  "#weatherAndNature_button"
 );
-const hamburgerLinkWords = document.querySelector("#link-words_button");
+const hamburgerLinkWords = document.querySelector("#linkWords_button");
 const hamburgerPhrases = document.querySelector("#phrases_button");
 const hamburgerVerbConjugation = document.querySelector(
-  "#verb-conjugation_button"
+  "#verbConjugation_button"
 );
 
 // BODY
@@ -80,6 +80,7 @@ const state = {
   currentTabArray: "",
   currentSection: "test",
   currentSectionTitle: "Prueba",
+  currentTabName: "Verbos",
   defaultPlaceholder: "Escribe en ingles",
   errorCounter: 0,
   errorRegister: false,
@@ -517,6 +518,7 @@ testSectionButton.addEventListener("click", () => {
   }
   state.currentSection = "test";
   state.currentSectionTitle = "Prueba";
+  currentSection.textContent = `${state.currentSectionTitle} | ${state.currentTabName}`;
   testSectionButton.classList.add("section_active");
   studySectionButton.classList.remove("section_active");
   while (tableBody.hasChildNodes()) {
@@ -534,6 +536,7 @@ studySectionButton.addEventListener("click", () => {
   questionExample.style.display = "none";
   state.currentSection = "study";
   state.currentSectionTitle = "Estudiar";
+  currentSection.textContent = `${state.currentSectionTitle} | ${state.currentTabName}`;
   testSectionButton.classList.remove("section_active");
   studySectionButton.classList.add("section_active");
   hideHamburgerMenu();
@@ -550,13 +553,18 @@ hamburgerButtons.forEach(button => {
 
 function processHamburgerMenuChange(tab, tabName) {
   state.currentTab = tab;
+  state.currentTabName = tabName
   if (tab === "verbs") {
     questionExample.style.display = "block";
   } else {
     questionExample.style.display = "none"
   }
+  if (tab === "verbConjugation") {
+    answerText.placeholder = "Escribe en espanol"
+  } else {
+    answerText.placeholder = "Escribe en ingles";
+  }
   currentSection.textContent = `${state.currentSectionTitle} | ${tabName}`;
-  answerText.placeholder = state.defaultPlaceholder;
   state.currentTabArray = setCurrentDictionary(tab)
   state.currentTabLength = dictionaryLengths[tab];
   hideHamburgerMenu();
@@ -686,6 +694,7 @@ function resetTestComponents() {
   correctCounter.style.color = "black";
   correctTen.style.color = "black";
   tableContainer.style.visibility = "hidden";
+  questionText.classList.remove("irregular_verb_highlight");
   updateQuestionText();
   while (tableBody.hasChildNodes()) {
     tableBody.removeChild(tableBody.firstChild);
@@ -828,7 +837,7 @@ function updateQuestionText() {
     questionEnglish = randomQuestion[1][0];
     questionText.textContent = pronounPlusQuestion;
     if (randomQuestion[2].length !== 0) {
-      questionText.setAttribute("class", "irregular_verb_highlight");
+      questionText.classList.add("irregular_verb_highlight");
     }
     questionSpanishLength = pronounPlusQuestion.length;
     state.spanishPronoun = randomPronoun;
