@@ -97,6 +97,7 @@ const state = {
   questionIndex: "",
   studyPopUp: false,
   verbSummary: [],
+  questionTextPlaying: false,
 };
 
 // resources for cut and pasting
@@ -660,25 +661,32 @@ function setCurrentDictionary(tab) {
 // BODY
 
 questionText.addEventListener("click", () => {
-  // shows answer on click briefly (for idiots)
-  if (state.currentTab !== "verbConjugation") {
-    questionText.textContent = state.questionEnglish + "...";
-    // questionText.textContent = state.questionEnglish.substring(0, state.questionLetterIndex) + "...";
-  } else {
-    questionText.textContent = state.conjugatedAnswer;
+  // play the Spanish word when tapped 
+  if (state.questionTextPlaying === false) {
+    state.questionTextPlaying = true
+    playSpanish(state.questionSpanish)
+    questionText.style.color = "green";
+    setTimeout(() => {
+      questionText.style.color = "black";
+      state.questionTextPlaying = false
+    }, 5000);
+  } else { // question is currently playing in Spanish, and you gave up
+    // shows the answer briefly (for idiots)
+    if (state.currentTab !== "verbConjugation") {
+      questionText.textContent = state.questionEnglish + "...";
+    } else {
+      questionText.textContent = state.conjugatedAnswer;
+    }
+    if (state.errorRegister === false) {
+      state.errorCounter++;
+    }
+    questionText.style.color = "orange";
+    state.errorRegister = true;
+    setTimeout(() => {
+      questionText.textContent = state.questionSpanish;
+      questionText.style.color = "black";
+    }, 2000);
   }
-  if (state.questionLetterIndex < state.questionEnglish.length) {
-    state.questionLetterIndex++;
-  }
-  if (state.errorRegister === false) {
-    state.errorCounter++;
-  }
-  questionText.style.color = "orange";
-  state.errorRegister = true;
-  setTimeout(() => {
-    questionText.textContent = state.questionSpanish;
-    questionText.style.color = "black";
-  }, 2000);
 });
 
 answerText.addEventListener("keydown", (event) => {
