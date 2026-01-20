@@ -388,7 +388,8 @@ const weatherAndNature = [
 const linkWords = [
   ["Al", ["To the"]],
   ["A lo mejor", ["Maybe"]],
-  ["A veces", ["Sometimes"]],
+  ["Quizás", ["Maybe"]]
+  ["A veces", ["Sometimes"]], 
   ["Aunque", ["Although"]],
   ["Así que", ["So"]],
   ["Bastante", ["Quite"]],
@@ -460,18 +461,32 @@ const phrases = [
   ["El día pasa rápido", ["Today went fast"]],
   ["¿Como te llamas?", ["What's your name", "What is your name"]],
   ["¿Que tal?", ["How are you"]],
+  ["Que tengas un buen día", ["Have a good day"]],
   ["¿Que tal tu dia?", ["How was your day"]],
   ["¿Como te sientes?", ["How do you feel"]],
   ["Me alegro", ["Glad to hear it", "I'm glad", "I'm glad to hear it"]],
   ["Tiene sentido", ["Makes sense"]],
-  ["Tiempo al tiempo", ["Time will tell"]],
   ["Claro que sí", ["Of course", "Sure"]],
   ["Fuí al cine", ["I went to the cinema"]],
   ["Casi la lio", ["I almost messed up"]],
+  ["Hasta luego", ["See you later"]],
+  ["Hasta otra", ["See you another time"]],
+  ["Tiempo al tiempo", ["Time will tell"]],
+  ["Demasiado fácil", ["Too easy"]],
+  ["Esto es pan comido", ["This is too easy"]],
+  ["No es broma", ["Nah, it's a joke", "It's a joke"]],
+  ["Hasta manana por la manana", ["See you tomorrow morning"]],
+  ["¿Cómo está tu familia?", ["How is your family?"]],
+  ["¿Te gusta la caca?", ["Do you like poo?"]],
+  ["Bienvenido a mi casa", ["Welcome to my house", "Welcome to my home"]],
+  ["No le sé", ["I don't know"]],
+  ["Quizás vaya a la fiesta", ["Maybe I'll go to the party"]],
+  ["¿A qué te dedicas?", ["What do you do?", "What's your job"]],
 ];
 
 const weeklyStudy = [
   // 10 rotating phrases to learn
+  // make sure to add them to phrases = [] as well
   ["Tiene sentido", ["Makes sense"]],
   ["¿Que tal tu dia?", ["How was your day"]], 
   ["Fuí al cine", ["I went to the cinema"]],
