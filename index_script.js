@@ -129,6 +129,7 @@ const verbs = [
   ["Deber", ["Must", "Should"], [], ["Deberíamos comer más frutas y verduras."]],
   ["Despertarse", ["Wake up"], ["Me despierto", "Te despiertas", "Se despierta", "Nos despertamos", "Os despertáis", "Se despiertan"], ["Se despiertan tarde en la fin de semana"]],
   ["Desayunar", ["Eat Breakfast", "Have Breakfast"], [], ["¿A qué hora es el desayuno?"]],
+  ["Doler", "Hurt", [], [""]], //FIXME:  irregular update!
   ["Dormir", ["Sleep", "Asleep", "Be asleep"], ["Duermo", "Duermes", "Duerme", "Dormimos", "Dormís", "Duermen"], ["Nosotros dormimos más el fin de semana"]],
   ["Dormirse", ["Fall asleep", "Go to sleep"], ["Duermo", "Duermes", "Duerme", "Dormimos", "Dormís", "Duermen"], ["Duermo a las once todos los días"]],
   ["Ducharse", ["Shower"], [], ["Me ducho cada manana"]],
@@ -159,6 +160,7 @@ const verbs = [
   ["Necesitar", ["Need"], [], ["Necesitas más tiempo"]],
   ["Odiar", ["Hate"], [], ["Odio a los propietarios"]],
   ["Olvidar", ["Forget"], [], ["A veces olvido palabras en español."]],
+  ["Opinar", ["Give your opinion"], [], ["¿Que opinas de mi nuevo peinado?"]],
   ["Pagar", ["Pay"], [], ["Le pago al barista por café."]],
   ["Pasar", ["Pass", "Happen"], [], ["Pasas por la estación de tren de camino a casa."]],
   ["Pedir", ["Ask for", "Order"], ["Pido", "Pides", "Pide", "Pedimos", "Pedís", "Piden"]],
@@ -183,6 +185,7 @@ const verbs = [
   ["Terminar", ["Finish", "End"], [], ["Termino de trabajar a las cinco de la tarde."]],
   ["Tocar", ["Touch", "Play"], [], ["Ella toca muy bien la guitarra."]],
   ["Vender", ["Sell"], [], ["Ella vende el mejor café de la ciudad."]],
+  ["Venir", ["Come"], ["Vengo", "Vienes", "Viene", "Venimos", "Venís", "Vienen"], "¿Vas a venir a mi fiesta?"],
   ["Ver", ["Watch", "View", "Look"], ["Veo", "Ves", "Ve", "Vemos", "Veis", "Ven"], ["Nosotros vemos películas juntos en navidad"]],
   ["Vestirse", ["Get dressed"], [], ["Me visto antes de ir a trabajar"]],
   ["Viajar", ["Travel"], [], ["Yo viajo al trabajo en autobús"]],
@@ -468,6 +471,8 @@ const phrases = [
   ["Me alegro", ["Glad to hear it", "I'm glad", "I'm glad to hear it"]],
   ["Tiene sentido", ["Makes sense"]],
   ["Claro que sí", ["Of course", "Sure"]],
+  ["Por supuesto", ["Of course", "Sure"]],
+  ["Por supuesto - que no", ["Of course not"]],
   ["Fuí al cine", ["I went to the cinema"]],
   ["Casi la lio", ["I almost messed up"]],
   ["Hasta luego", ["See you later"]],
@@ -477,28 +482,48 @@ const phrases = [
   ["Esto es pan comido", ["This is too easy"]],
   ["No es broma", ["Nah, it's a joke", "It's a joke"]],
   ["Hasta manana por la manana", ["See you tomorrow morning"]],
-  ["¿Cómo está tu familia?", ["How is your family?"]],
+  ["¿Cómo está tu familia?", ["How is your family"]],
   ["¿Te gusta la caca?", ["Do you like poo?"]],
   ["Bienvenido a mi casa", ["Welcome to my house", "Welcome to my home"]],
   ["No le sé", ["I don't know"]],
   ["Quizás vaya a la fiesta", ["Maybe I'll go to the party"]],
-  ["¿A qué te dedicas?", ["What do you do?", "What's your job"]],
+  ["¿A qué te dedicas?", ["What do you do", "What's your job"]],
+  ["¿Que hora es?", ["What time is it"]],
+  ["¿Que opinas?", ["What's your opinion", "What do you think"]],
+  ["Tengo sueño", ["I'm sleepy", "I'm tired"]],
+  ["Buena suerte", ["Good luck"]],
+  ["Te echo de menos", ["I miss you"]]
 ];
+
+const travel = [
+  ["¿Quiere una bolsa?", ["Do you want a bag"]],
+  ["Esto es para ti", ["This is for you"]], 
+  ["Me duele la cabeza", ["My head hurts"]],
+  
+]
 
 const weeklyStudy = [
   // 10 rotating phrases to learn
-  // make sure to add them to phrases = [] as well
-  ["Tiene sentido", ["Makes sense"]],
-  ["¿Que tal tu dia?", ["How was your day"]], 
-  ["Fuí al cine", ["I went to the cinema"]],
-  ["Casi la lio", ["I almost messed up"]],
-  ["Claro que sí", ["Of course", "Sure"]],
-  ["Me siento cansado", ["I feel tired"]],
-  ["El día pasa rápido", ["Today went fast"]],
-  ["Tiempo al tiempo", ["Time will tell"]],
-  ["Demasiado fácil", ["Too easy"]],
-  ["Esto es pan comido", ["This is too easy"]]
+  // make sure to add them to phrases array after use!!!!!!!!!!!!!!!
+  ["Quiero un zumo de naranja", ["I want an orange juice"]],
+  ["Quisiera un agua mineral sin gas", ["I would like a still water", "A still mineral water"]],
+  ["Para mi una caña", ["A beer for me", "a small beer"]],
+  ["Que van a tomar", ["What are you going to have?"]],
+  ["La limonada es para mi", ["The lemonade is for me"]],
+  ["Otro cafe solo", ["Another black coffee"]],
+  ["Otra de lo mismo", ["Same again", "Another of the same"]],
+  ["Se puede comer aquí", ["Can you eat here"]],
+  ["Nos trae la cuenta por favor", ["Please bring us the bill"]],
+  ["Un bocadillo de jamón y queso", ["A ham and cheese sandwich"]],
 ];
+
+const weeklyStudyHoldingBin = [
+  ["Quieren algo mas", ["Do you want anything else"]],
+  ["Nos trae mas agua por favor", ["Can you bring us more water please"]],
+  ["Tienes una mesa para dos", ["Do you have a table for two"]],
+  ["Cuánto cuesta", ["How much is it"]],
+  [""]
+]
 
 const dictionaryLengths = {
   verbs: verbs.length,
