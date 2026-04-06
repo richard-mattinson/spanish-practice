@@ -497,17 +497,29 @@ const phrases = [
 
 const travel = [
   ["¿Quiere una bolsa?", ["Do you want a bag"]],
-  ["Esto es para ti", ["This is for you"]], 
+  ["Esto es para ti", ["This is for you"]],
   ["Me duele la cabeza", ["My head hurts"]],
-  
-]
+];
 
 const weeklyStudy = [
   // 10 rotating phrases to learn
   // make sure to add them to phrases array after use!!!!!!!!!!!!!!!
+  ["Me estoy lavando los dientes", ["I'm cleaning my teeth"]],
+  ["Estoy cocinando la cena", ["I'm cooking dinner"]],
+  ["Necesito estudiar más para poder hablar español con mis amigos", ["I need to study more so I can speak Spanish with my friends"]],
+  ["Me acuesto entre las diez y las once de la noche", ["I go to bed between ten and eleven"]],
+  ["Me levanto a las siete de la mañana para ir a trabajar", ["I wake up at seven for work", "I wake up at seven to go to work", "I wake up at seven in the morning for work", "I wake up at seven in the morning to go to work"],],
+  ["Necesito mi paraguas por si llueve", ["I need my umbrella in case it rains"]],
+  ["Después de ir al baño siempre me lavo las manos", ["After going to the toilet I always wash my hands", "After going to the bathroom I always wash my hands"]],
+  ["Como pizza con mis compañeros los miércoles", ["I eat pizza with my colleagues on Wednesdays"]],
+  ["No conduzco un coche. Tomo el autobús.", ["I don't drive a car. I take the bus"]],
+  ["Voy caminando al pueblo", ["I'm walking to town"]]
+];
+
+const weeklyStudyHoldingBin = [
   ["Quiero un zumo de naranja", ["I want an orange juice"]],
   ["Quisiera un agua mineral sin gas", ["I would like a still water", "A still mineral water"]],
-  ["Para mi una caña", ["A beer for me", "a small beer"]],
+  ["Para mi una caña", ["A beer for me"]],
   ["Que van a tomar", ["What are you going to have?"]],
   ["La limonada es para mi", ["The lemonade is for me"]],
   ["Otro cafe solo", ["Another black coffee"]],
@@ -515,15 +527,12 @@ const weeklyStudy = [
   ["Se puede comer aquí", ["Can you eat here"]],
   ["Nos trae la cuenta por favor", ["Please bring us the bill"]],
   ["Un bocadillo de jamón y queso", ["A ham and cheese sandwich"]],
-];
-
-const weeklyStudyHoldingBin = [
   ["Quieren algo mas", ["Do you want anything else"]],
   ["Nos trae mas agua por favor", ["Can you bring us more water please"]],
   ["Tienes una mesa para dos", ["Do you have a table for two"]],
   ["Cuánto cuesta", ["How much is it"]],
-  [""]
-]
+  ["Por siempre y para siempre", ["Forever and ever"]],
+];
 
 const dictionaryLengths = {
   verbs: verbs.length,
